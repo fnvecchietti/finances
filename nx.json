@@ -1,0 +1,19 @@
+{
+  "targetDefaults": {
+    "dev": {
+      "dependsOn": []
+    },
+    "test": {
+      "dependsOn": []
+    },
+    "build": {
+      "dependsOn": []
+    },
+    "lint": {
+      "dependsOn": []
+    },
+    "preview": {
+      "dependsOn": []
+    }
+  }
+}

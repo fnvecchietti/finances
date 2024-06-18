@@ -1,0 +1,9 @@
+.nav-item {
+    transition: all;
+    transition-duration: 100ms;
+    transition-timing-function: ease-in
+}
+
+.nav-item:hover {
+    font-weight: 600;
+}
