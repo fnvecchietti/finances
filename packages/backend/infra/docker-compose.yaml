@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: finances
+      POSTGRES_USER: finances
+      POSTGRES_PASSWORD: testing123456
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

@@ -1,0 +1,54 @@
+GET http://localhost:3000/v1/movements-type
+Accept: application/json
+
+###
+
+POST http://localhost:3000/v1/movements-type
+Content-Type: application/json
+
+{"movement_type":"senador"}
+
+###
+
+
+POST http://localhost:3000/v1/movements-type
+Content-Type: application/json
+
+{
+    "title": "foo",
+    "body": "bar",
+    "userId": 1
+}
+
+###
+
+PUT https://jsonplaceholder.typicode.com/posts/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "foo",
+    "body": "bar",
+    "userId": 1
+}
+
+###
+
+DELETE https://jsonplaceholder.typicode.com/posts/1
+
+###
+
+PATCH https://jsonplaceholder.typicode.com/posts/1
+Content-Type: application/json
+
+{
+    "title": "foo"
+}
+
+###
+
+OPTIONS https://jsonplaceholder.typicode.com/posts
+
+###
+
+HEAD https://jsonplaceholder.typicode.com/posts/1

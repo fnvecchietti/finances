@@ -1,13 +1,3 @@
-# Custom
-.nx/cache
-.csv
-
-#managed_context
-managed_context
-test_suite_analysis
-#Uploaded Files
-uploads/
-
 # Node.js
 node_modules/
 npm-debug.log*
@@ -24,6 +14,11 @@ jspm_packages/
 
 # Optional npm cache directory
 .npm
+
+# Csv for demo
+*.csv
+
+
 
 # Optional REPL history
 .node_repl_history
