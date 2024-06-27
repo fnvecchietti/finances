@@ -1,5 +1,5 @@
 import { StockFilterableParams } from "filters";
-import { Stocks } from "../common/models/entities/stocks";
+import { Stock } from "../common/models/Entity/Stock";
 import { createStockDTO } from "stocks";
 import { PostgresDataSource } from "../common/models/datasource";
 import { array, date, number, object, string } from "yup";
@@ -27,7 +27,7 @@ const stockSchema = object({
 });
 
 export const searchStocks = async (filterableParams: StockFilterableParams) => {
-  return await Stocks.findAndCount({
+  return await Stock.findAndCount({
     where: {
       id: filterableParams.id,
       name: filterableParams.name,
@@ -48,11 +48,11 @@ export const searchStocks = async (filterableParams: StockFilterableParams) => {
 
 export const saveStocks = async (stock: createStockDTO) => {
     stockSchema.validateSync(stock)
-  return await Stocks.insert({ ...stock });
+  return await Stock.insert({ ...stock });
 };
 
 export const getStockBalance = async () => {
-  const stocks = await Stocks.find();
+  const stocks = await Stock.find();
   let balance = 0;
   stocks.forEach((stock) => {
     balance = balance + (stock.current_price - stock.purchase_price) * stock.quantity;
@@ -70,10 +70,10 @@ export const bulkSaveStocks = async (stocks: createStockDTO[]) => {
     queryRunner.startTransaction();
 
     const bulk = stocks.map((stock) => {
-      return { ...new Stocks(), ...stock };
+      return { ...new Stock(), ...stock };
     });
 
-    await queryRunner.manager.save(Stocks, bulk);
+    await queryRunner.manager.save(Stock, bulk);
 
     await queryRunner.commitTransaction();
   } catch (error) {

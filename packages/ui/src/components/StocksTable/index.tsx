@@ -1,5 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { FinancesContext } from "../../context";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useModal } from "../../hooks/useModal";
 import { Loading } from "../LoadingBar";
 import { NumericFormat } from "react-number-format";
@@ -51,7 +50,7 @@ const StockTable = ({
     open();
   };
 
-  const calculateGains = (quantity:number, purchasePrice:number, currentPrice:number, ratio:number) => {
+  const calculateBalance = (quantity:number, purchasePrice:number, currentPrice:number, _:number) => {
     const result =  (currentPrice - purchasePrice) *  quantity;
     return <NumericFormat prefix='$' displayType='text' value={result.toFixed(2)} allowLeadingZeros thousandSeparator="," />;
     
@@ -62,13 +61,11 @@ const StockTable = ({
   };
 
   const nextPage = () => {
-    console.log('next')
     const next = take + skip;
     if (next <= total) setSkip(next);
   };
 
   const previousPage = () => {
-    console.log('prev')
     const previous = skip - take;
     if (previous >= 0) setSkip(previous);
   };
@@ -76,21 +73,21 @@ const StockTable = ({
   if (!data || !cols) return <Loading />;
 
   return (
-    <div>
-        <table className="border-collapse indent-0 shadow-lg mt-5 cursor-pointer">
-          <thead>
+    <>
+        <table className="w-full border-collapse indent-0 shadow-lg mt-5 cursor-pointer">
+          <thead className='shadow-sm rounded-sm bg-blue-gray-50'>
             <tr>
               {cols.map((col) => {
                 return (
-                  <th key={col} scope="col" className="pt-5 pb-5 ">
+                  <th key={col} scope="col" className="pt-5 pb-5 text-sm tracking-wide">
                     {col}
                   </th>
                 );
               })}
-                <th scope="col" className="pt-5 pb-5">
-                gain
+                <th scope="col" className="pt-5 pb-5 text-sm tracking-wide">
+                balance
               </th>
-              <th scope="col" className="pt-5 pb-5">
+              <th scope="col" className="pt-5 pb-5 text-sm tracking-wide">
                 actions
               </th>
             </tr>
@@ -99,14 +96,14 @@ const StockTable = ({
               {data.map(({id, name, ticker, quantity, purchase_price, purchase_date, current_price})=> {
                 return (
                   <tr key={id} className="border">
-                    <td className="p-5 text-center">{ticker}</td>
-                    <td className="p-5 text-center">{name}</td>
-                    <td className="p-5 text-center">{quantity}</td>
-                    <td className="p-5 text-center"> <NumericFormat prefix='$' displayType='text' value={purchase_price.toFixed(2)} allowLeadingZeros thousandSeparator="," /></td>
-                    <td className="p-5 text-center">{purchase_date}</td>
-                    <td className="p-5 text-center"><NumericFormat prefix='$' displayType='text' value={current_price.toFixed(2)} allowLeadingZeros thousandSeparator="," /></td>
-                    <td className="p-5 text-center">{calculateGains(quantity, purchase_price, current_price, 1)}</td>
-                    <td key='actions' className="p-5">
+                    <td className="p-5 text-sm tracking-wide text-center">{ticker}</td>
+                    <td className="p-5 text-sm tracking-wide text-center hidden sm:table-cell">{name}</td>
+                    <td className="p-5 text-sm tracking-wide text-center">{quantity}</td>
+                    <td className="p-5 text-sm tracking-wide text-center"> <NumericFormat prefix='$' displayType='text' value={purchase_price.toFixed(2)} allowLeadingZeros thousandSeparator="," /></td>
+                    <td className="p-5 text-sm tracking-wide text-center">{purchase_date}</td>
+                    <td className="p-5 text-sm tracking-wide text-center"><NumericFormat prefix='$' displayType='text' value={current_price.toFixed(2)} allowLeadingZeros thousandSeparator="," /></td>
+                    <td className="p-5 text-sm tracking-wide text-center">{calculateBalance(quantity, purchase_price, current_price, 1)}</td>
+                    <td key='actions' className="p-5 text-sm tracking-wide">
                       <button className='table-button' onClick={removeMoment}>Edit</button>
                       <button className="ml-5 table-button" onClick={removeMoment}>Remove</button>
                     </td>
@@ -142,7 +139,7 @@ const StockTable = ({
         </div>
       </div>
       <ConfirmationModal taskToExecute={taskToExecuteAfterConfirmation} />
-    </div>
+    </>
   )
 }
 

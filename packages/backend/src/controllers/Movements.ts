@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { HTTP_STATUS_OK, HTTP_STATUS_OK_MESSAGE, setResponse } from '../common/utils/response';
-import { bulkSaveMovements, saveMovement, searchMovements } from '../services/movements';
+import { bulkSaveMovements, saveMovement, searchMovements } from '../services/Movements';
 import { createReadStream } from 'fs';
 import { parse } from 'csv-parse';
 import { convertDate, convertToFloat } from '../common/utils/format';

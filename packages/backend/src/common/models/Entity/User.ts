@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Auth } from "./Auth";
 
 
 @Entity()
@@ -12,12 +13,6 @@ export class User extends BaseEntity {
 
     @Column({type: 'varchar', length: 255})
     lastName: string;
-
-    @Column({type: 'varchar', length: 50, unique: true})
-    username: string;
-
-    @Column({type: 'varchar', length: 255})
-    password: string;
 
     @Column('date')
     birthday: Date;

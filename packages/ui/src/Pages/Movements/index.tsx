@@ -25,7 +25,7 @@ const Movements = () => {
   if (response) {
     const { result, pagination } = response.data;
     return (
-      <div>
+      <div className='container'>
         <Searchbar />
         <BasicTable tableData={result} total={pagination.total} setTake={setTake} setSkip={setSkip} take={take} skip={skip}/>
       </div>

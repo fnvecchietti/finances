@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { bulkMovements, createMovement, getMovements } from '../controllers/movements'
+import { bulkMovements, createMovement, getMovements } from '../controllers/Movements'
 import multer from 'multer'
 
 
 export const movementsV1 = Router()
 const prefix = '/v1'
 
-const upload = multer({dest: 'uploads/'})
+const upload = multer({dest: 'uploads/movements/'})
 
 movementsV1.get(`${prefix}/`)
 

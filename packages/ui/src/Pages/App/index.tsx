@@ -8,6 +8,7 @@ import Entry from '../Entry/index.tsx';
 import { FinancesProvider } from '../../context/index.tsx';
 import Panel from '../Panel/index.tsx';
 import Stocks from '../Stocks/index.tsx';
+import { Register } from '../Register/index.tsx';
 const AppRoutes = () => {
   let routes = useRoutes([
     {
@@ -29,6 +30,10 @@ const AppRoutes = () => {
     {
       path: '/stocks',
       element: <Stocks/>,
+    },
+    {
+      path: '/register',
+      element: <Register/>,
     },
     {
       path: '/*',

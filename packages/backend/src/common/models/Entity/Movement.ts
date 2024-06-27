@@ -1,9 +1,9 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { MovementType } from "./movement-type";
+import { MovementType } from "./MovementType";
 
 
 @Entity()
-export class Movements extends BaseEntity {
+export class Movement extends BaseEntity {
     
     @PrimaryGeneratedColumn('uuid')
     id:string;

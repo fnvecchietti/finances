@@ -1,6 +1,6 @@
 import { IncomeFilterableParams } from 'filters';
 import { CreateMovementDto, MovementItem } from '../types/movement';
-import { Movements } from '../common/models/entities/movements';
+import { Movement } from '../common/models/Entity/Movement';
 import { array, date, number, object, string } from 'yup';
 import { PostgresDataSource } from '../common/models/datasource';
 import { Between } from 'typeorm';
@@ -27,7 +27,7 @@ const movementSchema = object({
 export const searchMovements = async (filterableParams: IncomeFilterableParams) => {
     const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null
     
-    return await Movements.findAndCount({
+    return await Movement.findAndCount({
         where: {
             description: filterableParams.description,
             date: range,
@@ -45,8 +45,8 @@ export const searchMovements = async (filterableParams: IncomeFilterableParams) 
 
 export const saveMovement = async (movement: CreateMovementDto) => {
     movementSchema.validateSync(movement)
-    const mov = {...new Movements, movement};
-    return await Movements.insert(mov);
+    const mov = {...new Movement, movement};
+    return await Movement.insert(mov);
 }
 
 export const bulkSaveMovements = async (bulkMovements: CreateMovementDto[] | MovementItem[]) => {
@@ -60,11 +60,11 @@ export const bulkSaveMovements = async (bulkMovements: CreateMovementDto[] | Mov
         queryRunner.startTransaction()
         
         const bulk = result.map((mv: CreateMovementDto) => {
-            const mov = {...new Movements, mv}
+            const mov = {...new Movement, mv}
             return  mov;
         }) 
 
-        await queryRunner.manager.save(Movements, bulk)
+        await queryRunner.manager.save(Movement, bulk)
         
         await queryRunner.commitTransaction()
         

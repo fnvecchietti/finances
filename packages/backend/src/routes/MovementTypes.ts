@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createMovementType, searchMovementTypes } from '../controllers/movements-type'
+import { createMovementType, searchMovementTypes } from '../controllers/MovementTypes'
 
 
 export const movementsTypeV1 = Router()

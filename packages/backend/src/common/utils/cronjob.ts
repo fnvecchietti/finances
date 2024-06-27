@@ -1,6 +1,6 @@
 import cron from 'node-cron'
-import { Stocks } from '../models/entities/stocks'
-import { getCurrentPriceOfStockFromInvertirOnline } from '../../services/current-price-scrapping'
+import { Stock } from '../models/Entity/Stock'
+import { getCurrentPriceOfStockFromInvertirOnline } from '../../services/ScrappingPrice'
 import { PostgresDataSource } from '../models/datasource'
 
 export const updatePrices = cron.schedule('*/2 * * * *', () => {
@@ -12,11 +12,8 @@ export const updatePrices = cron.schedule('*/2 * * * *', () => {
 })
 
 
-
-
-
 const getStocks = async () => {
-    const stocks = await Stocks.find()
+    const stocks = await Stock.find()
     const stockStorage = {} as any
 
     stocks.forEach(stock => {
@@ -27,7 +24,7 @@ const getStocks = async () => {
             console.log('stock: ', stock.ticker, 'current price', price)
             stock.current_price = price;
             PostgresDataSource.createQueryBuilder()
-            .update(Stocks)
+            .update(Stock)
             .set({current_price: price})
             .where({ticker: stock.ticker})
             .execute();

@@ -1,5 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Movements } from "./movements";
+import { Movement } from "./Movement";
 
 
 @Entity()
@@ -17,6 +17,6 @@ export class MovementType extends BaseEntity {
     @UpdateDateColumn()
     updatedDate: Date
 
-    @OneToMany(()=> Movements, (movements)=> movements.id)
-    movements: Movements[]
+    @OneToMany(()=> Movement, (movements)=> movements.id)
+    movements: Movement[]
 }

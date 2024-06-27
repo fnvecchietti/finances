@@ -24,19 +24,19 @@ const Navbar = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={'/entry'}
-                    className={'nav-item'}
-                     style={({ isActive }) => isActive ? activeStyle : undefined}
-                    >
-                        Entry
-                    </NavLink>
-                </li>
-                <li>
                     <NavLink to={'/stocks'}
                     className={'nav-item'}
                      style={({ isActive }) => isActive ? activeStyle : undefined}
                     >
                         Stocks
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to={'/entry'}
+                    className={'nav-item'}
+                     style={({ isActive }) => isActive ? activeStyle : undefined}
+                    >
+                        Entry
                     </NavLink>
                 </li>
                 <li>

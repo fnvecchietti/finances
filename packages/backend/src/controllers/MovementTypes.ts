@@ -4,7 +4,7 @@ import {
   HTTP_STATUS_OK_MESSAGE,
   setResponse,
 } from '../common/utils/response';
-import { MovementType } from '../common/models/entities/movement-type';
+import { MovementType } from '../common/models/Entity/MovementType';
 
 export const createMovementType = async (req: Request, res: Response) => {
   try {

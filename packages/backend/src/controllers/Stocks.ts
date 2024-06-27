@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { bulkSaveStocks, getStockBalance, saveStocks, searchStocks } from "../services/stocks";
+import { bulkSaveStocks, getStockBalance, saveStocks, searchStocks } from "../services/Stocks";
 import { setResponse } from "../common/utils/response";
 import { HTTP_STATUS_OK } from "../common/utils/response";
 import { HTTP_STATUS_OK_MESSAGE } from "../common/utils/response";

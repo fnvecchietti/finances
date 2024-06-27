@@ -77,18 +77,18 @@ export const BasicTable = ({
   if (!data || !cols) return <Loading />;
 
   return (
-    <div>
-        <table className="border-collapse indent-0 shadow-lg mt-5 cursor-pointer">
-          <thead>
+    <>
+        <table className="w-full border-collapse indent-0 shadow-lg mt-5 cursor-pointer">
+          <thead className='shadow-sm rounded-sm bg-blue-gray-50'>
             <tr>
               {cols.map((col) => {
                 return (
-                  <th key={col} scope="col" className="pt-5 pb-5 ">
+                  <th key={col} scope="col" className="pt-5 pb-5 text-sm tracking-wide">
                     {col}
                   </th>
                 );
               })}
-              <th scope="col" className="pt-5 pb-5">
+              <th scope="col" className="pt-5 pb-5 font-semibold tracking-wide text-sm ">
                 actions
               </th>
             </tr>
@@ -97,11 +97,11 @@ export const BasicTable = ({
               {data.map(({id, amount, currency, date, description})=> {
                 return (
                   <tr key={id} className="border">
-                    <td className="p-5 text-center"><NumericFormat prefix='$' displayType='text' value={amount} allowLeadingZeros thousandSeparator=","/></td>
-                    <td className="p-5 text-center">{currency}</td>
-                    <td className="p-5 text-center">{date}</td>
-                    <td className="p-5 text-center">{description}</td>
-                    <td key='actions' className="p-5">
+                    <td className="p-5 text-sm tracking-wide text-center"><NumericFormat prefix='$' displayType='text' value={amount} allowLeadingZeros thousandSeparator=","/></td>
+                    <td className="p-5 text-sm tracking-wide text-center">{currency}</td>
+                    <td className="p-5 text-sm tracking-wide text-center">{date}</td>
+                    <td className="p-5 text-sm tracking-wide text-center">{description}</td>
+                    <td key='actions' className="p-5 text-sm tracking-wide text-center">
                       <button className='table-button' onClick={removeMoment}>Edit</button>
                       <button className="ml-5 table-button" onClick={removeMoment}>Remove</button>
                     </td>
@@ -137,6 +137,6 @@ export const BasicTable = ({
         </div>
       </div>
       <ConfirmationModal taskToExecute={taskToExecuteAfterConfirmation} />
-    </div>
+    </>
   );
 };

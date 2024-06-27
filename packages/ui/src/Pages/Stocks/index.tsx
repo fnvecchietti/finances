@@ -23,20 +23,17 @@ const Stocks = () => {
       body: null,
     });
   
-  
     
-  
     if (stocks.loading) return <Loading />;
   
     if (stocks.error) return <ErrorPage />;
   
     if (stocks.response && balance.response) {
       return (
-        <div>
+        <div className="container">
           <div>Balance: <NumericFormat displayType='text' value={balance.response.data.result} allowLeadingZeros thousandSeparator="," prefix='$' /></div>
           <StockTable tableData={stocks.response.data.result} total={stocks.response.data.pagination.total} setTake={setTake} setSkip={setSkip} take={take} skip={skip}/>
         </div>
-        
       );
     }
 
