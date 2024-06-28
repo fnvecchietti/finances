@@ -2,16 +2,17 @@ import { Router } from "express"
 import { bulkStocks, createStocks, getStocks, getStocksBalance } from "../controllers/Stocks"
 import multer from 'multer'
 
-export const stocksV1 = Router()
-const prefix = '/v1'
+export const router = Router()
+
+
 const upload = multer({dest: 'uploads/stocks/'})
 
 
-stocksV1.get(`${prefix}/stocks/balance`, getStocksBalance)
+router.get(`/stocks/balance`, getStocksBalance)
 
-stocksV1.get(`${prefix}/stocks`, getStocks)
+router.get(`/stocks`, getStocks)
 
-stocksV1.post(`${prefix}/stocks/bulk`,upload.single('file'), bulkStocks)
+router.post(`/stocks/bulk`,upload.single('file'), bulkStocks)
 
-stocksV1.post(`${prefix}/stocks`, createStocks)
+router.post(`/stocks`, createStocks)
 

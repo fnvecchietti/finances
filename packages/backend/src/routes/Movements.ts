@@ -1,17 +1,16 @@
 import { Router } from "express";
-import { bulkMovements, createMovement, getMovements } from '../controllers/Movements'
+import { createBulkMovementsController, createMovementController, searchMovementsController } from '../controllers/Movements'
 import multer from 'multer'
 
 
-export const movementsV1 = Router()
-const prefix = '/v1'
+export const router = Router()
 
 const upload = multer({dest: 'uploads/movements/'})
 
-movementsV1.get(`${prefix}/`)
+router.get(`/`)
 
-movementsV1.post(`${prefix}/movements/bulk`,upload.single('file'), bulkMovements)
+router.post(`/movements/bulk`,upload.single('file'), createBulkMovementsController)
 
-movementsV1.get(`${prefix}/movements`, getMovements)
+router.get(`/movements`, searchMovementsController)
 
-movementsV1.post(`${prefix}/movements`, createMovement)
+router.post(`/movements`, createMovementController)

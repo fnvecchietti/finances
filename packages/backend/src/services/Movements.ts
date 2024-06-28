@@ -24,7 +24,7 @@ const movementSchema = object({
     date: date().required()
 })
 
-export const searchMovements = async (filterableParams: IncomeFilterableParams) => {
+export const searchMovementsService = async (filterableParams: IncomeFilterableParams) => {
     const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null
     
     return await Movement.findAndCount({
@@ -43,13 +43,13 @@ export const searchMovements = async (filterableParams: IncomeFilterableParams) 
     })
 }
 
-export const saveMovement = async (movement: CreateMovementDto) => {
+export const createMovementService = async (movement: CreateMovementDto) => {
     movementSchema.validateSync(movement)
     const mov = {...new Movement, movement};
     return await Movement.insert(mov);
 }
 
-export const bulkSaveMovements = async (bulkMovements: CreateMovementDto[] | MovementItem[]) => {
+export const createBulkMovementsService = async (bulkMovements: CreateMovementDto[] | MovementItem[]) => {
 
     const queryRunner = PostgresDataSource.createQueryRunner()
 

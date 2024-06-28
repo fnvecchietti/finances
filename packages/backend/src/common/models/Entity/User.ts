@@ -1,5 +1,4 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Auth } from "./Auth";
 
 
 @Entity()

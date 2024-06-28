@@ -1,9 +1,8 @@
 import { Router } from "express";
+import { registerUserController } from "../controllers/Auth";
 
 
-export const authV1 = Router()
-
-const prefix = '/v1'
+export const router = Router()
 
 
-authV1.post(`${prefix}/auth/register`)
+router.post(`/auth/register`, registerUserController)

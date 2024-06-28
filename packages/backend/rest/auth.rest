@@ -7,7 +7,12 @@ POST http://localhost:3000/v1/auth/register
 Content-Type: application/json
 
 {
-    "username": "fran"
+    "username": "fran",
+    "password": "123456",
+    "name": "francsico",
+    "last_name": "bogarin",
+    "birthday": "07/07/1993",
+    "email": "frans@gmail.com"
 
 }
 

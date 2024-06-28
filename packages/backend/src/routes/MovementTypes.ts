@@ -2,10 +2,8 @@ import { Router } from "express";
 import { createMovementType, searchMovementTypes } from '../controllers/MovementTypes'
 
 
-export const movementsTypeV1 = Router()
-const prefix = '/v1'
+export const router = Router()
 
+router.get(`/movements-type`, searchMovementTypes)
 
-movementsTypeV1.get(`${prefix}/movements-type`, searchMovementTypes)
-
-movementsTypeV1.post(`${prefix}/movements-type`, createMovementType)
+router.post(`/movements-type`, createMovementType)

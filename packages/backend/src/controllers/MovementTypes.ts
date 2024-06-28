@@ -6,7 +6,7 @@ import {
 } from '../common/utils/response';
 import { MovementType } from '../common/models/Entity/MovementType';
 
-export const createMovementType = async (req: Request, res: Response) => {
+export const createMovementTypeController = async (req: Request, res: Response) => {
   try {
     const type = req.body.movement_type;
 
@@ -23,7 +23,7 @@ export const createMovementType = async (req: Request, res: Response) => {
   }
 };
 
-export const searchMovementTypes = async (req: Request, res: Response) => {
+export const searchMovementTypesController = async (req: Request, res: Response) => {
   try {
     const data = await MovementType.find();
     const response = setResponse(

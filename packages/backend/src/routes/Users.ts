@@ -1,6 +1,4 @@
 import { Router } from "express";
 
 
-export const usersV1 = Router()
-
-const prefix = '/v1'
+export const router = Router()

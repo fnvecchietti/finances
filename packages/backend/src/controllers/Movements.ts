@@ -1,16 +1,16 @@
 import { Request, Response } from 'express';
 import { HTTP_STATUS_OK, HTTP_STATUS_OK_MESSAGE, setResponse } from '../common/utils/response';
-import { bulkSaveMovements, saveMovement, searchMovements } from '../services/Movements';
+import { createBulkMovementsService, createMovementService, searchMovementsService } from '../services/Movements';
 import { createReadStream } from 'fs';
 import { parse } from 'csv-parse';
 import { convertDate, convertToFloat } from '../common/utils/format';
 import {  CreateMovementDto, MovementItem } from '../types/movement';
 
-export const getMovements = async (req: Request, res: Response) => {
+export const searchMovementsController = async (req: Request, res: Response) => {
   try {
     const filterableParams = req.query;
 
-    const result = await searchMovements(filterableParams);
+    const result = await searchMovementsService(filterableParams);
 
     const response = setResponse(
     HTTP_STATUS_OK,
@@ -27,14 +27,14 @@ export const getMovements = async (req: Request, res: Response) => {
   }
 };
 
-export const createMovement = async (req: Request, res: Response) => {
+export const createMovementController = async (req: Request, res: Response) => {
   try {
     
     
     // req.body.date always UTC
     const movement: CreateMovementDto = req.body;
 
-    const result = await saveMovement(movement);
+    const result = await createMovementService(movement);
 
     const response = setResponse(
       HTTP_STATUS_OK,
@@ -56,7 +56,7 @@ export const deleteMovement = async (req:Request, res:Response) => {}
 
 export const editMovement = async (req:Request, res:Response) => {}
 
-export const bulkMovements = async (req: Request, res: Response) => {
+export const createBulkMovementsController = async (req: Request, res: Response) => {
   const preInsert: any[] = []
   const filePath = req.file.path;
   const prevalidatedObject: MovementItem[] = []
@@ -92,7 +92,7 @@ export const bulkMovements = async (req: Request, res: Response) => {
       prevalidatedObject.push(row)
     }
     
-    bulkSaveMovements(prevalidatedObject)
+    createBulkMovementsService(prevalidatedObject)
     
   }) 
   res.send()
