@@ -9,6 +9,7 @@ import { FinancesProvider } from '../../context/index.tsx';
 import Panel from '../Panel/index.tsx';
 import Stocks from '../Stocks/index.tsx';
 import { Register } from '../Register/index.tsx';
+import { Login } from '../Login/index.tsx';
 const AppRoutes = () => {
   let routes = useRoutes([
     {
@@ -34,6 +35,10 @@ const AppRoutes = () => {
     {
       path: '/register',
       element: <Register/>,
+    },
+    {
+      path: '/login',
+      element: <Login/>,
     },
     {
       path: '/*',

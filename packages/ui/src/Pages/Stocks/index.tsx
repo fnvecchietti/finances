@@ -31,8 +31,8 @@ const Stocks = () => {
     if (stocks.response && balance.response) {
       return (
         <div className="container">
-          <div>Balance: <NumericFormat displayType='text' value={balance.response.data.result} allowLeadingZeros thousandSeparator="," prefix='$' /></div>
-          <StockTable tableData={stocks.response.data.result} total={stocks.response.data.pagination.total} setTake={setTake} setSkip={setSkip} take={take} skip={skip}/>
+          <div>Balance: <NumericFormat displayType='text' value={balance.response.data} allowLeadingZeros thousandSeparator="," prefix='$' /></div>
+          <StockTable tableData={stocks.response.data} total={stocks.response.pagination.total} setTake={setTake} setSkip={setSkip} take={take} skip={skip}/>
         </div>
       );
     }

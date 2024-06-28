@@ -9,6 +9,7 @@ import { useAxios } from '../../hooks/useAxios';
 const Movements = () => {
   const [take, setTake] = useState(10);
   const [skip, setSkip] = useState(0);
+
   const { error, response, loading } = useAxios({
     url: `${endpointsV1.movements}?take=${take}&skip=${skip}`,
     method: 'get',
@@ -23,11 +24,11 @@ const Movements = () => {
   if (error) return <ErrorPage />;
 
   if (response) {
-    const { result, pagination } = response.data;
+
     return (
       <div className='container'>
         <Searchbar />
-        <BasicTable tableData={result} total={pagination.total} setTake={setTake} setSkip={setSkip} take={take} skip={skip}/>
+        <BasicTable tableData={response.data} total={response.pagination.total} setTake={setTake} setSkip={setSkip} take={take} skip={skip}/>
       </div>
       
     );

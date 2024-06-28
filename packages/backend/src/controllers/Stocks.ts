@@ -42,7 +42,7 @@ export const getStocksBalance = async (req: Request, res: Response) => {
       result,
       undefined,
       undefined,
-      1,
+      undefined,
       HTTP_STATUS_OK_MESSAGE
     );
 

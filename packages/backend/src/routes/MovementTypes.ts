@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { createMovementType, searchMovementTypes } from '../controllers/MovementTypes'
+import { createMovementTypeController, searchMovementTypesController } from '../controllers/MovementTypes'
 
 
 export const router = Router()
 
-router.get(`/movements-type`, searchMovementTypes)
+router.get(`/movements-type`, searchMovementTypesController)
 
-router.post(`/movements-type`, createMovementType)
+router.post(`/movements-type`, createMovementTypeController)

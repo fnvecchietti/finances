@@ -8,7 +8,7 @@ const registerFormValidation = object({
     username: string().required(),
     password: string().required(),
     name: string().required(),
-    lastanme: string().required(),
+    last_name: string().required(),
     birthday: date().required(),
     email: string().email().required(),
 });
@@ -21,7 +21,7 @@ export const RegisterForm = () => {
         username: '',
         password: '',
         name: '',
-        lastanme: '',
+        last_name: '',
         birthday: '',
         email: '',
     },
@@ -32,7 +32,7 @@ export const RegisterForm = () => {
       }
     
       axios
-        .post(endpointsV1.stocks, body)
+        .post(endpointsV1.register, body)
         .then((res) => console.log)
         .catch((err) => console.log)
         .finally(() => {
@@ -67,11 +67,11 @@ export const RegisterForm = () => {
           <div className="mb-4">
             <label htmlFor="name">Password</label>
             <input
-              id="passord"
-              name="passord"
+              id="password"
+              name="password"
               className="flex w-full h-10 p-2 outline-none bg-gray-100 border-solid rounded-lg placeholder-gray-400 placeholder duration-100 ease-in hover:border-black hover:border-2"
               type="text"
-              placeholder="passord"
+              placeholder="password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.password}
@@ -99,17 +99,17 @@ export const RegisterForm = () => {
           <div className="mb-4">
             <label htmlFor="name">Last name</label>
             <input
-              id="lastanme"
-              name="lastanme"
+              id="last_name"
+              name="last_name"
               className="flex w-full h-10 p-2 outline-none bg-gray-100 border-solid rounded-lg placeholder-gray-400 placeholder duration-100 ease-in hover:border-black hover:border-2"
               type="text"
-              placeholder="lastanme"
+              placeholder="last_name"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.lastanme}
+              value={formik.values.last_name}
             />
-            {formik.touched.lastanme && formik.errors.lastanme ? (
-              <div className="text-red-300">{formik.errors.lastanme}</div>
+            {formik.touched.last_name && formik.errors.last_name ? (
+              <div className="text-red-300">{formik.errors.last_name}</div>
             ) : null}
           </div>
           <div className="mb-4">

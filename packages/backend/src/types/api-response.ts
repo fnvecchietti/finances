@@ -1,12 +1,7 @@
 export interface APIresponse {
-    data: APIdataResponse;
+    data: any;
     message?: string;
     status: string;//'success' | 'error';
-}
-
-
-export interface APIdataResponse {
-    result: any;
     pagination?: {
         total?: number;
         skip?: number;

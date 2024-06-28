@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 
 export const useAxios = ({url, method, body = null}: {url: string, method: 'get' | 'post' | 'put' | 'patch', body: any}) => {
-    const [response, setResponse ] = useState<AxiosResponse | null>(null);
+    const [response, setResponse ] = useState<AxiosResponse['data'] | null>(null);
     const [error, setError] = useState<AxiosError | string>('')
     const [loading, setLoading] = useState(true)
 
@@ -21,8 +21,6 @@ export const useAxios = ({url, method, body = null}: {url: string, method: 'get'
     }
 
     useEffect(()=> {
-        console.log(method, url, body);
-        
         fetchData();
     },[method,url,body])
 

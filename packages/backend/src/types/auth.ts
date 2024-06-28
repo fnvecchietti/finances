@@ -7,3 +7,8 @@ export interface CreateUserDTO {
     birthday: Date;
     email: string;
 }
+
+export interface LoginUserDTO {
+    username: string;
+    password: string;
+}

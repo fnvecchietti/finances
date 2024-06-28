@@ -7,7 +7,6 @@ export const router = Router()
 
 const upload = multer({dest: 'uploads/stocks/'})
 
-
 router.get(`/stocks/balance`, getStocksBalance)
 
 router.get(`/stocks`, getStocks)
