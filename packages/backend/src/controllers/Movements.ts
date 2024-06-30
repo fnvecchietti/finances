@@ -23,7 +23,8 @@ export const searchMovementsController = async (req: Request, res: Response) => 
 
     res.status(HTTP_STATUS_OK).send(response);
   } catch (error) {
-    res.send(error)
+    res.status(400).send(error);
+
   }
 };
 

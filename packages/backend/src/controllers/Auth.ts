@@ -7,8 +7,8 @@ import {
   setResponse,
 } from "../common/utils/response";
 import * as argon2 from "argon2";
-import { sign } from "jsonwebtoken";
-const testSecretKey = "damajuanadevino";
+import { sign, verify } from "jsonwebtoken";
+
 export const registerUserController = async (req: Request, res: Response) => {
   try {
     const user = req.body as CreateUserDTO;
@@ -28,7 +28,8 @@ export const registerUserController = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.
-    res.send(error);
+    res.status(400).send(error);
+
   }
 };
 
@@ -60,12 +61,40 @@ export const loginUserController = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.
-    res.send(error);
+    res.status(400).send(error);
+
   }
 };
 
 const JwtController = (id: string, username: string) => {
-  const token = sign({ id, username }, testSecretKey);
+  const token = sign({ id, username }, process.env.TOKEN_SECRET_KEY, {expiresIn: '60s'});
 
   return token;
+};
+
+export const validateTokenController = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.query;
+
+    const result = verify(token as string, process.env.TOKEN_SECRET_KEY, function(err, decoded){
+      if(err) throw err;
+      console.log('decoded', decoded)
+
+    })
+
+    const response = setResponse(
+      HTTP_STATUS_OK,
+      result,
+      undefined,
+      undefined,
+      undefined,
+      HTTP_STATUS_OK_MESSAGE
+    );
+
+    res.status(HTTP_STATUS_OK).send(response);
+  } catch (error) {
+    console.error(error);
+    // Todo: Handle Error On parameters in USE like email.
+    res.status(400).send(error);
+  }
 };

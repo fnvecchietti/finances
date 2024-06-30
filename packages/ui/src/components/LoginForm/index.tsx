@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import {  object, string, } from 'yup';
 import { endpointsV1 } from '../../environent/api-config';
 import axios from 'axios';
+import { AuthContext } from '../../context';
+import { useContext } from 'react';
 
 
 const registerFormValidation = object({
@@ -10,7 +12,7 @@ const registerFormValidation = object({
 });
 
 export const LoginForm = () => {
- 
+  const {setIsAuthenticated} = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -22,14 +24,18 @@ export const LoginForm = () => {
       const body = {
         ...values,
       }
-    
-      axios
-        .post(endpointsV1.register, body)
-        .then((res) => console.log)
-        .catch((err) => console.log)
-        .finally(() => {
-        
-        });
+       axios
+         .post(endpointsV1.login, body)
+         .then((res) => {
+          localStorage.setItem('token', res.data.data)
+          setIsAuthenticated(true)
+         })
+         .catch((err) => {
+          console.log(err);
+          setIsAuthenticated(false);
+         })
+         .finally(() => {
+         });
     },
   });
 

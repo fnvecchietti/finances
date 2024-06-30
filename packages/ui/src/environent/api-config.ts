@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:3000'
+
+export const API_BASE_URL = 'http://localhost:3000'
 
 
 export const endpointsV1 = {
@@ -6,4 +7,6 @@ export const endpointsV1 = {
     movement_type: `${API_BASE_URL}/api/v1/movements-type`,
     stocks:`${API_BASE_URL}/api/v1/stocks`, 
     register:`${API_BASE_URL}/api/v1/auth/register`, 
+    login:`${API_BASE_URL}/api/v1/auth/login`, 
+    validate_token: (token:string)=> `${API_BASE_URL}/api/v1/auth/token/validate?token=${token}`, 
 }
