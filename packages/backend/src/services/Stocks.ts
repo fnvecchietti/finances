@@ -26,7 +26,7 @@ const stockSchema = object({
   currency: string(),
 });
 
-export const searchStocks = async (filterableParams: StockFilterableParams) => {
+export const searchStocks = async (filterableParams: StockFilterableParams, username? :string) => {
   return await Stock.findAndCount({
     where: {
       id: filterableParams.id,
@@ -37,6 +37,7 @@ export const searchStocks = async (filterableParams: StockFilterableParams) => {
       ratio: filterableParams.ratio,
       purchase_date: filterableParams.purchase_date,
       currency: filterableParams.currency,
+      createdBy: {username: username}
     },
     take: filterableParams.take,
     skip: filterableParams.skip,

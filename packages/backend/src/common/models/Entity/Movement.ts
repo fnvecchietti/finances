@@ -1,5 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { MovementType } from "./MovementType";
+import { Auth } from "./Auth";
 
 
 @Entity()
@@ -28,4 +29,7 @@ export class Movement extends BaseEntity {
 
     @ManyToOne(()=> MovementType, (mt)=> mt.type)
     movementType: MovementType;
+
+    @ManyToOne(()=> Auth, (auth)=> auth.username)
+    createdBy: Auth;
 }

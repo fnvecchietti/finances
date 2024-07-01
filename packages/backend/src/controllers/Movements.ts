@@ -5,12 +5,15 @@ import { createReadStream } from 'fs';
 import { parse } from 'csv-parse';
 import { convertDate, convertToFloat } from '../common/utils/format';
 import {  CreateMovementDto, MovementItem } from '../types/movement';
+import { getTokenFromReq, decodeToken } from "../common/utils/jwt-utilts";
 
 export const searchMovementsController = async (req: Request, res: Response) => {
   try {
     const filterableParams = req.query;
 
-    const result = await searchMovementsService(filterableParams);
+    const token = decodeToken(getTokenFromReq(req));
+    
+    const result = await searchMovementsService(filterableParams, token.username);
 
     const response = setResponse(
     HTTP_STATUS_OK,

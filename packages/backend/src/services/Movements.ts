@@ -24,8 +24,9 @@ const movementSchema = object({
     date: date().required()
 })
 
-export const searchMovementsService = async (filterableParams: IncomeFilterableParams) => {
+export const searchMovementsService = async (filterableParams: IncomeFilterableParams, username?: string) => {
     const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null
+    console.log('for username', username);
     
     return await Movement.findAndCount({
         where: {
@@ -33,7 +34,8 @@ export const searchMovementsService = async (filterableParams: IncomeFilterableP
             date: range,
             amount: filterableParams.amount,
             movementType: {type: filterableParams.type},
-            id: filterableParams.id
+            id: filterableParams.id,
+            createdBy: {username: username,}
         },
         take: filterableParams.take,
         skip: filterableParams.skip,

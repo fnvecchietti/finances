@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Auth } from "./Auth";
 
 @Entity()
 export class Stock extends BaseEntity {
@@ -35,4 +36,7 @@ export class Stock extends BaseEntity {
 
     @UpdateDateColumn()
     updatedDate: Date
+
+    @ManyToOne(()=> Auth, (auth)=> auth.username)
+    createdBy: Auth;
 }

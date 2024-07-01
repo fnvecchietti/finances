@@ -7,7 +7,8 @@ import {
   setResponse,
 } from "../common/utils/response";
 import * as argon2 from "argon2";
-import { sign, verify } from "jsonwebtoken";
+
+import { signJWT, verifyJWT } from "../common/utils/jwt-utilts";
 
 export const registerUserController = async (req: Request, res: Response) => {
   try {
@@ -46,7 +47,7 @@ export const loginUserController = async (req: Request, res: Response) => {
 
     if (!result) throw new Error("wrong passord");
 
-    const token = JwtController(userData.id, userData.username);
+    const token = signJWT(userData.id, userData.username);
 
     const response = setResponse(
       HTTP_STATUS_OK,
@@ -66,21 +67,13 @@ export const loginUserController = async (req: Request, res: Response) => {
   }
 };
 
-const JwtController = (id: string, username: string) => {
-  const token = sign({ id, username }, process.env.TOKEN_SECRET_KEY, {expiresIn: '60s'});
 
-  return token;
-};
 
 export const validateTokenController = async (req: Request, res: Response) => {
   try {
     const { token } = req.query;
 
-    const result = verify(token as string, process.env.TOKEN_SECRET_KEY, function(err, decoded){
-      if(err) throw err;
-      console.log('decoded', decoded)
-
-    })
+    const result = verifyJWT(token as string)
 
     const response = setResponse(
       HTTP_STATUS_OK,
