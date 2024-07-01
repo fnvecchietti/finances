@@ -1,4 +1,5 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
+import { useAxios } from '../hooks/useAxios';
 
 
 export const FinancesContext = createContext<any>({})
@@ -24,20 +25,34 @@ export const FinancesProvider = ({children} : {children: React.ReactElement}) =>
 
 export const AuthContext = createContext<any>({})
 
-export const AuthProvider = ({children} : {children: React.ReactElement}) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    useEffect(()=> {
-        const t = localStorage.getItem('token')
-        t? setIsAuthenticated(true) : setIsAuthenticated(false);
-    },[])
-    
+
+export const AuthProvider = ({children} : {children: React.ReactElement}) => {
+    const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+
+
+    const setTokenWithStorage = (newToken:string | null) => {
+        if (newToken) {
+            localStorage.setItem('token', newToken);
+        } else {
+            localStorage.removeItem('token');
+        }
+        setToken(newToken);
+    };
+
     return (
         <AuthContext.Provider value={{
-            isAuthenticated,
-            setIsAuthenticated
+            token,
+            setToken,
+            setTokenWithStorage,
+            useAxios
         }}>
             {children}
         </AuthContext.Provider>
     )
+}
+
+
+export const useAuth = () => {
+    return useContext(AuthContext)
 }

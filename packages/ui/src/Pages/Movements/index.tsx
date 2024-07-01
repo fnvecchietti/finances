@@ -10,6 +10,8 @@ const Movements = () => {
   const [take, setTake] = useState(10);
   const [skip, setSkip] = useState(0);
 
+  
+
   const { error, response, loading } = useAxios({
     url: `${endpointsV1.movements}?take=${take}&skip=${skip}`,
     method: 'get',

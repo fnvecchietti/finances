@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ErrorPage } from "../../components/Errorpage";
 import { Loading } from "../../components/LoadingBar";
 import StockTable from "../../components/StocksTable"
-import { useAxios } from "../../hooks/useAxios";
 import { endpointsV1 } from "../../environent/api-config";
 import { NumericFormat } from 'react-number-format';
+import { AuthContext } from "../../context";
 
 
 const Stocks = () => {
+    const { useAxios } = useContext(AuthContext);
     const [take, setTake] = useState(10);
     const [skip, setSkip] = useState(0);
+    
 
     const stocks = useAxios({
       url: `${endpointsV1.stocks}?take=${take}&skip=${skip}`,
@@ -22,6 +24,8 @@ const Stocks = () => {
       method: 'get',
       body: null,
     });
+
+    
   
     
     if (stocks.loading) return <Loading />;

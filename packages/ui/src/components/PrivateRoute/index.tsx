@@ -1,13 +1,13 @@
 import { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context';
 
 const PrivateRoute = ({ element }: { element: React.ReactElement }) => {
   
-  const { isAuthenticated } = useContext(AuthContext);
-  console.log('is auth?', isAuthenticated);
+  const { token } = useContext(AuthContext);
+  const location  = useLocation();
   
-  return isAuthenticated? element : <Navigate to="/login" />;
+  return token? element : <Navigate to="/login" replace state={{ from: location }} />;
 };
 
 export default PrivateRoute;

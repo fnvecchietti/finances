@@ -4,6 +4,7 @@ import { endpointsV1 } from '../../environent/api-config';
 import axios from 'axios';
 import { AuthContext } from '../../context';
 import { useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const registerFormValidation = object({
@@ -12,8 +13,10 @@ const registerFormValidation = object({
 });
 
 export const LoginForm = () => {
-  const {setIsAuthenticated} = useContext(AuthContext);
-
+  const {setToken} = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  
   const formik = useFormik({
     initialValues: {
         username: '',
@@ -28,13 +31,21 @@ export const LoginForm = () => {
          .post(endpointsV1.login, body)
          .then((res) => {
           localStorage.setItem('token', res.data.data)
-          setIsAuthenticated(true)
+          setToken(res.data.data)
+          if( location.state && 'from' in location.state) {
+            navigate(location.state.from);
+          } else {
+            navigate('/');
+          }
+         })
+         .catch((err) => {
+           console.log(err);
          })
          .catch((err) => {
           console.log(err);
-          setIsAuthenticated(false);
          })
          .finally(() => {
+
          });
     },
   });
