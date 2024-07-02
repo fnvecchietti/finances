@@ -2,10 +2,10 @@ import { useFormik } from 'formik';
 import { date, number, object, string } from 'yup';
 import { endpointsV1 } from '../../environent/api-config';
 import axios from 'axios';
-import { useState } from 'react';
 import { Loading } from '../../components/LoadingBar';
-import { useAxios } from '../../hooks/useAxios';
 import { ErrorPage } from '../Errorpage';
+import { useContext } from 'react';
+import { AuthContext } from '../../context';
 
 const entryFormValidationSchema = object({
   amount: number().required('Required'),
@@ -15,6 +15,8 @@ const entryFormValidationSchema = object({
 });
 
 export const EntryForm = () => {
+  const { useAxios } = useContext(AuthContext);
+
   const { response, error, loading, setLoading } = useAxios({
     url: endpointsV1.movement_type,
     method: 'get',
@@ -33,16 +35,12 @@ export const EntryForm = () => {
     onSubmit: (values) => {
       const body = {
         ...values,
-        date: new Date(values.date)
-      }
-      setLoading(true);
-      axios
-        .post(endpointsV1.movements, body)
-        .then((res) => console.log)
-        .catch((err) => console.log)
-        .finally(() => {
-          setLoading(false);
-        });
+        date: new Date(values.date),
+      };
+      
+      
+      
+      
     },
   });
 
@@ -67,7 +65,7 @@ export const EntryForm = () => {
               onBlur={formik.handleBlur}
               value={formik.values.type}
             >
-              {response.data.result.map((t: any) => {
+              {response.data.map((t: any) => {
                 return (
                   <option key={t.id} value={t.type}>
                     {t.type}

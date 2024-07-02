@@ -8,6 +8,7 @@ import { MovementType } from '../common/models/Entity/MovementType';
 
 export const createMovementTypeController = async (req: Request, res: Response) => {
   try {
+    console.time('createMovementTypeController')
     const type = req.body.movement_type;
 
     if(!type || type.length < 3){
@@ -15,7 +16,7 @@ export const createMovementTypeController = async (req: Request, res: Response) 
     }
 
     const response = await MovementType.save({ type });
-
+    console.timeEnd('createMovementTypeController')
     res.status(HTTP_STATUS_OK).send(response);
   } catch (error) {
     console.error(error);
@@ -25,6 +26,8 @@ export const createMovementTypeController = async (req: Request, res: Response) 
 
 export const searchMovementTypesController = async (req: Request, res: Response) => {
   try {
+    console.time('searchMovementTypesController')
+    
     const data = await MovementType.find();
     const response = setResponse(
       HTTP_STATUS_OK,
@@ -34,6 +37,7 @@ export const searchMovementTypesController = async (req: Request, res: Response)
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
+    console.timeEnd('searchMovementTypesController')
     res.status(HTTP_STATUS_OK).send(response);
   } catch (error) {
     console.error(error);

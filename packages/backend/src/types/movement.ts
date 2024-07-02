@@ -1,4 +1,5 @@
 export interface CreateMovementDto {
+    username: string;
     amount: number;
     currency: string;
     date: Date;

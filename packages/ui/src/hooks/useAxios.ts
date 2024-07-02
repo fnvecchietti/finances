@@ -51,7 +51,6 @@ export const useAxios = ({
   );
 
 
-
   const fetchData = () => {
     api[method](url, body)
       .then((res: AxiosResponse) => {

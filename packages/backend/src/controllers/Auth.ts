@@ -12,6 +12,8 @@ import { signJWT, verifyJWT } from "../common/utils/jwt-utilts";
 
 export const registerUserController = async (req: Request, res: Response) => {
   try {
+    console.time('registerUserController')
+    
     const user = req.body as CreateUserDTO;
 
     const result = await registerUserService(user);
@@ -24,7 +26,7 @@ export const registerUserController = async (req: Request, res: Response) => {
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
-
+    console.timeEnd('registerUserController')
     res.status(HTTP_STATUS_OK).send(response);
   } catch (error) {
     console.error(error);
@@ -36,6 +38,7 @@ export const registerUserController = async (req: Request, res: Response) => {
 
 export const loginUserController = async (req: Request, res: Response) => {
   try {
+    console.time('loginUserController')
     const userLoginData = req.body as LoginUserDTO;
 
     const userData = await loginUserService(userLoginData);
@@ -57,7 +60,7 @@ export const loginUserController = async (req: Request, res: Response) => {
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
-
+    console.timeEnd('loginUserController')
     res.status(HTTP_STATUS_OK).send(response);
   } catch (error) {
     console.error(error);

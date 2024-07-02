@@ -51,7 +51,7 @@ const hashPassword = async (password:string) => {
 export const loginUserService = async (userLogin: LoginUserDTO) => {
   
   try {
-    const user = Auth.findOneOrFail({where: { username: userLogin.username }})
+    const user = await Auth.findOneByOrFail({username: userLogin.username })
 
     return user;
 

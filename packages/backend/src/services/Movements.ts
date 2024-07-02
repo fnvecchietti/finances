@@ -47,8 +47,16 @@ export const searchMovementsService = async (filterableParams: IncomeFilterableP
 
 export const createMovementService = async (movement: CreateMovementDto) => {
     movementSchema.validateSync(movement)
-    const mov = {...new Movement, movement};
-    return await Movement.insert(mov);
+
+    const movementEntity = new Movement();
+    movementEntity.createdBy.username = movement.username;
+    movementEntity.amount = movement.amount;
+    movementEntity.currency = movement.currency;
+    movementEntity.date = movement.date;
+    movementEntity.description = movement.description;
+    movementEntity.movementType.type = movement.movementType;
+    
+    return await Movement.insert(movementEntity);
 }
 
 export const createBulkMovementsService = async (bulkMovements: CreateMovementDto[] | MovementItem[]) => {
