@@ -48,16 +48,6 @@ const hashPassword = async (password:string) => {
   return hashed;
 }
 
-export const loginUserService = async (userLogin: LoginUserDTO) => {
-  
-  try {
-    const user = await Auth.findOneByOrFail({username: userLogin.username })
-
-    return user;
-
-  } catch (error) {
-    
-    throw error;
-  }
-
+export const loginUserService = async (userLogin: LoginUserDTO) => {  
+  return await Auth.findOneByOrFail({username: userLogin.username })
 }

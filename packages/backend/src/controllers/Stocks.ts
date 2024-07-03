@@ -1,23 +1,23 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 import {
   bulkSaveStocks,
   getStockBalance,
   saveStocks,
   searchStocks,
-} from "../services/Stocks";
-import { setResponse } from "../common/utils/response";
-import { HTTP_STATUS_OK } from "../common/utils/response";
-import { HTTP_STATUS_OK_MESSAGE } from "../common/utils/response";
-import { createReadStream } from "fs";
-import { parse } from "csv-parse";
-import { convertDate } from "../common/utils/format";
-import { convertToFloat } from "../common/utils/format";
-import { StockItem } from "stocks";
-import { getTokenFromReq, decodeToken } from "../common/utils/jwt-utilts";
+} from '../services/Stocks';
+import { setResponse } from '../common/utils/response';
+import { HTTP_STATUS_OK } from '../common/utils/response';
+import { HTTP_STATUS_OK_MESSAGE } from '../common/utils/response';
+import { createReadStream } from 'fs';
+import { parse } from 'csv-parse';
+import { convertDate } from '../common/utils/format';
+import { convertToFloat } from '../common/utils/format';
+import { StockItem } from 'stocks';
+import { getTokenFromReq, decodeToken } from '../common/utils/jwt-utilts';
 
 export const getStocks = async (req: Request, res: Response) => {
   try {
-    console.time("getStocks");
+    console.time('getStocks');
 
     const filterableParams = req.query;
 
@@ -35,7 +35,7 @@ export const getStocks = async (req: Request, res: Response) => {
       HTTP_STATUS_OK_MESSAGE
     );
 
-    console.timeEnd("getStocks");
+    console.timeEnd('getStocks');
     return response;
   } catch (error) {
     console.error(error);
@@ -45,7 +45,7 @@ export const getStocks = async (req: Request, res: Response) => {
 
 export const getStocksBalance = async (req: Request, res: Response) => {
   try {
-    console.time("getStocksBalance");
+    console.time('getStocksBalance');
 
     const result = await getStockBalance();
 
@@ -58,7 +58,7 @@ export const getStocksBalance = async (req: Request, res: Response) => {
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
-    console.timeEnd("getStocksBalance");
+    console.timeEnd('getStocksBalance');
     return response;
   } catch (error) {
     console.error(error);
@@ -79,7 +79,7 @@ export const createStocks = async (req: Request, res: Response) => {
       undefined,
       undefined,
       HTTP_STATUS_OK_MESSAGE
-    );
+    );;;;;;;;;;;;;;;;;;;;;;;;;;
 
     return response;
   } catch (error) {
@@ -88,15 +88,15 @@ export const createStocks = async (req: Request, res: Response) => {
   }
 };
 
-export const editStocks = async (req: Request, res: Response) => {
-  try {
-  } catch (error) {}
-};
+// export const editStocks = async (req: Request, res: Response) => {
+//   try {
+//   } catch (error) {}
+// };
 
-export const getStocksByName = async (req: Request, res: Response) => {
-  try {
-  } catch (error) {}
-};
+// export const getStocksByName = async (req: Request, res: Response) => {
+//   try {
+//   } catch (error) {}
+// };
 
 export const bulkStocks = async (req: Request, res: Response) => {
   const preInsert: any[] = [];
@@ -105,34 +105,34 @@ export const bulkStocks = async (req: Request, res: Response) => {
 
   createReadStream(filePath)
     .pipe(parse())
-    .on("data", (data: any) => {
+    .on('data', (data: any) => {
       preInsert.push(data);
     })
-    .on("end", () => {
+    .on('end', () => {
       const headers = preInsert[0].map((item: string) => item.toLowerCase());
 
       for (let index = 1; index < preInsert.length; index++) {
-        let row: StockItem = {};
+        const row: StockItem = {};
         for (let x = 0; x < headers.length; x++) {
           row[headers[x]] = preInsert[index][x].trim();
 
           if (
-            headers[x] === "quantity" ||
-            headers[x] === "current_price" ||
-            headers[x] === "purchase_price"
+            headers[x] === 'quantity' ||
+            headers[x] === 'current_price' ||
+            headers[x] === 'purchase_price'
           ) {
             const clean = preInsert[index][x].trim();
             row[headers[x]] = convertToFloat(clean);
           }
 
-          if (headers[x] === "purchase_date") {
+          if (headers[x] === 'purchase_date') {
             row[headers[x]] = convertDate(
               preInsert[index][x].trim(),
-              "DD/MM/YYYY"
+              'DD/MM/YYYY'
             );
           }
 
-          if (headers[x] === "ratio") {
+          if (headers[x] === 'ratio') {
             row[headers[x]] = parseInt(preInsert[index][x]);
           }
         }
@@ -141,5 +141,5 @@ export const bulkStocks = async (req: Request, res: Response) => {
 
       bulkSaveStocks(prevalidatedObject);
     });
-  res.status(200).send("ok");
+  res.status(200).send('ok');
 };

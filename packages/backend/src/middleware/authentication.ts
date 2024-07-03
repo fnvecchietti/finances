@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express'
+import {Request, Response, NextFunction} from 'express';
 import { verifyJWT } from '../common/utils/jwt-utilts';
 
 

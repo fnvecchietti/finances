@@ -1,4 +1,4 @@
-import { Pagination } from "pagination";
+import { Pagination } from 'pagination';
 
 export interface IncomeFilterableParams extends Pagination{
     id?: string;

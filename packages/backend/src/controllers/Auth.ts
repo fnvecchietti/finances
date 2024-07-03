@@ -1,18 +1,18 @@
-import { CreateUserDTO, LoginUserDTO } from "auth";
-import { Request, Response } from "express";
-import { loginUserService, registerUserService } from "../services/Auth";
+import { CreateUserDTO, LoginUserDTO } from 'auth';
+import { Request, Response } from 'express';
+import { loginUserService, registerUserService } from '../services/Auth';
 import {
   HTTP_STATUS_OK,
   HTTP_STATUS_OK_MESSAGE,
   setResponse,
-} from "../common/utils/response";
-import * as argon2 from "argon2";
+} from '../common/utils/response';
+import * as argon2 from 'argon2';
 
-import { signJWT, verifyJWT } from "../common/utils/jwt-utilts";
+import { signJWT, verifyJWT } from '../common/utils/jwt-utilts';
 
 export const registerUserController = async (req: Request, res: Response) => {
   try {
-    console.time('registerUserController')
+    console.time('registerUserController');
     
     const user = req.body as CreateUserDTO;
 
@@ -27,7 +27,9 @@ export const registerUserController = async (req: Request, res: Response) => {
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
-    console.timeEnd('registerUserController')
+      
+    
+    console.timeEnd('registerUserController');
     return response;
   } catch (error) {
     console.error(error);
@@ -39,7 +41,7 @@ export const registerUserController = async (req: Request, res: Response) => {
 
 export const loginUserController = async (req: Request, res: Response) => {
   try {
-    console.time('loginUserController')
+    console.time('loginUserController');
     const userLoginData = req.body as LoginUserDTO;
 
     const userData = await loginUserService(userLoginData);
@@ -49,7 +51,7 @@ export const loginUserController = async (req: Request, res: Response) => {
       userLoginData.password
     );
 
-    if (!result) throw new Error("wrong passord");
+    if (!result) throw new Error('wrong passord');
 
     const token = signJWT(userData.id, userData.username);
 
@@ -62,7 +64,7 @@ export const loginUserController = async (req: Request, res: Response) => {
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
-    console.timeEnd('loginUserController')
+    console.timeEnd('loginUserController');
     return response;
   } catch (error) {
     console.error(error);
@@ -78,7 +80,7 @@ export const validateTokenController = async (req: Request, res: Response) => {
   try {
     const { token } = req.query;
 
-    const result = verifyJWT(token as string)
+    const result = verifyJWT(token as string);
 
     const response = setResponse(
       HTTP_STATUS_OK,
