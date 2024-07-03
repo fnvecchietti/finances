@@ -1,17 +1,17 @@
-import { Router } from "express";
-import { createBulkMovementsController, createMovementController, searchMovementsController } from '../controllers/Movements'
-import multer from 'multer'
-import { authenticationMiddleware } from "../middleware/authentication";
+import { Router } from 'express';
+import { createBulkMovementsController, createMovementController, searchMovementsController } from '../controllers/Movements';
+import multer from 'multer';
+import { authenticationMiddleware } from '../middleware/authentication';
 
 
-export const router = Router()
+export const router = Router();
 
-const upload = multer({dest: 'uploads/movements/'})
+const upload = multer({dest: 'uploads/movements/'});
 
-router.get(`/`)
+router.get('/');
 
-router.post(`/movements/bulk`,upload.single('file'),authenticationMiddleware, createBulkMovementsController)
+router.post('/movements/bulk',upload.single('file'),authenticationMiddleware, createBulkMovementsController);
 
-router.get(`/movements`,authenticationMiddleware, searchMovementsController)
+router.get('/movements',authenticationMiddleware, searchMovementsController);
 
-router.post(`/movements`,authenticationMiddleware, createMovementController)
+router.post('/movements',authenticationMiddleware, createMovementController);

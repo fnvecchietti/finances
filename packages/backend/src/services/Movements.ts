@@ -8,7 +8,7 @@ import { movementSchema, bulkSchema } from '../common/validations/MovementsValid
 
 
 export const searchMovementsService = async (filterableParams: IncomeFilterableParams, username?: string) => {
-    const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null
+    const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null;
     console.log('for username', username);
     
     return await Movement.findAndCount({
@@ -25,11 +25,11 @@ export const searchMovementsService = async (filterableParams: IncomeFilterableP
         order: {
             date: filterableParams.order
         },
-    })
-}
+    });
+};
 
 export const createMovementService = async (movement: CreateMovementDto) => {
-    movementSchema.validateSync(movement)
+    movementSchema.validateSync(movement);
 
     const movementEntity = new Movement();
     movementEntity.createdBy.username = movement.username;
@@ -40,32 +40,32 @@ export const createMovementService = async (movement: CreateMovementDto) => {
     movementEntity.movementType.type = movement.movementType;
     
     return await Movement.insert(movementEntity);
-}
+};
 
 export const createBulkMovementsService = async (bulkMovements: CreateMovementDto[] | MovementItem[]) => {
 
-    const queryRunner = PostgresDataSource.createQueryRunner()
+    const queryRunner = PostgresDataSource.createQueryRunner();
 
     try {
-        const result = bulkSchema.validateSync(bulkMovements)
+        const result = bulkSchema.validateSync(bulkMovements);
         
 
-        queryRunner.startTransaction()
+        queryRunner.startTransaction();
         
         const bulk = result.map((mv: CreateMovementDto) => {
-            const mov = {...new Movement, mv}
+            const mov = {...new Movement, mv};
             return  mov;
-        }) 
+        }); 
 
-        await queryRunner.manager.save(Movement, bulk)
+        await queryRunner.manager.save(Movement, bulk);
         
-        await queryRunner.commitTransaction()
+        await queryRunner.commitTransaction();
         
     } catch (error) {
         console.log(error);
-        await queryRunner.rollbackTransaction()
+        await queryRunner.rollbackTransaction();
     }finally{
-        await queryRunner.release()
+        await queryRunner.release();
     }
     
-}
+};

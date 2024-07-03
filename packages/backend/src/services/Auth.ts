@@ -1,15 +1,15 @@
-import { CreateUserDTO, LoginUserDTO } from "auth";
-import { Auth } from "../common/models/Entity/Auth";
-import { User } from "../common/models/Entity/User";
-import { PostgresDataSource } from "../common/models/datasource";
-import * as argon2 from "argon2";
+import { CreateUserDTO, LoginUserDTO } from 'auth';
+import { Auth } from '../common/models/Entity/Auth';
+import { User } from '../common/models/Entity/User';
+import { PostgresDataSource } from '../common/models/datasource';
+import * as argon2 from 'argon2';
 
 export const registerUserService = async (user: CreateUserDTO) => {
   const queryRunner = PostgresDataSource.createQueryRunner();
   try {
     const { username, password, name, last_name, birthday, email } = user;
     
-    const hashedPassord = await hashPassword(password)
+    const hashedPassord = await hashPassword(password);
 
     const newUser = new User();
     newUser.name = name;
@@ -46,8 +46,8 @@ const hashPassword = async (password:string) => {
   const hashed = await argon2.hash(password);
 
   return hashed;
-}
+};
 
 export const loginUserService = async (userLogin: LoginUserDTO) => {  
-  return await Auth.findOneByOrFail({username: userLogin.username })
-}
+  return await Auth.findOneByOrFail({username: userLogin.username });
+};

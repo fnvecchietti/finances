@@ -1,9 +1,9 @@
-import { StockFilterableParams } from "filters";
-import { Stock } from "../common/models/Entity/Stock";
-import { createStockDTO } from "stocks";
-import { PostgresDataSource } from "../common/models/datasource";
-import { stockSchema } from "../common/validations/StocksValidation";
-import { bulkSchema } from "../common/validations/StocksValidation";
+import { StockFilterableParams } from 'filters';
+import { Stock } from '../common/models/Entity/Stock';
+import { createStockDTO } from 'stocks';
+import { PostgresDataSource } from '../common/models/datasource';
+import { stockSchema } from '../common/validations/StocksValidation';
+import { bulkSchema } from '../common/validations/StocksValidation';
 
 
 
@@ -24,13 +24,13 @@ export const searchStocks = async (filterableParams: StockFilterableParams, user
     take: filterableParams.take,
     skip: filterableParams.skip,
     order: {
-      ticker: "asc",
+      ticker: 'asc',
     },
   });
 };
 
 export const saveStocks = async (stock: createStockDTO) => {
-    stockSchema.validateSync(stock)
+    stockSchema.validateSync(stock);
   return await Stock.insert({ ...stock });
 };
 
@@ -48,7 +48,7 @@ export const getStockBalance = async () => {
 export const bulkSaveStocks = async (stocks: createStockDTO[]) => {
   const queryRunner = PostgresDataSource.createQueryRunner();
   try {
-    bulkSchema.validateSync(stocks)
+    bulkSchema.validateSync(stocks);
 
     queryRunner.startTransaction();
 
