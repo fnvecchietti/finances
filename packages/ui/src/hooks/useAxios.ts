@@ -3,12 +3,42 @@ import { API_BASE_URL } from '../environent/api-config';
 import { AuthContext } from '../context';
 import { useContext, useEffect, useState } from 'react';
 
-  const api = axios.create({
+  const axiosIntance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
     },
   });
+
+  const axiosWithContext = (context: any) => {
+
+    axiosIntance.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
+  
+    axiosIntance.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        if (error.response.status === 401) {
+          context.setTokenWithStorage(null)
+        }
+        return Promise.reject(error);
+      },
+    );
+
+    return axiosIntance;
+  }
 
 export const useAxios = ({
   url,
@@ -24,33 +54,10 @@ export const useAxios = ({
   const [error, setError] = useState<AxiosError | string>('');
   const [loading, setLoading] = useState(true);
 
-  api.interceptors.request.use(
-    (config) => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    },
-  );
 
-  api.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    (error) => {
-      if (error.response.status === 401) {
-        setTokenWithStorage(null)
-      }
-      return Promise.reject(error);
-    },
-  );
 
   const fetchData = () => {
-    api[method](url, body)
+    axiosWithContext({setTokenWithStorage})[method](url, body)
       .then((res: AxiosResponse) => {
         setResponse(res.data);
       })
@@ -68,3 +75,7 @@ export const useAxios = ({
 
   return { response, error, loading, setLoading };
 };
+
+export const simlpeAxiosFetch = (context: any) => {
+  return axiosWithContext(context);
+}

@@ -1,5 +1,5 @@
 export interface APIresponse {
-    data: any;
+    data: unknown;
     message?: string;
     status: string;//'success' | 'error';
     pagination?: {

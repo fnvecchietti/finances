@@ -4,6 +4,7 @@ import { createStockDTO } from 'stocks';
 import { PostgresDataSource } from '../common/models/datasource';
 import { stockSchema } from '../common/validations/StocksValidation';
 import { bulkSchema } from '../common/validations/StocksValidation';
+import { Auth } from '../common/models/Entity/Auth';
 
 
 
@@ -29,9 +30,24 @@ export const searchStocks = async (filterableParams: StockFilterableParams, user
   });
 };
 
-export const saveStocks = async (stock: createStockDTO) => {
-    stockSchema.validateSync(stock);
-  return await Stock.insert({ ...stock });
+export const saveStocks = async (stock: createStockDTO, username: string) => {
+  
+  stockSchema.validateSync(stock);
+
+  const user = await Auth.findOneOrFail({where: {username: username}});
+  const stockEntity = new Stock();
+
+  stockEntity.name = stock.name;
+  stockEntity.ticker = stock.ticker;
+  stockEntity.quantity =  stock.quantity;
+  stockEntity.purchase_price =  stock.purchase_price;
+  stockEntity.current_price =  stock.current_price;
+  stockEntity.ratio = stock.ratio;
+  stockEntity.purchase_date =  stock.purchase_date;
+  stockEntity.currency =  stock.currency;
+  stockEntity.createdBy = user;
+
+  return await Stock.insert(stockEntity);
 };
 
 export const getStockBalance = async () => {

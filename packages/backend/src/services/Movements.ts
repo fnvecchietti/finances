@@ -1,10 +1,11 @@
 import { IncomeFilterableParams } from 'filters';
 import { CreateMovementDto, MovementItem } from '../types/movement';
 import { Movement } from '../common/models/Entity/Movement';
-
 import { PostgresDataSource } from '../common/models/datasource';
 import { Between } from 'typeorm';
 import { movementSchema, bulkSchema } from '../common/validations/MovementsValidation';
+import { Auth } from '../common/models/Entity/Auth';
+import { MovementType } from '../common/models/Entity/MovementType';
 
 
 export const searchMovementsService = async (filterableParams: IncomeFilterableParams, username?: string) => {
@@ -28,16 +29,18 @@ export const searchMovementsService = async (filterableParams: IncomeFilterableP
     });
 };
 
-export const createMovementService = async (movement: CreateMovementDto) => {
+export const createMovementService = async (movement: CreateMovementDto, username: string) => {
     movementSchema.validateSync(movement);
 
+    const user = await Auth.findOneOrFail({where:{username: username}});
+    const movemenType = await MovementType.findOneOrFail({where: {type: movement.movementType}});
     const movementEntity = new Movement();
-    movementEntity.createdBy.username = movement.username;
+    movementEntity.createdBy = user;
     movementEntity.amount = movement.amount;
     movementEntity.currency = movement.currency;
     movementEntity.date = movement.date;
     movementEntity.description = movement.description;
-    movementEntity.movementType.type = movement.movementType;
+    movementEntity.movementType = movemenType;
     
     return await Movement.insert(movementEntity);
 };

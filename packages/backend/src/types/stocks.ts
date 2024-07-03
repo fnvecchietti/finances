@@ -9,6 +9,7 @@ export interface createStockDTO {
     ratio?: number;
     purchase_date?: Date;
     currency?: string;
+    current_price?: number;
 }
 
 export interface StockItem {

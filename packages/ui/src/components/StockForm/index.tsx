@@ -1,7 +1,9 @@
 import { useFormik } from 'formik';
 import { date, number, object, string } from 'yup';
 import { endpointsV1 } from '../../environent/api-config';
-import axios from 'axios';
+import { simlpeAxiosFetch } from '../../hooks/useAxios';
+import { useContext } from 'react';
+import { AuthContext } from '../../context';
 
 
 const stockFormEntryValidation = object({
@@ -16,8 +18,7 @@ const stockFormEntryValidation = object({
 });
 
 export const StockForm = () => {
- 
-
+  const {setTokenWithStorage} = useContext(AuthContext)
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -31,17 +32,21 @@ export const StockForm = () => {
     },
     validationSchema: stockFormEntryValidation,
     onSubmit: (values) => {
-      const body = {
+      const payload = {
         ...values,
       }
-    
-      axios
-        .post(endpointsV1.stocks, body)
-        .then((res) => console.log)
-        .catch((err) => console.log)
-        .finally(() => {
-        
-        });
+      simlpeAxiosFetch(setTokenWithStorage)
+      .post( endpointsV1.stocks, payload)
+      .then(res => {
+        alert('k')
+      })
+      .catch(err => {
+        alert ('err')
+      })
+      .finally( () => {
+
+      })
+
     },
   });
 

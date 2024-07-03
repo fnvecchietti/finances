@@ -69,7 +69,9 @@ export const createStocks = async (req: Request, res: Response) => {
   try {
     const stock = req.body;
 
-    const result = await saveStocks(stock);
+    const token = decodeToken(getTokenFromReq(req));
+
+    const result = await saveStocks(stock, token.username);
 
     const response = setResponse(
       HTTP_STATUS_OK,
@@ -79,7 +81,7 @@ export const createStocks = async (req: Request, res: Response) => {
       undefined,
       undefined,
       HTTP_STATUS_OK_MESSAGE
-    );;;;;;;;;;;;;;;;;;;;;;;;;;
+    );
 
     return response;
   } catch (error) {

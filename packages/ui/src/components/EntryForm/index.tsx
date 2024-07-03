@@ -1,11 +1,11 @@
 import { useFormik } from 'formik';
 import { date, number, object, string } from 'yup';
 import { endpointsV1 } from '../../environent/api-config';
-import axios from 'axios';
 import { Loading } from '../../components/LoadingBar';
 import { ErrorPage } from '../Errorpage';
 import { useContext } from 'react';
 import { AuthContext } from '../../context';
+import { simlpeAxiosFetch } from '../../hooks/useAxios';
 
 const entryFormValidationSchema = object({
   amount: number().required('Required'),
@@ -15,7 +15,7 @@ const entryFormValidationSchema = object({
 });
 
 export const EntryForm = () => {
-  const { useAxios } = useContext(AuthContext);
+  const { useAxios, setTokenWithStorage } = useContext(AuthContext);
 
   const { response, error, loading, setLoading } = useAxios({
     url: endpointsV1.movement_type,
@@ -34,12 +34,23 @@ export const EntryForm = () => {
     validationSchema: entryFormValidationSchema,
     onSubmit: (values) => {
       setLoading(true)
-      const body = {
+      const payload = {
         ...values,
         date: new Date(values.date),
       };
-    
-      setLoading(false)
+      
+      simlpeAxiosFetch(setTokenWithStorage)
+      .post( endpointsV1.movements, payload)
+      .then(res => {
+        alert('k')
+      })
+      .catch(err => {
+        alert ('err')
+      })
+      .finally( () => {
+        setLoading(false)
+      })
+      
     },
   });
 
