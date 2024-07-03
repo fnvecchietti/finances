@@ -1,4 +1,5 @@
 import { APIresponse } from "api-response"
+import { Response } from "express";
 
 export const HTTP_STATUS_OK = 200
 export const HTTP_STATUS_OK_MESSAGE = 'success'
@@ -6,16 +7,16 @@ export const HTTP_STATUS_OK_MESSAGE = 'success'
 
 
 
-export const setResponse = (code:number, data: any, skip?:number,  take?:number, total?: number, status?: string, message?: string) => {
+export const setResponse = (code:number, data: any,response:Response, skip?:number,  take?:number, total?: number, status?: string, message?: string) => {
 
-    const response: APIresponse = {
+    const payload: APIresponse = {
         status,
         data,
         message,
     };
 
     if( skip || take || total){
-        response.pagination = {
+        payload.pagination = {
             skip,
             take,
             total
@@ -23,7 +24,7 @@ export const setResponse = (code:number, data: any, skip?:number,  take?:number,
     }
     
 
-    return response;
+    return response.status(code).send(payload);
 
 }
 

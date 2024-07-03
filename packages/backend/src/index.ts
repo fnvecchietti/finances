@@ -35,14 +35,8 @@ PostgresDataSource.initialize()
         console.info(`server running with the following configs: `)
         console.info({
             server_port: SERVER_PORT,
-            priceUpdatingFeature: process.env.PRICE_UPDATING_FEATURE || false
+            priceUpdatingFeature: process.env.PRICE_UPDATING_FEATURE
         })
     })
-    if(process.env.PRICE_UPDATING_FEATURE){
-        updatePrices.start()
-    }else{
-        updatePrices.stop()
-        console.info('Price update feature off')
-    }
 }).catch(console.log)
 

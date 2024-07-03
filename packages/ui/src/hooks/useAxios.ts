@@ -3,6 +3,12 @@ import { API_BASE_URL } from '../environent/api-config';
 import { AuthContext } from '../context';
 import { useContext, useEffect, useState } from 'react';
 
+  const api = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
 export const useAxios = ({
   url,
@@ -17,13 +23,6 @@ export const useAxios = ({
   const [response, setResponse] = useState<AxiosResponse['data'] | null>(null);
   const [error, setError] = useState<AxiosError | string>('');
   const [loading, setLoading] = useState(true);
-
-  const api = axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
 
   api.interceptors.request.use(
     (config) => {
@@ -49,7 +48,6 @@ export const useAxios = ({
       return Promise.reject(error);
     },
   );
-
 
   const fetchData = () => {
     api[method](url, body)

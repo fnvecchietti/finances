@@ -11,7 +11,6 @@ export const updatePrices = cron.schedule('*/2 * * * *', () => {
     }
 })
 
-
 const getStocks = async () => {
     const stocks = await Stock.find()
     const stockStorage = {} as any

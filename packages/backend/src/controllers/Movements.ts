@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, response } from "express";
 import {
   HTTP_STATUS_OK,
   HTTP_STATUS_OK_MESSAGE,
@@ -31,16 +31,15 @@ export const searchMovementsController = async (
       token.username
     );
 
-    const response = setResponse(
-      HTTP_STATUS_OK,
-      result[0],
-      undefined,
-      undefined,
-      result[1],
-      HTTP_STATUS_OK_MESSAGE
-    );
+    
+    const response = setResponse(200,result[0],res,undefined,undefined,result[1],HTTP_STATUS_OK_MESSAGE)
     console.timeEnd("searchMovementsController");
-    res.status(HTTP_STATUS_OK).send(response);
+
+    return response;
+
+
+    
+    
   } catch (error) {
     res.status(400).send(error);
   }
@@ -55,16 +54,11 @@ export const createMovementController = async (req: Request, res: Response) => {
 
     const result = await createMovementService(movement);
 
-    const response = setResponse(
-      HTTP_STATUS_OK,
-      result.raw,
-      undefined,
-      undefined,
-      undefined,
-      HTTP_STATUS_OK_MESSAGE
-    );
+    const response = setResponse(200,result.raw,res,undefined,undefined,undefined,HTTP_STATUS_OK_MESSAGE)
     console.timeEnd("createMovementController");
-    res.status(HTTP_STATUS_OK).send(response);
+    return response;
+    
+    
   } catch (error) {
     console.error(error);
     res.status(400).send();

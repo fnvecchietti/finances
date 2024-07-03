@@ -17,24 +17,26 @@ import { getTokenFromReq, decodeToken } from "../common/utils/jwt-utilts";
 
 export const getStocks = async (req: Request, res: Response) => {
   try {
-    console.time('getStocks')
-    
+    console.time("getStocks");
+
     const filterableParams = req.query;
-    
+
     const token = decodeToken(getTokenFromReq(req));
-    
+
     const result = await searchStocks(filterableParams, token.username);
 
     const response = setResponse(
       HTTP_STATUS_OK,
       result[0],
+      res,
       undefined,
       undefined,
       result[1],
       HTTP_STATUS_OK_MESSAGE
     );
-console.timeEnd('getStocks')
-    res.status(HTTP_STATUS_OK).send(response);
+
+    console.timeEnd("getStocks");
+    return response;
   } catch (error) {
     console.error(error);
     res.status(400).send();
@@ -43,20 +45,21 @@ console.timeEnd('getStocks')
 
 export const getStocksBalance = async (req: Request, res: Response) => {
   try {
-    console.time('getStocksBalance')
-    
+    console.time("getStocksBalance");
+
     const result = await getStockBalance();
 
     const response = setResponse(
       HTTP_STATUS_OK,
       result,
+      res,
       undefined,
       undefined,
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
-console.timeEnd('getStocksBalance')
-    res.status(HTTP_STATUS_OK).send(response);
+    console.timeEnd("getStocksBalance");
+    return response;
   } catch (error) {
     console.error(error);
     res.status(400).send();
@@ -71,13 +74,14 @@ export const createStocks = async (req: Request, res: Response) => {
     const response = setResponse(
       HTTP_STATUS_OK,
       result.raw,
+      res,
       undefined,
       undefined,
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
 
-    res.status(HTTP_STATUS_OK).send(response);
+    return response;
   } catch (error) {
     console.error(error);
     res.status(400).send();

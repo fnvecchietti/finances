@@ -1,28 +1,11 @@
 import { IncomeFilterableParams } from 'filters';
 import { CreateMovementDto, MovementItem } from '../types/movement';
 import { Movement } from '../common/models/Entity/Movement';
-import { array, date, number, object, string } from 'yup';
+
 import { PostgresDataSource } from '../common/models/datasource';
 import { Between } from 'typeorm';
+import { movementSchema, bulkSchema } from '../common/validations/MovementsValidation';
 
-const bulkSchema = array()
-.of(
-    object({
-        description: string().required(),
-        currency: string().required(),
-        amount: number().required(),
-        movementType: string().required().default('other'),
-        date: date().required()
-    })
-)
-
-const movementSchema = object({
-    description: string().required(),
-    currency: string().required(),
-    amount: number().required(),
-    movementType: string().required().default('other'),
-    date: date().required()
-})
 
 export const searchMovementsService = async (filterableParams: IncomeFilterableParams, username?: string) => {
     const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null

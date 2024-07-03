@@ -32,13 +32,14 @@ export const searchMovementTypesController = async (req: Request, res: Response)
     const response = setResponse(
       HTTP_STATUS_OK,
       data,
+      res,
       undefined,
       undefined,
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
     console.timeEnd('searchMovementTypesController')
-    res.status(HTTP_STATUS_OK).send(response);
+    return response;
   } catch (error) {
     console.error(error);
     res.status(400).send();

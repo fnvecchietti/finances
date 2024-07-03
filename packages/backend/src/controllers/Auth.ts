@@ -21,13 +21,14 @@ export const registerUserController = async (req: Request, res: Response) => {
     const response = setResponse(
       HTTP_STATUS_OK,
       result,
+      res,
       undefined,
       undefined,
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
     console.timeEnd('registerUserController')
-    res.status(HTTP_STATUS_OK).send(response);
+    return response;
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.
@@ -55,13 +56,14 @@ export const loginUserController = async (req: Request, res: Response) => {
     const response = setResponse(
       HTTP_STATUS_OK,
       token,
+      res,
       undefined,
       undefined,
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
     console.timeEnd('loginUserController')
-    res.status(HTTP_STATUS_OK).send(response);
+    return response;
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.
@@ -81,13 +83,14 @@ export const validateTokenController = async (req: Request, res: Response) => {
     const response = setResponse(
       HTTP_STATUS_OK,
       result,
+      res,
       undefined,
       undefined,
       undefined,
       HTTP_STATUS_OK_MESSAGE
     );
 
-    res.status(HTTP_STATUS_OK).send(response);
+    return response;
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.

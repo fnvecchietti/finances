@@ -2,29 +2,11 @@ import { StockFilterableParams } from "filters";
 import { Stock } from "../common/models/Entity/Stock";
 import { createStockDTO } from "stocks";
 import { PostgresDataSource } from "../common/models/datasource";
-import { array, date, number, object, string } from "yup";
+import { stockSchema } from "../common/validations/StocksValidation";
+import { bulkSchema } from "../common/validations/StocksValidation";
 
-const bulkSchema = array().of(
-  object({
-    name: string(),
-    ticker: string(),
-    quantity: number(),
-    purchase_price: number(),
-    ratio: number(),
-    purchase_date: date(),
-    currency: string(),
-  })
-);
 
-const stockSchema = object({
-  name: string(),
-  ticker: string(),
-  quantity: number(),
-  purchase_price: number(),
-  ratio: number(),
-  purchase_date: date(),
-  currency: string(),
-});
+
 
 export const searchStocks = async (filterableParams: StockFilterableParams, username? :string) => {
   return await Stock.findAndCount({

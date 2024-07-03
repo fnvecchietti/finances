@@ -26,7 +26,7 @@ export const DateInRange = ({
   }
 
   return (
-    <div className='justify-center flex'>
+    <section className='justify-center flex'>
       <label className='h-10 p-2' htmlFor="from">From</label>
       <input
         onInput={handleOnChange}
@@ -49,6 +49,6 @@ export const DateInRange = ({
       onClick={handleSearchClick}
       className='mr-2 p-2 h-10 border outline-none bg-black text-white border-solid rounded-lg place-content-center font-medium duration-100 ease-in hover:bg-white hover:border-black hover:text-black '
       >Search</button>
-    </div>
+    </section>
   );
 };
