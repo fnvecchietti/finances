@@ -33,14 +33,13 @@ export const EntryForm = () => {
     },
     validationSchema: entryFormValidationSchema,
     onSubmit: (values) => {
+      setLoading(true)
       const body = {
         ...values,
         date: new Date(values.date),
       };
-      
-      
-      
-      
+    
+      setLoading(false)
     },
   });
 
