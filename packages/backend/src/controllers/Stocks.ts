@@ -5,8 +5,7 @@ import {
   saveStocks,
   searchStocks,
 } from '../services/Stocks';
-import { setResponse } from '../common/utils/response';
-import { HTTP_STATUS_OK } from '../common/utils/response';
+import { setResponsePayload } from '../common/utils/response';
 import { HTTP_STATUS_OK_MESSAGE } from '../common/utils/response';
 import { createReadStream } from 'fs';
 import { parse } from 'csv-parse';
@@ -25,18 +24,14 @@ export const getStocks = async (req: Request, res: Response) => {
 
     const result = await searchStocks(filterableParams, token.username);
 
-    const response = setResponse(
-      HTTP_STATUS_OK,
-      result[0],
-      res,
-      undefined,
-      undefined,
-      result[1],
-      HTTP_STATUS_OK_MESSAGE
-    );
+    const response = setResponsePayload({
+      data: result[0],
+      total: result[1],
+      message: HTTP_STATUS_OK_MESSAGE,
+    });
 
     console.timeEnd('getStocks');
-    return response;
+    return res.status(200).send(response);
   } catch (error) {
     console.error(error);
     res.status(400).send();
@@ -49,15 +44,10 @@ export const getStocksBalance = async (req: Request, res: Response) => {
 
     const result = await getStockBalance();
 
-    const response = setResponse(
-      HTTP_STATUS_OK,
-      result,
-      res,
-      undefined,
-      undefined,
-      undefined,
-      HTTP_STATUS_OK_MESSAGE
-    );
+    const response = setResponsePayload({
+      data: result,
+      message: HTTP_STATUS_OK_MESSAGE,
+    });
     console.timeEnd('getStocksBalance');
     return response;
   } catch (error) {
@@ -73,17 +63,12 @@ export const createStocks = async (req: Request, res: Response) => {
 
     const result = await saveStocks(stock, token.username);
 
-    const response = setResponse(
-      HTTP_STATUS_OK,
-      result.raw,
-      res,
-      undefined,
-      undefined,
-      undefined,
-      HTTP_STATUS_OK_MESSAGE
-    );
+    const response = setResponsePayload({
+      data:result,
+      message: HTTP_STATUS_OK_MESSAGE
+    });
 
-    return response;
+    return res.status(200).send(response);
   } catch (error) {
     console.error(error);
     res.status(400).send();

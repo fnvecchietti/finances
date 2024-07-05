@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import {
-  HTTP_STATUS_OK_MESSAGE,
-  setResponse,
+  setResponsePayload,
 } from '../common/utils/response';
 import {
   createBulkMovementsService,
@@ -16,7 +15,7 @@ import { getTokenFromReq, decodeToken } from '../common/utils/jwt-utilts';
 
 export const searchMovementsController = async (
   req: Request,
-  res: Response
+  res: Response,
 ) => {
   try {
     console.time('searchMovementsController');
@@ -24,19 +23,20 @@ export const searchMovementsController = async (
     const filterableParams = req.query;
 
     const token = decodeToken(getTokenFromReq(req));
-    
 
     const result = await searchMovementsService(
       filterableParams,
-      token.username
+      token.username,
     );
 
-    
-    const response = setResponse(200,result[0],res,undefined,undefined,result[1],HTTP_STATUS_OK_MESSAGE);
+    const response = setResponsePayload({
+      data: result[0],
+      total: result[1],
+      message: 'success',
+    });
     console.timeEnd('searchMovementsController');
 
-    return response;
-    
+    return res.status(200).send(response);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -51,14 +51,11 @@ export const createMovementController = async (req: Request, res: Response) => {
 
     const token = decodeToken(getTokenFromReq(req));
 
-
     const result = await createMovementService(movement, token.username);
 
-    const response = setResponse(200,result.raw,res,undefined,undefined,undefined,HTTP_STATUS_OK_MESSAGE);
+    const response = setResponsePayload({ data: result, status: 'success' });
     console.timeEnd('createMovementController');
-    return response;
-    
-    
+    return res.status(200).send(response);
   } catch (error) {
     console.error(error);
     res.status(400).send();
@@ -71,7 +68,7 @@ export const createMovementController = async (req: Request, res: Response) => {
 
 export const createBulkMovementsController = async (
   req: Request,
-  res: Response
+  res: Response,
 ) => {
   console.time('createBulkMovementsController');
   const preInsert: any[] = [];
@@ -102,7 +99,7 @@ export const createBulkMovementsController = async (
             // Parse date from DD/MM/YYYY string to Date Object
             row[headers[x]] = convertDate(
               preInsert[index][x].trim(),
-              'DD/MM/YYYY'
+              'DD/MM/YYYY',
             );
           }
         }

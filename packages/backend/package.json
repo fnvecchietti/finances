@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/index.ts",
-    "test": "jest"
+    "test": "jest --silent"
   },
   "keywords": [],
   "author": "",
@@ -13,8 +13,10 @@
   "devDependencies": {
     "@eslint/js": "^9.6.0",
     "@jest/globals": "^29.7.0",
+    "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/multer": "^1.4.11",
     "@types/node": "^20.12.13",
@@ -35,6 +37,7 @@
     "axios": "^1.7.2",
     "body-parser": "^1.20.2",
     "cheerio": "^1.0.0-rc.12",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "csv-parse": "^5.5.6",
     "dayjs": "^1.11.11",

@@ -1,33 +1,33 @@
-import { APIresponse } from "api-response"
-import { Response } from "express";
-
-export const HTTP_STATUS_OK = 200
-export const HTTP_STATUS_OK_MESSAGE = 'success'
+import { APIresponse } from 'api-response';
 
 
+export const HTTP_STATUS_OK = 200;
+export const HTTP_STATUS_OK_MESSAGE = 'success';
 
+interface PayloadDTO {
+  data?: unknown;
+  status?: string;
+  message?: string;
+  skip?: number;
+  take?: number;
+  total?:number;
+}
 
-export const setResponse = (code:number, data: any,response:Response, skip?:number,  take?:number, total?: number, status?: string, message?: string) => {
+export const setResponsePayload = (input: PayloadDTO) => {
 
-    const payload: APIresponse = {
-        status,
-        data,
-        message,
+  const payload: APIresponse = {
+    status: input.status,
+    data: input.data,
+    message: input.message,
+  };
+
+  if (input.skip || input.take || input.total) {
+    payload.pagination = {
+      skip:input.skip,
+      take:input.take,
+      total: input.total,
     };
+  }
 
-    if( skip || take || total){
-        payload.pagination = {
-            skip,
-            take,
-            total
-        }
-    }
-    
-
-    return response.status(code).send(payload);
-
-}
-
-export const setErrorResponse = (code:number, status?: string,message?: string) => {
-    
-}
+  return payload;
+};

@@ -2,9 +2,8 @@ import { CreateUserDTO, LoginUserDTO } from 'auth';
 import { Request, Response } from 'express';
 import { loginUserService, registerUserService } from '../services/Auth';
 import {
-  HTTP_STATUS_OK,
   HTTP_STATUS_OK_MESSAGE,
-  setResponse,
+  setResponsePayload,
 } from '../common/utils/response';
 import * as argon2 from 'argon2';
 
@@ -13,29 +12,23 @@ import { signJWT, verifyJWT } from '../common/utils/jwt-utilts';
 export const registerUserController = async (req: Request, res: Response) => {
   try {
     console.time('registerUserController');
-    
+
     const user = req.body as CreateUserDTO;
 
     const result = await registerUserService(user);
 
-    const response = setResponse(
-      HTTP_STATUS_OK,
-      result,
-      res,
-      undefined,
-      undefined,
-      undefined,
-      HTTP_STATUS_OK_MESSAGE
-    );
-      
-    
+    const payload = setResponsePayload({
+      data: result,
+      status: HTTP_STATUS_OK_MESSAGE,
+      message: 'User successfully registered',
+    });
+
     console.timeEnd('registerUserController');
-    return response;
+    return res.status(200).send(payload);
   } catch (error) {
-    console.error(error);
+    console.info(error);
     // Todo: Handle Error On parameters in USE like email.
     res.status(400).send(error);
-
   }
 };
 
@@ -48,33 +41,24 @@ export const loginUserController = async (req: Request, res: Response) => {
 
     const result = await argon2.verify(
       userData.password,
-      userLoginData.password
+      userLoginData.password,
     );
 
     if (!result) throw new Error('wrong passord');
 
     const token = signJWT(userData.id, userData.username);
 
-    const response = setResponse(
-      HTTP_STATUS_OK,
-      token,
-      res,
-      undefined,
-      undefined,
-      undefined,
-      HTTP_STATUS_OK_MESSAGE
-    );
+    const response = setResponsePayload({data: token, message: 'success'});
     console.timeEnd('loginUserController');
-    return response;
+
+    return res.status(200).send(response);
+
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.
-    res.status(400).send(error);
-
+    res.status(400).send();
   }
 };
-
-
 
 export const validateTokenController = async (req: Request, res: Response) => {
   try {
@@ -82,17 +66,9 @@ export const validateTokenController = async (req: Request, res: Response) => {
 
     const result = verifyJWT(token as string);
 
-    const response = setResponse(
-      HTTP_STATUS_OK,
-      result,
-      res,
-      undefined,
-      undefined,
-      undefined,
-      HTTP_STATUS_OK_MESSAGE
-    );
+    const response = setResponsePayload({data: result, status: 'success'});
 
-    return response;
+    return res.send(200).send(response);
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.

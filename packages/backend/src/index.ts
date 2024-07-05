@@ -9,7 +9,7 @@ import { router as movements } from './routes/Movements';
 import { router as movementTypes } from './routes/MovementTypes';
 import { router as stocks } from './routes/Stocks';
 import { router as auth } from './routes/Auth';
-
+import cookieParser from 'cookie-parser';
 const SERVER_PORT = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT) : 3000;
 
 const App = Express();
@@ -17,6 +17,7 @@ const App = Express();
 App.use(cors());
 
 App.use(bodyParser.json());
+App.use(cookieParser());
 
 App.use('/api/v1',movementTypes);
 App.use('/api/v1',movements);

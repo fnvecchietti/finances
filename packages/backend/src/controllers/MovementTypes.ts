@@ -2,19 +2,19 @@ import { Request, Response } from 'express';
 import {
   HTTP_STATUS_OK,
   HTTP_STATUS_OK_MESSAGE,
-  setResponse,
+  setResponsePayload,
 } from '../common/utils/response';
 import { MovementType } from '../common/models/Entity/MovementType';
+import {string} from 'yup';
 
+const movementTypeSchema = string().required().min(3).max(30);
 export const createMovementTypeController = async (req: Request, res: Response) => {
   try {
     console.time('createMovementTypeController');
     const type = req.body.movement_type;
-
-    if(!type || type.length < 3){
-      throw Error('min Char is 3');
-    }
-
+    
+    movementTypeSchema.validate(type);
+    
     const response = await MovementType.save({ type });
     console.timeEnd('createMovementTypeController');
     res.status(HTTP_STATUS_OK).send(response);
@@ -29,17 +29,12 @@ export const searchMovementTypesController = async (req: Request, res: Response)
     console.time('searchMovementTypesController');
     
     const data = await MovementType.find();
-    const response = setResponse(
-      HTTP_STATUS_OK,
+    const response = setResponsePayload({
       data,
-      res,
-      undefined,
-      undefined,
-      undefined,
-      HTTP_STATUS_OK_MESSAGE
-    );
+      message: HTTP_STATUS_OK_MESSAGE,
+    });
     console.timeEnd('searchMovementTypesController');
-    return response;
+    return res.status(200).send(response);
   } catch (error) {
     console.error(error);
     res.status(400).send();
