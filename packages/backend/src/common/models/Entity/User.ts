@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 
 @Entity()
@@ -20,9 +20,9 @@ export class User extends BaseEntity {
     email: string;
 
     @CreateDateColumn()
-    createdDate: Date
+    createdDate: Date;
 
     @UpdateDateColumn()
-    updatedDate: Date
+    updatedDate: Date;
 
 }

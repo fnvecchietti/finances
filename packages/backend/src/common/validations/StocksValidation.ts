@@ -1,4 +1,4 @@
-import { array, date, number, object, string } from "yup";
+import { array, date, number, object, string } from 'yup';
 
 export const bulkSchema = array().of(
     object({

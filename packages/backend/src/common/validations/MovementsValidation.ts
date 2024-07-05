@@ -11,7 +11,7 @@ export const bulkSchema = array()
         movementType: string().required().default('other'),
         date: date().required()
     })
-)
+);
 
 export const movementSchema = object({
     description: string().required(),
@@ -19,4 +19,4 @@ export const movementSchema = object({
     amount: number().required(),
     movementType: string().required().default('other'),
     date: date().required()
-})
+});
