@@ -9,15 +9,15 @@ import { HookApiResponse } from '../../types';
 import { AxiosResponse } from 'axios';
 
 const Movements = () => {
-  const [take, setTake] = useState(10);
-  const [skip, setSkip] = useState(0);
   const [movements, setMovements] = useState<HookApiResponse>({data: null, error: null});
   const [loading, setLoading] = useState(true);
   const axiosPrivate = useAxiosPrivate();
+  const [take, setTake] = useState(10);
+  const [skip, setSkip] = useState(0);
 
     useEffect(()=> {
     axiosPrivate.get(`${endpointsV1.movements}?take=${take}&skip=${skip}`)
-    .then((movementsResponse: AxiosResponse) => {
+    .then((movementsResponse: AxiosResponse) => {      
       setMovements({...movements, data: movementsResponse.data})
     })
     .catch(err => {

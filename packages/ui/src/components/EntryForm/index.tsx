@@ -3,8 +3,7 @@ import { date, number, object, string } from 'yup';
 import { endpointsV1 } from '../../environent/api-config';
 import { Loading } from '../../components/LoadingBar';
 import { ErrorPage } from '../Errorpage';
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../context';
+import { useEffect, useState } from 'react';
 import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { HookApiResponse } from '../../types';
@@ -26,7 +25,7 @@ export const EntryForm = () => {
 
     axiosPrivate.get(endpointsV1.movement_type)
     .then((res: AxiosResponse) =>{
-      setMovementTypes({...movementTypes,data: res.data.data})
+      setMovementTypes({...movementTypes,data: res.data})
     })
     .catch((err: AxiosError)=> {
       setMovementTypes({...movementTypes, error: err})
@@ -54,10 +53,10 @@ export const EntryForm = () => {
       };
       
       axiosPrivate.post( endpointsV1.movements, payload)
-      .then(res => {
+      .then(_res => {
         alert('k')
       })
-      .catch(err => {
+      .catch(_err => {
         alert ('err')
       })
       .finally( () => {
@@ -89,7 +88,7 @@ export const EntryForm = () => {
               onBlur={formik.handleBlur}
               value={formik.values.type}
             >
-              {movementTypes.data.map((t: any) => {
+              {movementTypes.data.data.map((t: any) => {
                 return (
                   <option key={t.id} value={t.type}>
                     {t.type}

@@ -1,5 +1,5 @@
 export interface APIresponse {
-    data: unknown | number | undefined;
+    data: any;
     message?: string;
     status: string;//'success' | 'error';
     pagination?: {
@@ -10,6 +10,6 @@ export interface APIresponse {
 }
 
 export interface HookApiResponse {
-    data: APIresponse | null | APIresponse['data'];
-    error: null | unknown
+    data: APIresponse | null;
+    error: Error | null | unknown;
 }
