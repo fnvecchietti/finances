@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createMovementTypeController, searchMovementTypesController } from '../controllers/MovementTypes';
+import { createMovementTypeController, searchMovementTypesController } from '../controllers/movement-types';
 
 
 export const router = Router();

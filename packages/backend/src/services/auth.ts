@@ -1,6 +1,6 @@
 import { CreateUserDTO, LoginUserDTO } from 'auth';
-import { Auth } from '../common/models/Entity/Auth';
-import { User } from '../common/models/Entity/User';
+import { Auth } from '../common/models/Entity/auth';
+import { User } from '../common/models/Entity/user';
 import { PostgresDataSource } from '../common/models/datasource';
 import * as argon2 from 'argon2';
 

@@ -1,13 +1,13 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { useModal } from "../../hooks/useModal";
-import { Loading } from "../LoadingBar";
-import { NumericFormat } from "react-number-format";
-import { endpointsV1 } from "../../environent/api-config";
-import { useAxiosPrivate } from "../../hooks/usePrivateAxios";
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useModal } from '../../hooks/useModal';
+import { Loading } from '../LoadingBar';
+import { NumericFormat } from 'react-number-format';
+import { endpointsV1 } from '../../environent/api-config';
+import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
 
 export interface createStockDTO {
   id?: string;
-  name?:string;
+  name?: string;
   ticker?: string;
   quantity?: number;
   purchase_price?: number;
@@ -15,7 +15,6 @@ export interface createStockDTO {
   purchase_date?: Date;
   currency?: string;
 }
- 
 
 const StockTable = ({
   tableData,
@@ -23,7 +22,7 @@ const StockTable = ({
   take,
   skip,
   setTake,
-  setSkip
+  setSkip,
 }: {
   tableData: any;
   total: number;
@@ -31,42 +30,104 @@ const StockTable = ({
   skip: number;
   setTake: React.Dispatch<React.SetStateAction<number>>;
   setSkip: React.Dispatch<React.SetStateAction<number>>;
-}) =>  {
+}) => {
   const [data, setData] = useState([] as any[]);
   const [cols, setCols] = useState([] as string[]);
   const { ConfirmationModal, open } = useModal();
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
-    const keys = ['ticker', 'name', 'quantity', 'purchase price', 'purchase date', 'current price'];
+    const keys = [
+      'ticker',
+      'name',
+      'quantity',
+      'purchase price',
+      'purchase date',
+      'current price',
+    ];
     setCols(keys);
-    setData(tableData)
+    setData(tableData);
   }, [tableData, total]);
 
   const handleChangeOnPageSize = (e: ChangeEvent<HTMLSelectElement>) => {
     setTake(parseInt(e.target.value));
   };
 
-  const removeStock = (id: string) => {
-    open( ()=> taskToExecuteAfterConfirmation(id) );
+  const trendingUp = () => {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
+        />
+      </svg>
+    );
   };
 
-  const calculateBalance = (quantity:number, purchasePrice:number, currentPrice:number, _:number) => {
-    const result =  (currentPrice - purchasePrice) *  quantity;
-    return <NumericFormat prefix='$' displayType='text' value={result.toFixed(2)} allowLeadingZeros thousandSeparator="," />;
-    
-  }
+  const trendingDown = () => {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181"
+        />
+      </svg>
+    );
+  };
 
- 
+  const removeStock = (id: string) => {
+    open(() => taskToExecuteAfterConfirmation(id));
+  };
+
+  const calculateBalance = (
+    quantity: number,
+    purchasePrice: number,
+    currentPrice: number,
+    _: number,
+  ) => {
+    const result = (currentPrice - purchasePrice) * quantity;
+    const trending = result > 0? trendingUp() : trendingDown()
+    return (
+      <span className='flex items-center justify-center'>
+      {trending}
+      {'\u00A0'}
+      <NumericFormat
+        prefix="$"
+        displayType="text"
+        value={result.toFixed(2)}
+        allowLeadingZeros
+        thousandSeparator=","
+      />
+      </span>
+    );
+  };
   const taskToExecuteAfterConfirmation = (id: string) => {
     return () => {
-      axiosPrivate.delete(`${endpointsV1.stocks}/${id}`)
-      .then(()=> {
-        alert('k')
-      }).catch(()=> {
-        alert('err')
-      })
-    }
+      axiosPrivate
+        .delete(`${endpointsV1.stocks}/${id}`)
+        .then(() => {
+          alert('k');
+        })
+        .catch(() => {
+          alert('err');
+        });
+    };
   };
 
   const nextPage = () => {
@@ -83,45 +144,103 @@ const StockTable = ({
 
   return (
     <>
-        <table className="w-full border-collapse indent-0 shadow-lg mt-5 cursor-pointer">
-          <thead className='shadow-sm rounded-sm bg-blue-gray-50'>
-            <tr>
-              {cols.map((col) => {
-                return (
-                  <th key={col} scope="col" className="pt-5 pb-5 text-sm tracking-wide">
-                    {col}
-                  </th>
-                );
-              })}
-                <th scope="col" className="pt-5 pb-5 text-sm tracking-wide">
-                balance
-              </th>
-              <th scope="col" className="pt-5 pb-5 text-sm tracking-wide">
-                actions
-              </th>
-            </tr>
-          </thead>
-            <tbody>
-              {data.map(({id, name, ticker, quantity, purchase_price, purchase_date, current_price})=> {
-                return (
-                  <tr key={id} className="border">
-                    <td className="p-5 text-sm tracking-wide text-center">{ticker}</td>
-                    <td className="p-5 text-sm tracking-wide text-center hidden sm:table-cell">{name}</td>
-                    <td className="p-5 text-sm tracking-wide text-center">{quantity}</td>
-                    <td className="p-5 text-sm tracking-wide text-center"> <NumericFormat prefix='$' displayType='text' value={purchase_price.toFixed(2)} allowLeadingZeros thousandSeparator="," /></td>
-                    <td className="p-5 text-sm tracking-wide text-center">{purchase_date}</td>
-                    <td className="p-5 text-sm tracking-wide text-center"><NumericFormat prefix='$' displayType='text' value={current_price.toFixed(2)} allowLeadingZeros thousandSeparator="," /></td>
-                    <td className="p-5 text-sm tracking-wide text-center">{calculateBalance(quantity, purchase_price, current_price, 1)}</td>
-                    <td key='actions' className="p-5 text-sm tracking-wide">
-                      <button className='table-button' onClick={()=>removeStock}>Edit</button>
-                      <button className="ml-5 table-button" onClick={()=> removeStock(id)}>Remove</button>
-                    </td>
-                  </tr>
-                )
-              })}
-
-            </tbody>
-        </table>
+      <table className="w-full border-collapse indent-0 shadow-lg mt-5 cursor-pointer">
+        <thead className="shadow-sm rounded-sm bg-white">
+          <tr>
+            {cols.map((col) => {
+              return (
+                <th
+                  key={col}
+                  scope="col"
+                  className="pt-5 pb-5 text-sm tracking-wide"
+                >
+                  {col}
+                </th>
+              );
+            })}
+            <th scope="col" className="pt-5 pb-5 text-sm tracking-wide">
+              balance
+            </th>
+            <th scope="col" className="pt-5 pb-5 text-sm tracking-wide">
+              actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map(
+            ({
+              id,
+              name,
+              ticker,
+              quantity,
+              purchase_price,
+              purchase_date,
+              current_price,
+            }) => {
+              return (
+                <tr key={id} className="border">
+                  <td className="p-5 text-sm tracking-wide text-center">
+                    {ticker}
+                  </td>
+                  <td className="p-5 text-sm tracking-wide text-center hidden sm:table-cell">
+                    {name}
+                  </td>
+                  <td className="p-5 text-sm tracking-wide text-center">
+                    {quantity}
+                  </td>
+                  <td className="p-5 text-sm tracking-wide text-center">
+                    {' '}
+                    <NumericFormat
+                      prefix="$"
+                      displayType="text"
+                      value={purchase_price.toFixed(2)}
+                      allowLeadingZeros
+                      thousandSeparator=","
+                    />
+                  </td>
+                  <td className="p-5 text-sm tracking-wide text-center">
+                    {purchase_date}
+                  </td>
+                  <td className="p-5 text-sm tracking-wide text-center">
+                    <NumericFormat
+                      prefix="$"
+                      displayType="text"
+                      value={current_price.toFixed(2)}
+                      allowLeadingZeros
+                      thousandSeparator=","
+                    />
+                  </td>
+                  <td className="p-5 text-sm tracking-wide text-center">
+                    {calculateBalance(
+                      quantity,
+                      purchase_price,
+                      current_price,
+                      1,
+                    )}
+                  </td>
+                  <td
+                    key="actions"
+                    className="p-5 text-sm tracking-wide text-center"
+                  >
+                    <button
+                      className="table-button"
+                      onClick={() => removeStock}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="ml-5 table-button"
+                      onClick={() => removeStock(id)}
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              );
+            },
+          )}
+        </tbody>
+      </table>
       <div className="flex w-full items-center justify-center mt-5">
         <div className="flex justify-start mr-auto p-2  rounded">
           <span>Total: {total}</span>
@@ -147,9 +266,9 @@ const StockTable = ({
           </button>
         </div>
       </div>
-      <ConfirmationModal taskToExecute={taskToExecuteAfterConfirmation} />
+      <ConfirmationModal/>
     </>
-  )
-}
+  );
+};
 
 export default StockTable;

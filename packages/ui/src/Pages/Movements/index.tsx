@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BasicTable } from '../../components/BasicTable';
+import { MovementsTable } from '../../components/MovementsTable';
 import { ErrorPage } from '../../components/Errorpage';
 import { Loading } from '../../components/LoadingBar';
 import { Searchbar } from '../../components/Searchbar';
@@ -47,7 +47,7 @@ const Movements = () => {
     return (
       <div className="container">
         <Searchbar setFilter={setDescription}/>
-        <BasicTable
+        <MovementsTable
           tableData={movements.data.data}
           total={movements.data.pagination?.total as number}
           setTake={setTake}

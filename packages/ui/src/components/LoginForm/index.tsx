@@ -52,7 +52,7 @@ export const LoginForm = () => {
     return (
       <>
         <form
-          className="max-w-lg shadow-xl rounded-xl px-8 pt-6 pb-8 w-2/4 mt-20"
+          className="max-w-lg shadow-xl rounded-xl px-8 pt-6 pb-8 w-2/4 mt-20 bg-white"
           onSubmit={formik.handleSubmit}
         >
           <div className="mb-4">
@@ -60,7 +60,7 @@ export const LoginForm = () => {
             <input
               id="username"
               name="username"
-              className="flex w-full h-10 p-2 outline-none bg-gray-100 border-solid rounded-lg placeholder-gray-400 placeholder duration-100 ease-in hover:border-black hover:border-2"
+              className="flex w-full h-10 p-2 outline-none bg-white border-solid rounded-lg placeholder-gray-400 placeholder duration-100 ease-in hover:border-black hover:border-2"
               type="text"
               placeholder="username"
               onChange={formik.handleChange}
@@ -76,7 +76,7 @@ export const LoginForm = () => {
             <input
               id="password"
               name="password"
-              className="flex w-full h-10 p-2 outline-none bg-gray-100 border-solid rounded-lg placeholder-gray-400 placeholder duration-100 ease-in hover:border-black hover:border-2"
+              className="flex w-full h-10 p-2 outline-none bg-white border-solid rounded-lg placeholder-gray-400 placeholder duration-100 ease-in hover:border-black hover:border-2"
               type="text"
               placeholder="password"
               onChange={formik.handleChange}

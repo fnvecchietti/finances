@@ -1,5 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Auth } from './Auth';
+import { Auth } from './auth';
 
 @Entity()
 export class Stock extends BaseEntity {

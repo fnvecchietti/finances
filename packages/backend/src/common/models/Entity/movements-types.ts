@@ -1,5 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Movement } from './Movement';
+import { Movement } from './movements';
 
 
 @Entity()

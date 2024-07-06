@@ -4,7 +4,7 @@ import {
   HTTP_STATUS_OK_MESSAGE,
   setResponsePayload,
 } from '../common/utils/response';
-import { MovementType } from '../common/models/Entity/MovementType';
+import { MovementType } from '../common/models/Entity/movements-types';
 import {string} from 'yup';
 
 const movementTypeSchema = string().required().min(3).max(30);

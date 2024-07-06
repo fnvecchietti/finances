@@ -1,6 +1,6 @@
 import cron from 'node-cron'
-import { Stock } from '../models/Entity/Stock'
-import { getCurrentPriceOfStockFromInvertirOnline } from '../../services/ScrappingPrice'
+import { Stock } from '../models/Entity/stocks'
+import { getCurrentPriceOfStockFromInvertirOnline } from '../../services/scrapping-price'
 import { PostgresDataSource } from '../models/datasource'
 
 export const updatePrices = cron.schedule('*/2 * * * *', () => {

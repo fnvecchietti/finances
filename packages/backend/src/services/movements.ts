@@ -1,11 +1,11 @@
 import { IncomeFilterableParams } from 'filters';
 import { CreateMovementDto, MovementItem } from '../types/movement';
-import { Movement } from '../common/models/Entity/Movement';
+import { Movement } from '../common/models/Entity/movements';
 import { PostgresDataSource } from '../common/models/datasource';
 import { Between, ILike } from 'typeorm';
-import { movementSchema, bulkSchema } from '../common/validations/MovementsValidation';
-import { Auth } from '../common/models/Entity/Auth';
-import { MovementType } from '../common/models/Entity/MovementType';
+import { movementSchema, bulkSchema } from '../common/validations/movements';
+import { Auth } from '../common/models/Entity/auth';
+import { MovementType } from '../common/models/Entity/movements-types';
 
 
 export const searchMovementsService = async (filterableParams: IncomeFilterableParams, username?: string) => {

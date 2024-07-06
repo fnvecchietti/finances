@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { MovementType } from './MovementType';
-import { Auth } from './Auth';
+import { MovementType } from './movements-types';
+import { Auth } from './auth';
 
 
 @Entity()

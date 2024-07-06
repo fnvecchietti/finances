@@ -1,6 +1,6 @@
 import { CreateUserDTO, LoginUserDTO } from 'auth';
 import { Request, Response } from 'express';
-import { loginUserService, registerUserService } from '../services/Auth';
+import { loginUserService, registerUserService } from '../services/auth';
 import {
   HTTP_STATUS_OK_MESSAGE,
   setResponsePayload,

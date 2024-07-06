@@ -5,7 +5,7 @@ import {
   deleteStocks,
   getStocks,
   getStocksBalance,
-} from '../controllers/Stocks';
+} from '../controllers/stocks';
 import multer from 'multer';
 import { authenticationMiddleware } from '../middleware/authentication';
 

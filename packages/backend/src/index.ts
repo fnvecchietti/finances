@@ -5,11 +5,12 @@ import bodyParser from 'body-parser';
 import 'reflect-metadata';
 import { PostgresDataSource } from './common/models/datasource';
 
-import { router as movements } from './routes/Movements';
-import { router as movementTypes } from './routes/MovementTypes';
-import { router as stocks } from './routes/Stocks';
-import { router as auth } from './routes/Auth';
+import { router as movements } from './routes/movements';
+import { router as movementTypes } from './routes/movements-types';
+import { router as stocks } from './routes/stocks';
+import { router as auth } from './routes/auth';
 import cookieParser from 'cookie-parser';
+import { updatePrices } from './common/utils/cronjob';
 const SERVER_PORT = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT) : 3000;
 
 const App = Express();
@@ -36,6 +37,9 @@ PostgresDataSource.initialize()
             server_port: SERVER_PORT,
             priceUpdatingFeature: process.env.PRICE_UPDATING_FEATURE
         });
+        if(process.env.PRICE_UPDATING_FEATURE === 'true' ){
+            updatePrices.start();
+        }
     });
 }).catch(console.log);
 

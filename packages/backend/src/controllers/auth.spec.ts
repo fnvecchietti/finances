@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { registerUserController } from '../controllers/Auth';
+import { registerUserController } from './auth';
 
 describe('Testing Auth Controllers', () => {
   it('should register a user successfully when provided with valid data', async () => {

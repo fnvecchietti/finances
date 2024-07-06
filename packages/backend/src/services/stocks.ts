@@ -1,10 +1,10 @@
 import { StockFilterableParams } from 'filters';
-import { Stock } from '../common/models/Entity/Stock';
+import { Stock } from '../common/models/Entity/stocks';
 import { createStockDTO } from 'stocks';
 import { PostgresDataSource } from '../common/models/datasource';
-import { stockSchema } from '../common/validations/StocksValidation';
-import { bulkSchema } from '../common/validations/StocksValidation';
-import { Auth } from '../common/models/Entity/Auth';
+import { stockSchema } from '../common/validations/stocks';
+import { bulkSchema } from '../common/validations/stocks';
+import { Auth } from '../common/models/Entity/auth';
 import { ILike } from 'typeorm';
 
 

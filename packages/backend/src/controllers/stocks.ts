@@ -5,7 +5,7 @@ import {
   getStockBalance,
   saveStocks,
   searchStocks,
-} from '../services/Stocks';
+} from '../services/stocks';
 import { setResponsePayload } from '../common/utils/response';
 import { HTTP_STATUS_OK_MESSAGE } from '../common/utils/response';
 import { createReadStream } from 'fs';

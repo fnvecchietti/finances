@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createBulkMovementsController, createMovementController, deleteMovementController, searchMovementsController } from '../controllers/Movements';
+import { createBulkMovementsController, createMovementController, deleteMovementController, searchMovementsController } from '../controllers/movements';
 import multer from 'multer';
 import { authenticationMiddleware } from '../middleware/authentication';
 

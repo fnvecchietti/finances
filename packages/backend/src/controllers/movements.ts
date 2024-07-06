@@ -5,7 +5,7 @@ import {
   createMovementService,
   deleteMovementService,
   searchMovementsService,
-} from '../services/Movements';
+} from '../services/movements';
 import { createReadStream } from 'fs';
 import { parse } from 'csv-parse';
 import { convertDate, convertToFloat } from '../common/utils/format';
