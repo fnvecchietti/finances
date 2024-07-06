@@ -1,0 +1,509 @@
+{
+  "version": "6.0",
+  "nxVersion": "19.4.1",
+  "deps": {
+    "lerna": "^8.1.3"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": "package-lock.json",
+        "hash": "11879933551355148648"
+      },
+      {
+        "file": "nx.json",
+        "hash": "5386804175439246655"
+      },
+      {
+        "file": "lerna.json",
+        "hash": "9181972093417441089"
+      },
+      {
+        "file": "package.json",
+        "hash": "17870804537590093782"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "11683783768630598139"
+      },
+      {
+        "file": "LICENSE",
+        "hash": "12649885980860800067"
+      }
+    ],
+    "projectFileMap": {
+      "finance": [
+        {
+          "file": "packages/ui/.eslintrc.cjs",
+          "hash": "18224317155734308275"
+        },
+        {
+          "file": "packages/ui/.gitignore",
+          "hash": "13046175384202504187"
+        },
+        {
+          "file": "packages/ui/.prettierrc",
+          "hash": "6356647255427523497"
+        },
+        {
+          "file": "packages/ui/README.md",
+          "hash": "11460966644741158790"
+        },
+        {
+          "file": "packages/ui/eslint.config.js",
+          "hash": "33793779683210717"
+        },
+        {
+          "file": "packages/ui/index.html",
+          "hash": "883551179542049687"
+        },
+        {
+          "file": "packages/ui/package.json",
+          "hash": "8404129871152470042",
+          "deps": [
+            "npm:@eslint/compat",
+            "npm:@types/react",
+            "npm:@types/react-dom",
+            "npm:@vitejs/plugin-react",
+            "npm:autoprefixer",
+            "npm:eslint",
+            "npm:globals",
+            "npm:postcss",
+            "npm:tailwindcss",
+            "npm:typescript",
+            "npm:vite",
+            "npm:@heroicons/react",
+            "npm:@material-tailwind/react",
+            "npm:apexcharts",
+            "npm:axios",
+            "npm:date-fns",
+            "npm:formik",
+            "npm:react",
+            "npm:react-apexcharts",
+            "npm:react-dom",
+            "npm:react-number-format",
+            "npm:react-router-dom",
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "packages/ui/postcss.config.js",
+          "hash": "1121830044826443979"
+        },
+        {
+          "file": "packages/ui/public/vite.svg",
+          "hash": "16046085400642193116"
+        },
+        {
+          "file": "packages/ui/src/Pages/App/index.tsx",
+          "hash": "11315701508579182912"
+        },
+        {
+          "file": "packages/ui/src/Pages/Entry/index.tsx",
+          "hash": "1453901898045332319"
+        },
+        {
+          "file": "packages/ui/src/Pages/Home/index.tsx",
+          "hash": "14329580464199322261"
+        },
+        {
+          "file": "packages/ui/src/Pages/Login/index.tsx",
+          "hash": "3279586209075820091"
+        },
+        {
+          "file": "packages/ui/src/Pages/Movements/index.tsx",
+          "hash": "16783340680420086583"
+        },
+        {
+          "file": "packages/ui/src/Pages/Notfound/index.tsx",
+          "hash": "13457421375045803729"
+        },
+        {
+          "file": "packages/ui/src/Pages/Panel/index.css",
+          "hash": "9737009863872388131"
+        },
+        {
+          "file": "packages/ui/src/Pages/Panel/index.tsx",
+          "hash": "14042337592258194551"
+        },
+        {
+          "file": "packages/ui/src/Pages/Register/index.tsx",
+          "hash": "17785772313706345556"
+        },
+        {
+          "file": "packages/ui/src/Pages/Stocks/index.tsx",
+          "hash": "11376160536982878501"
+        },
+        {
+          "file": "packages/ui/src/api/axios.ts",
+          "hash": "5839062294221895951"
+        },
+        {
+          "file": "packages/ui/src/components/AlertNotification/index.tsx",
+          "hash": "2965264240363045054"
+        },
+        {
+          "file": "packages/ui/src/components/BasicBarChart/index.tsx",
+          "hash": "753507722912377983"
+        },
+        {
+          "file": "packages/ui/src/components/ConfirmationModal/index.tsx",
+          "hash": "15364701896126757415"
+        },
+        {
+          "file": "packages/ui/src/components/DateInRange/index.tsx",
+          "hash": "113556722108567616"
+        },
+        {
+          "file": "packages/ui/src/components/EntryForm/index.tsx",
+          "hash": "12168455836736255972"
+        },
+        {
+          "file": "packages/ui/src/components/Errorpage/index.tsx",
+          "hash": "16039630803202337151"
+        },
+        {
+          "file": "packages/ui/src/components/Layout/index.tsx",
+          "hash": "6691304099061566474"
+        },
+        {
+          "file": "packages/ui/src/components/LoadingBar/index.css",
+          "hash": "10820716992332439432"
+        },
+        {
+          "file": "packages/ui/src/components/LoadingBar/index.tsx",
+          "hash": "16161701217457768166"
+        },
+        {
+          "file": "packages/ui/src/components/LoginForm/index.tsx",
+          "hash": "18278541370441135668"
+        },
+        {
+          "file": "packages/ui/src/components/MovementsTable/index.css",
+          "hash": "6108126686077708504"
+        },
+        {
+          "file": "packages/ui/src/components/MovementsTable/index.tsx",
+          "hash": "1154108003292960664"
+        },
+        {
+          "file": "packages/ui/src/components/Navbar/index.css",
+          "hash": "12088933384969234724"
+        },
+        {
+          "file": "packages/ui/src/components/Navbar/index.tsx",
+          "hash": "16607631727689999820"
+        },
+        {
+          "file": "packages/ui/src/components/PrivateRoute/index.tsx",
+          "hash": "13149307548421148671"
+        },
+        {
+          "file": "packages/ui/src/components/RegisterForm/index.tsx",
+          "hash": "12659151361417237229"
+        },
+        {
+          "file": "packages/ui/src/components/Searchbar/index.tsx",
+          "hash": "737681428752536400"
+        },
+        {
+          "file": "packages/ui/src/components/StockForm/index.tsx",
+          "hash": "7630162476417152764"
+        },
+        {
+          "file": "packages/ui/src/components/StocksTable/index.tsx",
+          "hash": "8081578099130276703"
+        },
+        {
+          "file": "packages/ui/src/context/index.tsx",
+          "hash": "2597310478268774183"
+        },
+        {
+          "file": "packages/ui/src/environent/api-config.ts",
+          "hash": "1210402563680097960"
+        },
+        {
+          "file": "packages/ui/src/hooks/useAuth.ts",
+          "hash": "9779907801607144274"
+        },
+        {
+          "file": "packages/ui/src/hooks/useDebounce.ts",
+          "hash": "1785729288560929785"
+        },
+        {
+          "file": "packages/ui/src/hooks/useModal.tsx",
+          "hash": "17383089625529075500"
+        },
+        {
+          "file": "packages/ui/src/hooks/useNotifications.ts",
+          "hash": "4762184619270134293"
+        },
+        {
+          "file": "packages/ui/src/hooks/usePrivateAxios.ts",
+          "hash": "7905429224902253309"
+        },
+        {
+          "file": "packages/ui/src/index.css",
+          "hash": "2210162498178522323"
+        },
+        {
+          "file": "packages/ui/src/main.tsx",
+          "hash": "14694326196988658434"
+        },
+        {
+          "file": "packages/ui/src/router/index.tsx",
+          "hash": "14207500343249088320"
+        },
+        {
+          "file": "packages/ui/src/types/index.ts",
+          "hash": "15503787476425793346"
+        },
+        {
+          "file": "packages/ui/src/vite-env.d.ts",
+          "hash": "12946363841406869089"
+        },
+        {
+          "file": "packages/ui/tailwind.config.js",
+          "hash": "11372601803053355157"
+        },
+        {
+          "file": "packages/ui/tsconfig.json",
+          "hash": "14032556756270793734"
+        },
+        {
+          "file": "packages/ui/tsconfig.node.json",
+          "hash": "4208030242441905014"
+        },
+        {
+          "file": "packages/ui/vite.config.ts",
+          "hash": "7008402861428644331"
+        }
+      ],
+      "finance-backend": [
+        {
+          "file": "packages/backend/.gitignore",
+          "hash": "2056568405081201307"
+        },
+        {
+          "file": "packages/backend/.prettierrc",
+          "hash": "4233256289226873895"
+        },
+        {
+          "file": "packages/backend/eslint.config.mjs",
+          "hash": "15484313856336309160"
+        },
+        {
+          "file": "packages/backend/infra/docker-compose.yaml",
+          "hash": "9955731676703905225"
+        },
+        {
+          "file": "packages/backend/jest.config.js",
+          "hash": "1243398322521086409"
+        },
+        {
+          "file": "packages/backend/package-lock.json",
+          "hash": "3670681471388114290"
+        },
+        {
+          "file": "packages/backend/package.json",
+          "hash": "3209676481632003439",
+          "deps": [
+            "npm:@eslint/js",
+            "npm:@jest/globals",
+            "npm:@types/cookie-parser",
+            "npm:@types/cors",
+            "npm:@types/express",
+            "npm:@types/jest",
+            "npm:@types/jsonwebtoken",
+            "npm:@types/multer",
+            "npm:@types/node",
+            "npm:@types/node-cron",
+            "npm:@types/yup",
+            "npm:eslint",
+            "npm:express",
+            "npm:globals",
+            "npm:jest",
+            "npm:nodemon",
+            "npm:ts-jest",
+            "npm:ts-node",
+            "npm:typescript",
+            "npm:typescript-eslint",
+            "npm:argon2",
+            "npm:axios",
+            "npm:body-parser",
+            "npm:cheerio",
+            "npm:cookie-parser",
+            "npm:cors",
+            "npm:csv-parse",
+            "npm:dayjs",
+            "npm:jsonwebtoken",
+            "npm:multer",
+            "npm:node-cron",
+            "npm:pg",
+            "npm:reflect-metadata",
+            "npm:typeorm",
+            "npm:yup"
+          ]
+        },
+        {
+          "file": "packages/backend/rest/auth.rest",
+          "hash": "7126740200458946245"
+        },
+        {
+          "file": "packages/backend/rest/movements.rest",
+          "hash": "11045104065882707989"
+        },
+        {
+          "file": "packages/backend/rest/uploadcommand.txt",
+          "hash": "13560004927516430070"
+        },
+        {
+          "file": "packages/backend/src/common/models/Entity/auth.ts",
+          "hash": "3400647836595996188"
+        },
+        {
+          "file": "packages/backend/src/common/models/Entity/movements-types.ts",
+          "hash": "1083733827573716726"
+        },
+        {
+          "file": "packages/backend/src/common/models/Entity/movements.ts",
+          "hash": "14598606186141074041"
+        },
+        {
+          "file": "packages/backend/src/common/models/Entity/stocks.ts",
+          "hash": "6026258348752635278"
+        },
+        {
+          "file": "packages/backend/src/common/models/Entity/user.ts",
+          "hash": "9302468281136228604"
+        },
+        {
+          "file": "packages/backend/src/common/models/datasource.ts",
+          "hash": "14595923105242930095"
+        },
+        {
+          "file": "packages/backend/src/common/utils/cronjob.ts",
+          "hash": "3480224203460977067"
+        },
+        {
+          "file": "packages/backend/src/common/utils/format.ts",
+          "hash": "5747749553912463027"
+        },
+        {
+          "file": "packages/backend/src/common/utils/jwt-utilts.ts",
+          "hash": "5804470506341887573"
+        },
+        {
+          "file": "packages/backend/src/common/utils/pagination.ts",
+          "hash": "14012772491783181207"
+        },
+        {
+          "file": "packages/backend/src/common/utils/response.ts",
+          "hash": "18295538839035905299"
+        },
+        {
+          "file": "packages/backend/src/common/validations/movements.ts",
+          "hash": "14163697810343473828"
+        },
+        {
+          "file": "packages/backend/src/common/validations/stocks.ts",
+          "hash": "10692479499927635458"
+        },
+        {
+          "file": "packages/backend/src/controllers/auth.spec.ts",
+          "hash": "11923553911387272740"
+        },
+        {
+          "file": "packages/backend/src/controllers/auth.ts",
+          "hash": "17329674538399611800"
+        },
+        {
+          "file": "packages/backend/src/controllers/movement-types.ts",
+          "hash": "10434175560235167436"
+        },
+        {
+          "file": "packages/backend/src/controllers/movements.ts",
+          "hash": "9151560021027815840"
+        },
+        {
+          "file": "packages/backend/src/controllers/stocks.ts",
+          "hash": "5132239056893842505"
+        },
+        {
+          "file": "packages/backend/src/index.ts",
+          "hash": "3261828377518021736"
+        },
+        {
+          "file": "packages/backend/src/middleware/authentication.ts",
+          "hash": "6671031178652273478"
+        },
+        {
+          "file": "packages/backend/src/routes/auth.ts",
+          "hash": "8881269929581402680"
+        },
+        {
+          "file": "packages/backend/src/routes/movements-types.ts",
+          "hash": "5295185655999314229"
+        },
+        {
+          "file": "packages/backend/src/routes/movements.ts",
+          "hash": "10362436030846064482"
+        },
+        {
+          "file": "packages/backend/src/routes/stocks.ts",
+          "hash": "14965451816646924925"
+        },
+        {
+          "file": "packages/backend/src/routes/users.ts",
+          "hash": "9107894564699611538"
+        },
+        {
+          "file": "packages/backend/src/services/auth.ts",
+          "hash": "12554744338099348392"
+        },
+        {
+          "file": "packages/backend/src/services/movements.ts",
+          "hash": "18295872400668852666"
+        },
+        {
+          "file": "packages/backend/src/services/scrapping-price.ts",
+          "hash": "8617356917227937202"
+        },
+        {
+          "file": "packages/backend/src/services/stocks.ts",
+          "hash": "1343044345378043670"
+        },
+        {
+          "file": "packages/backend/src/types/api-response.ts",
+          "hash": "12896158959268020957"
+        },
+        {
+          "file": "packages/backend/src/types/auth.ts",
+          "hash": "11213513666744252173"
+        },
+        {
+          "file": "packages/backend/src/types/filters.ts",
+          "hash": "1804082365259283812"
+        },
+        {
+          "file": "packages/backend/src/types/movement.ts",
+          "hash": "8071076673017326021"
+        },
+        {
+          "file": "packages/backend/src/types/pagination.ts",
+          "hash": "10618413807864902701"
+        },
+        {
+          "file": "packages/backend/src/types/stocks.ts",
+          "hash": "15966852071646101855"
+        },
+        {
+          "file": "packages/backend/tsconfig.json",
+          "hash": "10337447189495486872"
+        }
+      ]
+    }
+  }
+}
