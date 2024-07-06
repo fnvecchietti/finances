@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
   bulkStocks,
   createStocks,
+  deleteStocks,
   getStocks,
   getStocksBalance,
 } from '../controllers/Stocks';
@@ -24,3 +25,5 @@ router.post(
 );
 
 router.post('/stocks', authenticationMiddleware, createStocks);
+
+router.delete('/stocks/:id',authenticationMiddleware, deleteStocks);

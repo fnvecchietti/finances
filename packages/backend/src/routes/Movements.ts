@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createBulkMovementsController, createMovementController, searchMovementsController } from '../controllers/Movements';
+import { createBulkMovementsController, createMovementController, deleteMovementController, searchMovementsController } from '../controllers/Movements';
 import multer from 'multer';
 import { authenticationMiddleware } from '../middleware/authentication';
 
@@ -15,3 +15,5 @@ router.post('/movements/bulk',upload.single('file'),authenticationMiddleware, cr
 router.get('/movements',authenticationMiddleware, searchMovementsController);
 
 router.post('/movements',authenticationMiddleware, createMovementController);
+
+router.delete('/movements/:id',authenticationMiddleware, deleteMovementController);

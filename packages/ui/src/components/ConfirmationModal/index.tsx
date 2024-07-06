@@ -1,5 +1,5 @@
 export const BasicConfirmModal = ({
-    visible,
+  visible,
   cancel,
   confirm,
 }: {

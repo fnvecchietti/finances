@@ -2,6 +2,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useModal } from "../../hooks/useModal";
 import { Loading } from "../LoadingBar";
 import { NumericFormat } from "react-number-format";
+import { endpointsV1 } from "../../environent/api-config";
+import { useAxiosPrivate } from "../../hooks/usePrivateAxios";
 
 export interface createStockDTO {
   id?: string;
@@ -14,8 +16,6 @@ export interface createStockDTO {
   currency?: string;
 }
  
-
-
 
 const StockTable = ({
   tableData,
@@ -35,6 +35,7 @@ const StockTable = ({
   const [data, setData] = useState([] as any[]);
   const [cols, setCols] = useState([] as string[]);
   const { ConfirmationModal, open } = useModal();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     const keys = ['ticker', 'name', 'quantity', 'purchase price', 'purchase date', 'current price'];
@@ -46,8 +47,8 @@ const StockTable = ({
     setTake(parseInt(e.target.value));
   };
 
-  const removeMoment = () => {
-    open();
+  const removeStock = (id: string) => {
+    open( ()=> taskToExecuteAfterConfirmation(id) );
   };
 
   const calculateBalance = (quantity:number, purchasePrice:number, currentPrice:number, _:number) => {
@@ -56,8 +57,16 @@ const StockTable = ({
     
   }
 
-  const taskToExecuteAfterConfirmation = () => {
-    console.log('some accion')
+ 
+  const taskToExecuteAfterConfirmation = (id: string) => {
+    return () => {
+      axiosPrivate.delete(`${endpointsV1.stocks}/${id}`)
+      .then(()=> {
+        alert('k')
+      }).catch(()=> {
+        alert('err')
+      })
+    }
   };
 
   const nextPage = () => {
@@ -104,8 +113,8 @@ const StockTable = ({
                     <td className="p-5 text-sm tracking-wide text-center"><NumericFormat prefix='$' displayType='text' value={current_price.toFixed(2)} allowLeadingZeros thousandSeparator="," /></td>
                     <td className="p-5 text-sm tracking-wide text-center">{calculateBalance(quantity, purchase_price, current_price, 1)}</td>
                     <td key='actions' className="p-5 text-sm tracking-wide">
-                      <button className='table-button' onClick={removeMoment}>Edit</button>
-                      <button className="ml-5 table-button" onClick={removeMoment}>Remove</button>
+                      <button className='table-button' onClick={()=>removeStock}>Edit</button>
+                      <button className="ml-5 table-button" onClick={()=> removeStock(id)}>Remove</button>
                     </td>
                   </tr>
                 )

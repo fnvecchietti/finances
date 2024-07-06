@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
-import {
-  setResponsePayload,
-} from '../common/utils/response';
+import { setResponsePayload } from '../common/utils/response';
 import {
   createBulkMovementsService,
   createMovementService,
+  deleteMovementService,
   searchMovementsService,
 } from '../services/Movements';
 import { createReadStream } from 'fs';
@@ -55,6 +54,20 @@ export const createMovementController = async (req: Request, res: Response) => {
 
     const response = setResponsePayload({ data: result, status: 'success' });
     console.timeEnd('createMovementController');
+    return res.status(200).send(response);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+};
+
+export const deleteMovementController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const token = decodeToken(getTokenFromReq(req));
+    const result = await deleteMovementService(id, token.username);
+    const response = setResponsePayload({ data: result, status: 'success' });
+
     return res.status(200).send(response);
   } catch (error) {
     console.error(error);

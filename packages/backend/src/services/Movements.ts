@@ -73,3 +73,11 @@ export const createBulkMovementsService = async (bulkMovements: CreateMovementDt
     }
     
 };
+
+export const deleteMovementService = async (id: string, username:string) => {
+    const movement = await Movement.findOneOrFail({where:{id}, relations: {createdBy: true}});
+    if(movement.createdBy.username === username){
+        return await Movement.delete({id:movement.id});
+    }
+    throw new Error('not authorized');
+};

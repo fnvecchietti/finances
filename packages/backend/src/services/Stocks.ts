@@ -63,6 +63,14 @@ export const getStockBalance = async () => {
   return balance.toFixed(2);
 };
 
+export const deleteStockService = async (id: string, username: string) => {
+  const stock = await Stock.findOneOrFail({where:{id}, relations: {createdBy: true}});
+  if(stock.createdBy.username === username){
+      return await Stock.delete({id:stock.id});
+  }
+  throw new Error('not authorized');
+};
+
 export const bulkSaveStocks = async (stocks: createStockDTO[]) => {
   const queryRunner = PostgresDataSource.createQueryRunner();
   try {

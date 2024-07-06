@@ -3,26 +3,24 @@ import { BasicConfirmModal } from '../components/ConfirmationModal';
 
 export const useModal = () => {
   const [isOpen, toggle] = useState(false);
+  const [fn, setFn] = useState<Function>();
 
   const cancel = () => {
     toggle(!isOpen);
   };
 
-  const confirm = (tsk: Function) => {
+  const confirm = () => {
     toggle(!isOpen);
-    tsk();
+    if(fn) fn();
   };
 
-  const open = () => {
+  const open = (fnToExecute: Function) => {
     toggle(!isOpen);
+    setFn(fnToExecute)
   };
 
-  const ConfirmationModal = ({
-    taskToExecute,
-  }: {
-    taskToExecute: Function;
-  }) => {
-    return <BasicConfirmModal visible={isOpen} cancel={cancel} confirm={() => confirm(taskToExecute)} />;
+  const ConfirmationModal = () => {
+    return <BasicConfirmModal visible={isOpen} cancel={cancel} confirm={confirm} />;
   };
 
   return {

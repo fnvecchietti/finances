@@ -4,6 +4,8 @@ import { Loading } from '../LoadingBar';
 import './index.css';
 import { useModal } from '../../hooks/useModal';
 import { NumericFormat } from 'react-number-format';
+import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
+import { endpointsV1 } from '../../environent/api-config';
 
 interface MovementItem {
   id: string;
@@ -33,6 +35,7 @@ export const BasicTable = ({
   const [data, setData] = useState([] as any[]);
   const [cols, setCols] = useState([] as string[]);
   const { filter } = useContext(FinancesContext);
+  const axiosPrivate = useAxiosPrivate();
   const { ConfirmationModal, open } = useModal();
 
   useEffect(() => {
@@ -50,16 +53,23 @@ export const BasicTable = ({
     }
   }, [tableData, total, filter]);
 
+
+  const taskToExecuteAfterConfirmation = (id: string) => {
+    return () => {
+      axiosPrivate.delete(`${endpointsV1.movements}/${id}`)
+      .then(()=> {
+        alert('k')
+      }).catch(()=> {
+        alert('err')
+      })
+    }
+  };
+  const removeMoment = (id: string) => {
+    open( ()=> taskToExecuteAfterConfirmation(id) );
+  };
+
   const handleChangeOnPageSize = (e: ChangeEvent<HTMLSelectElement>) => {
     setTake(parseInt(e.target.value));
-  };
-
-  const removeMoment = () => {
-    open();
-  };
-
-  const taskToExecuteAfterConfirmation = () => {
-    console.log('some accion')
   };
 
   const nextPage = () => {
@@ -102,8 +112,8 @@ export const BasicTable = ({
                     <td className="p-5 text-sm tracking-wide text-center">{date}</td>
                     <td className="p-5 text-sm tracking-wide text-center">{description}</td>
                     <td key='actions' className="p-5 text-sm tracking-wide text-center">
-                      <button className='table-button' onClick={removeMoment}>Edit</button>
-                      <button className="ml-5 table-button" onClick={removeMoment}>Remove</button>
+                      <button className='table-button' onClick={() => removeMoment}>Edit</button>
+                      <button className="ml-5 table-button" onClick={() => removeMoment(id)}>Remove</button>
                     </td>
                   </tr>
                 )
@@ -136,7 +146,7 @@ export const BasicTable = ({
           </button>
         </div>
       </div>
-      <ConfirmationModal taskToExecute={taskToExecuteAfterConfirmation} />
+      <ConfirmationModal/>
     </>
   );
 };

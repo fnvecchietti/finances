@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import {
   bulkSaveStocks,
+  deleteStockService,
   getStockBalance,
   saveStocks,
   searchStocks,
@@ -75,6 +76,20 @@ export const createStocks = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteStocks = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const token = decodeToken(getTokenFromReq(req));
+    const result = await deleteStockService(id, token.username);
+    const response = setResponsePayload({ data: result, status: 'success' });
+
+    return res.status(200).send(response);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+};
+
 // export const editStocks = async (req: Request, res: Response) => {
 //   try {
 //   } catch (error) {}
@@ -86,12 +101,14 @@ export const createStocks = async (req: Request, res: Response) => {
 // };
 
 export const bulkStocks = async (req: Request, res: Response) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const preInsert: any[] = [];
   const filePath = req.file.path;
   const prevalidatedObject: StockItem[] = [];
 
   createReadStream(filePath)
     .pipe(parse())
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .on('data', (data: any) => {
       preInsert.push(data);
     })
