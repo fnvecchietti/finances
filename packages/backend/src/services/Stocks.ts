@@ -5,15 +5,17 @@ import { PostgresDataSource } from '../common/models/datasource';
 import { stockSchema } from '../common/validations/StocksValidation';
 import { bulkSchema } from '../common/validations/StocksValidation';
 import { Auth } from '../common/models/Entity/Auth';
+import { ILike } from 'typeorm';
 
 
 
 
 export const searchStocks = async (filterableParams: StockFilterableParams, username? :string) => {
+  const name = filterableParams.name.length > 0? ILike(`%${filterableParams.name}%`) : null;
   return await Stock.findAndCount({
     where: {
       id: filterableParams.id,
-      name: filterableParams.name,
+      name: name,
       ticker: filterableParams.ticker,
       quantity: filterableParams.quantity,
       purchase_price: filterableParams.purchase_price,
