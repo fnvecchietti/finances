@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon ./src/index.ts",
     "build": "tsc",
-    "test": "jest --silent"
+    "test": "jest --silent",
+    "lint": "eslint"
   },
   "keywords": [],
   "author": "",

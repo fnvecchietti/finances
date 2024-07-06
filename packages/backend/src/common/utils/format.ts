@@ -1,6 +1,8 @@
-import dayjs from "dayjs";
-const customParseFormat = require('dayjs/plugin/customParseFormat')
-dayjs.extend(customParseFormat)
+import dayjs from 'dayjs';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const customParseFormat = require('dayjs/plugin/customParseFormat');
+dayjs.extend(customParseFormat);
 
 export const convertToFloat = (input: string): number => {
     let cleanedString = input.replace(/[$.]/g, '');
@@ -15,13 +17,9 @@ export const convertToFloat = (input: string): number => {
     }
     
     return result;
-}
+};
 
 export const convertDate = (input:string, inputFormat: string) : Date => {
-    const result = dayjs(input,inputFormat)
+    const result = dayjs(input,inputFormat);
     return result.toDate();
-}
-
-export const formatDateToDatabase = (input: string) => {
-    
-}
+};
