@@ -3,9 +3,11 @@ import { date, number, object, string } from 'yup';
 import { endpointsV1 } from '../../environent/api-config';
 import { Loading } from '../../components/LoadingBar';
 import { ErrorPage } from '../Errorpage';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context';
-import { simlpeAxiosFetch } from '../../hooks/useAxios';
+import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
+import { AxiosError, AxiosResponse } from 'axios';
+import { HookApiResponse } from '../../types';
 
 const entryFormValidationSchema = object({
   amount: number().required('Required'),
@@ -15,13 +17,25 @@ const entryFormValidationSchema = object({
 });
 
 export const EntryForm = () => {
-  const { useAxios, setTokenWithStorage } = useContext(AuthContext);
+  const axiosPrivate = useAxiosPrivate();
 
-  const { response, error, loading, setLoading } = useAxios({
-    url: endpointsV1.movement_type,
-    method: 'get',
-    body: null,
-  });
+  const [movementTypes, setMovementTypes] = useState<HookApiResponse>({data: null, error: null});
+  const [loading, setLoading] = useState(true)
+  
+   useEffect(()=> {
+
+    axiosPrivate.get(endpointsV1.movement_type)
+    .then((res: AxiosResponse) =>{
+      setMovementTypes({...movementTypes,data: res.data.data})
+    })
+    .catch((err: AxiosError)=> {
+      setMovementTypes({...movementTypes, error: err})
+    })
+    .finally(()=> {
+      setLoading(false)
+    });
+
+  },[])
 
   const formik = useFormik({
     initialValues: {
@@ -39,8 +53,7 @@ export const EntryForm = () => {
         date: new Date(values.date),
       };
       
-      simlpeAxiosFetch(setTokenWithStorage)
-      .post( endpointsV1.movements, payload)
+      axiosPrivate.post( endpointsV1.movements, payload)
       .then(res => {
         alert('k')
       })
@@ -54,11 +67,12 @@ export const EntryForm = () => {
     },
   });
 
-  if (error) return <ErrorPage />;
-
   if (loading) return <Loading />;
 
-  if (!loading && response)
+  if (movementTypes.error) return <ErrorPage />;
+
+
+  if (movementTypes.data)
     return (
       <>
         <form
@@ -75,7 +89,7 @@ export const EntryForm = () => {
               onBlur={formik.handleBlur}
               value={formik.values.type}
             >
-              {response.data.map((t: any) => {
+              {movementTypes.data.map((t: any) => {
                 return (
                   <option key={t.id} value={t.type}>
                     {t.type}

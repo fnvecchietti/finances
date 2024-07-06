@@ -1,5 +1,4 @@
-import { createContext, useContext, useState } from 'react';
-import { useAxios } from '../hooks/useAxios';
+import { createContext, useState } from 'react';
 
 
 export const FinancesContext = createContext<any>({})
@@ -43,16 +42,9 @@ export const AuthProvider = ({children} : {children: React.ReactElement}) => {
     return (
         <AuthContext.Provider value={{
             token,
-            setToken,
             setTokenWithStorage,
-            useAxios
         }}>
             {children}
         </AuthContext.Provider>
     )
-}
-
-
-export const useAuth = () => {
-    return useContext(AuthContext)
 }

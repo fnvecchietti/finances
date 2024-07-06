@@ -49,7 +49,7 @@ export const getStocksBalance = async (req: Request, res: Response) => {
       message: HTTP_STATUS_OK_MESSAGE,
     });
     console.timeEnd('getStocksBalance');
-    return response;
+    return res.status(200).send(response);
   } catch (error) {
     console.error(error);
     res.status(400).send();
@@ -64,8 +64,8 @@ export const createStocks = async (req: Request, res: Response) => {
     const result = await saveStocks(stock, token.username);
 
     const response = setResponsePayload({
-      data:result,
-      message: HTTP_STATUS_OK_MESSAGE
+      data: result,
+      message: HTTP_STATUS_OK_MESSAGE,
     });
 
     return res.status(200).send(response);
@@ -115,7 +115,7 @@ export const bulkStocks = async (req: Request, res: Response) => {
           if (headers[x] === 'purchase_date') {
             row[headers[x]] = convertDate(
               preInsert[index][x].trim(),
-              'DD/MM/YYYY'
+              'DD/MM/YYYY',
             );
           }
 

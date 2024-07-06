@@ -1,6 +1,5 @@
 export interface APIresponse {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: any;
+    data: unknown | number | undefined;
     message?: string;
     status: string;//'success' | 'error';
     pagination?: {
@@ -8,4 +7,9 @@ export interface APIresponse {
         skip?: number;
         take?: number;
     }
+}
+
+export interface HookApiResponse {
+    data: APIresponse | null | APIresponse['data'];
+    error: null | unknown
 }

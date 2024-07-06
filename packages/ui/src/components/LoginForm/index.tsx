@@ -1,10 +1,9 @@
 import { useFormik } from 'formik';
 import {  object, string, } from 'yup';
 import { endpointsV1 } from '../../environent/api-config';
-import axios from 'axios';
-import { AuthContext } from '../../context';
-import { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
+import axios from '../../api/axios';
 
 
 const registerFormValidation = object({
@@ -13,7 +12,7 @@ const registerFormValidation = object({
 });
 
 export const LoginForm = () => {
-  const {setToken} = useContext(AuthContext);
+  const {setTokenWithStorage} = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -30,8 +29,7 @@ export const LoginForm = () => {
        axios
          .post(endpointsV1.login, body)
          .then((res) => {
-          localStorage.setItem('token', res.data.data)
-          setToken(res.data.data)
+          setTokenWithStorage(res.data.data)
           if( location.state && 'from' in location.state) {
             navigate(location.state.from);
           } else {
