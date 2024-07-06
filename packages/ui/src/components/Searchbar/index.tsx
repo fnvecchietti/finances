@@ -1,8 +1,5 @@
-import { useContext } from 'react';
-import { FinancesContext } from '../../context';
 
-export const Searchbar = () => {
-  const { setFilter } = useContext(FinancesContext);
+export const Searchbar = ({setFilter}: {setFilter: React.SetStateAction<any>}) => {
   return (
     <search className="flex w-full justify-center min-h-10">
       <input

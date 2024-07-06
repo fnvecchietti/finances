@@ -7,42 +7,55 @@ import { endpointsV1 } from '../../environent/api-config';
 import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
 import { HookApiResponse } from '../../types';
 import { AxiosResponse } from 'axios';
+import { useDebounce } from '../../hooks/useDebounce';
 
 const Movements = () => {
-  const [movements, setMovements] = useState<HookApiResponse>({data: null, error: null});
+  const [movements, setMovements] = useState<HookApiResponse>({
+    data: null,
+    error: null,
+  });
   const [loading, setLoading] = useState(true);
   const axiosPrivate = useAxiosPrivate();
   const [take, setTake] = useState(10);
   const [skip, setSkip] = useState(0);
+  const [description, setDescription] = useState('')
+  const debounce = useDebounce(description, 500);
 
-    useEffect(()=> {
-    axiosPrivate.get(`${endpointsV1.movements}?take=${take}&skip=${skip}`)
-    .then((movementsResponse: AxiosResponse) => {      
-      setMovements({...movements, data: movementsResponse.data})
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    .finally(()=> {
-      setLoading(false)
-    })
-  }, [take,skip])
+  const getMovements = () => {
+    axiosPrivate
+      .get(`${endpointsV1.movements}?take=${take}&skip=${skip}&description=${description}`)
+      .then((movementsResponse: AxiosResponse) => {
+        setMovements({ ...movements, data: movementsResponse.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-
-
+  useEffect(() => {
+    getMovements();
+  }, [take, skip, debounce]);
 
   if (loading) return <Loading />;
 
   if (movements.error) return <ErrorPage />;
 
   if (movements.data) {
-
     return (
-      <div className='container'>
-        <Searchbar />
-        <BasicTable tableData={movements.data.data} total={movements.data.pagination?.total as number} setTake={setTake} setSkip={setSkip} take={take} skip={skip}/>
+      <div className="container">
+        <Searchbar setFilter={setDescription}/>
+        <BasicTable
+          tableData={movements.data.data}
+          total={movements.data.pagination?.total as number}
+          setTake={setTake}
+          setSkip={setSkip}
+          take={take}
+          skip={skip}
+        />
       </div>
-      
     );
   }
 };

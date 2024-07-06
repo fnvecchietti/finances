@@ -71,6 +71,7 @@ export const createBulkMovementsController = async (
   res: Response,
 ) => {
   console.time('createBulkMovementsController');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const preInsert: any[] = [];
   const filePath = req.file.path;
   const prevalidatedObject: MovementItem[] = [];
@@ -79,6 +80,7 @@ export const createBulkMovementsController = async (
 
   createReadStream(filePath)
     .pipe(parse())
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .on('data', (data: any) => {
       preInsert.push(data);
     })

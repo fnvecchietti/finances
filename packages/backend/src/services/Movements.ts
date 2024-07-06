@@ -2,7 +2,7 @@ import { IncomeFilterableParams } from 'filters';
 import { CreateMovementDto, MovementItem } from '../types/movement';
 import { Movement } from '../common/models/Entity/Movement';
 import { PostgresDataSource } from '../common/models/datasource';
-import { Between } from 'typeorm';
+import { Between, Like } from 'typeorm';
 import { movementSchema, bulkSchema } from '../common/validations/MovementsValidation';
 import { Auth } from '../common/models/Entity/Auth';
 import { MovementType } from '../common/models/Entity/MovementType';
@@ -10,11 +10,12 @@ import { MovementType } from '../common/models/Entity/MovementType';
 
 export const searchMovementsService = async (filterableParams: IncomeFilterableParams, username?: string) => {
     const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null;
-    console.log('for username', username);
+    const descript = filterableParams.description.length > 0? Like(`%${filterableParams.description}%`) : null;
     
-    return await Movement.findAndCount({
+    
+        return await Movement.findAndCount({
         where: {
-            description: filterableParams.description,
+            description: descript,
             date: range,
             amount: filterableParams.amount,
             movementType: {type: filterableParams.type},
