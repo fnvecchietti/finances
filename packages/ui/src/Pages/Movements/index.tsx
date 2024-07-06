@@ -20,10 +20,11 @@ const Movements = () => {
   const [skip, setSkip] = useState(0);
   const [description, setDescription] = useState('')
   const debounce = useDebounce(description, 500);
+  const controller = new AbortController();
 
   const getMovements = () => {
     axiosPrivate
-      .get(`${endpointsV1.movements}?take=${take}&skip=${skip}&description=${description}`)
+      .get(`${endpointsV1.movements}?take=${take}&skip=${skip}&description=${description}`, {signal: controller.signal})
       .then((movementsResponse: AxiosResponse) => {
         setMovements({ ...movements, data: movementsResponse.data });
       })

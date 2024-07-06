@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { HookApiResponse } from '../../types';
+import { useNotification } from '../../hooks/useNotifications';
 
 const entryFormValidationSchema = object({
   amount: number().required('Required'),
@@ -17,7 +18,7 @@ const entryFormValidationSchema = object({
 
 export const EntryForm = () => {
   const axiosPrivate = useAxiosPrivate();
-
+  const {addNotification} = useNotification();
   const [movementTypes, setMovementTypes] = useState<HookApiResponse>({data: null, error: null});
   const [loading, setLoading] = useState(true)
   
@@ -54,7 +55,7 @@ export const EntryForm = () => {
       
       axiosPrivate.post( endpointsV1.movements, payload)
       .then(_res => {
-        alert('k')
+        addNotification(`Added new movement type of ${payload.type}`, 'success', 30000)
       })
       .catch(_err => {
         alert ('err')

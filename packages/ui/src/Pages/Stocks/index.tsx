@@ -17,14 +17,15 @@ const Stocks = () => {
     const [name, setName] = useState('')
     const axiosPrivate = useAxiosPrivate();
     const debounce = useDebounce(name, 500);
+    const controller = new AbortController();
 
     const [take, setTake] = useState(10);
     const [skip, setSkip] = useState(0);
 
     const getStocks = () => {
       Promise.all([
-        axiosPrivate.get(`${endpointsV1.stocks}?take=${take}&skip=${skip}&name=${name}`),
-        axiosPrivate.get(`${endpointsV1.stocks}/balance`)
+        axiosPrivate.get(`${endpointsV1.stocks}?take=${take}&skip=${skip}&name=${name}`, {signal: controller.signal}),
+        axiosPrivate.get(`${endpointsV1.stocks}/balance`,  {signal: controller.signal})
       ])
       .then(([stocksResponse, balanceRsponse]: [AxiosResponse, AxiosResponse]) => {
         setStocks({...stocks, data: stocksResponse.data});
