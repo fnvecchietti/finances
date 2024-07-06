@@ -42,6 +42,18 @@
             },
             "configurations": {}
           },
+          "lint": {
+            "executor": "nx:run-script",
+            "metadata": {
+              "scriptContent": "eslint",
+              "runCommand": "npm run lint"
+            },
+            "dependsOn": [],
+            "options": {
+              "script": "lint"
+            },
+            "configurations": {}
+          },
           "nx-release-publish": {
             "dependsOn": [
               "^nx-release-publish"
@@ -61,7 +73,8 @@
             "NPM Scripts": [
               "dev",
               "build",
-              "test"
+              "test",
+              "lint"
             ]
           },
           "description": ""

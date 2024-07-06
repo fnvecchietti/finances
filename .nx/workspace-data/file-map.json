@@ -9,18 +9,6 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": "LICENSE",
-        "hash": "12649885980860800067"
-      },
-      {
-        "file": "package-lock.json",
-        "hash": "11879933551355148648"
-      },
-      {
-        "file": "lerna.json",
-        "hash": "9181972093417441089"
-      },
-      {
         "file": ".gitignore",
         "hash": "11683783768630598139"
       },
@@ -31,6 +19,18 @@
       {
         "file": "nx.json",
         "hash": "5386804175439246655"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "11879933551355148648"
+      },
+      {
+        "file": "LICENSE",
+        "hash": "12649885980860800067"
+      },
+      {
+        "file": "lerna.json",
+        "hash": "9181972093417441089"
       }
     ],
     "projectFileMap": {
@@ -283,6 +283,10 @@
       ],
       "finance-backend": [
         {
+          "file": "packages/backend/.dockerignore",
+          "hash": "1988095769310941701"
+        },
+        {
           "file": "packages/backend/.gitignore",
           "hash": "2056568405081201307"
         },
@@ -291,8 +295,12 @@
           "hash": "4233256289226873895"
         },
         {
+          "file": "packages/backend/Dockerfile",
+          "hash": "4154873286097505891"
+        },
+        {
           "file": "packages/backend/eslint.config.mjs",
-          "hash": "15484313856336309160"
+          "hash": "6613414975178536041"
         },
         {
           "file": "packages/backend/infra/docker-compose.yaml",
@@ -308,7 +316,7 @@
         },
         {
           "file": "packages/backend/package.json",
-          "hash": "10840188871711536809",
+          "hash": "2650558827211216740",
           "deps": [
             "npm:@eslint/js",
             "npm:@jest/globals",
@@ -384,19 +392,19 @@
         },
         {
           "file": "packages/backend/src/common/utils/cronjob.ts",
-          "hash": "3480224203460977067"
+          "hash": "3848133498398992769"
         },
         {
           "file": "packages/backend/src/common/utils/format.ts",
-          "hash": "5747749553912463027"
+          "hash": "15509380404177312849"
         },
         {
           "file": "packages/backend/src/common/utils/jwt-utilts.ts",
-          "hash": "5804470506341887573"
+          "hash": "322842105053835516"
         },
         {
           "file": "packages/backend/src/common/utils/pagination.ts",
-          "hash": "14012772491783181207"
+          "hash": "3244421341483603138"
         },
         {
           "file": "packages/backend/src/common/utils/response.ts",
@@ -501,14 +509,6 @@
         {
           "file": "packages/backend/tsconfig.json",
           "hash": "6610481451310682084"
-        },
-        {
-          "file": "packages/backend/Dockerfile",
-          "hash": "4154873286097505891"
-        },
-        {
-          "file": "packages/backend/.dockerignore",
-          "hash": "1988095769310941701"
         }
       ]
     }
