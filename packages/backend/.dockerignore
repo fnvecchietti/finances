@@ -1,0 +1,44 @@
+# Ignore node_modules (should be installed inside the container)
+node_modules
+npm-debug.log
+
+# Ignore build output (will be created inside the container)
+dist
+
+# Ignore environment files
+.env
+.env.local
+.env.*.local
+
+# Ignore logs
+logs
+*.log
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore OS-specific files
+.DS_Store
+
+# Ignore IDE/editor files
+.vscode
+.idea
+*.swp
+
+# Ignore test and coverage directories
+coverage
+tests
+
+# Ignore temporary files
+tmp
+temp
+
+# Ignore Dockerfile and docker-compose files if not needed in the image
+Dockerfile*
+docker-compose*
+
+# Ignore git-related files
+.git
+.gitignore
+
+# Ignore other config files that are not needed
+*.config.js

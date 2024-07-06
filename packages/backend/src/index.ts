@@ -41,5 +41,9 @@ PostgresDataSource.initialize()
             updatePrices.start();
         }
     });
-}).catch(console.log);
+}).catch(err=> {
+    console.log(err);
+    console.log('disconnecting in 3s');
+    process.exit('1');
+});
 

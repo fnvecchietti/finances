@@ -9,28 +9,28 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": "package-lock.json",
-        "hash": "11879933551355148648"
+        "file": "LICENSE",
+        "hash": "12649885980860800067"
       },
       {
-        "file": "nx.json",
-        "hash": "5386804175439246655"
+        "file": "package-lock.json",
+        "hash": "11879933551355148648"
       },
       {
         "file": "lerna.json",
         "hash": "9181972093417441089"
       },
       {
-        "file": "package.json",
-        "hash": "17870804537590093782"
-      },
-      {
         "file": ".gitignore",
         "hash": "11683783768630598139"
       },
       {
-        "file": "LICENSE",
-        "hash": "12649885980860800067"
+        "file": "package.json",
+        "hash": "17870804537590093782"
+      },
+      {
+        "file": "nx.json",
+        "hash": "5386804175439246655"
       }
     ],
     "projectFileMap": {
@@ -308,7 +308,7 @@
         },
         {
           "file": "packages/backend/package.json",
-          "hash": "3209676481632003439",
+          "hash": "10840188871711536809",
           "deps": [
             "npm:@eslint/js",
             "npm:@jest/globals",
@@ -329,7 +329,6 @@
             "npm:ts-jest",
             "npm:ts-node",
             "npm:typescript",
-            "npm:typescript-eslint",
             "npm:argon2",
             "npm:axios",
             "npm:body-parser",
@@ -433,7 +432,7 @@
         },
         {
           "file": "packages/backend/src/index.ts",
-          "hash": "3261828377518021736"
+          "hash": "1974475603232246501"
         },
         {
           "file": "packages/backend/src/middleware/authentication.ts",
@@ -501,7 +500,15 @@
         },
         {
           "file": "packages/backend/tsconfig.json",
-          "hash": "10337447189495486872"
+          "hash": "6610481451310682084"
+        },
+        {
+          "file": "packages/backend/Dockerfile",
+          "hash": "4154873286097505891"
+        },
+        {
+          "file": "packages/backend/.dockerignore",
+          "hash": "1988095769310941701"
         }
       ]
     }

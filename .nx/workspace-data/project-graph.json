@@ -10207,11 +10207,6 @@
       },
       {
         "source": "finance-backend",
-        "target": "npm:typescript-eslint",
-        "type": "static"
-      },
-      {
-        "source": "finance-backend",
         "target": "npm:argon2",
         "type": "static"
       },
