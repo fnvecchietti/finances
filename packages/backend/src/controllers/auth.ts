@@ -36,14 +36,16 @@ export const loginUserController = async (req: Request, res: Response) => {
   try {
     console.time('loginUserController');
     const userLoginData = req.body as LoginUserDTO;
-
+    console.time('logindb');
     const userData = await loginUserService(userLoginData);
-
+    console.timeEnd('logindb');
+    console.time('ArgonVerification');
     const result = await argon2.verify(
       userData.password,
       userLoginData.password,
     );
-
+    console.timeEnd('ArgonVerification');
+    
     if (!result) throw new Error('wrong passord');
 
     const token = signJWT(userData.id, userData.username);

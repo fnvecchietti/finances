@@ -47,7 +47,7 @@ const Movements = () => {
   if (movements.data) {
     return (
       <div className="container">
-        <Searchbar setFilter={setDescription}/>
+        {/* <Searchbar setFilter={setDescription}/> */}
         <MovementsTable
           tableData={movements.data.data}
           total={movements.data.pagination?.total as number}
