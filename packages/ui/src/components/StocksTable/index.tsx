@@ -41,7 +41,11 @@ const StockTable = ({
 
   return (
     <>
-      <CustomTable data={data} />
+      <CustomTable
+        data={data}
+        rowCount={total}
+        customPagination={{ take, skip, setTake, setSkip }}
+      />
     </>
   );
 };
