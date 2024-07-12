@@ -17,13 +17,16 @@ const Movements = () => {
   const axiosPrivate = useAxiosPrivate();
   const [take, setTake] = useState(10);
   const [skip, setSkip] = useState(0);
-  const [description, setDescription] = useState('')
+  const [description, setDescription] = useState('');
   const debounce = useDebounce(description, 500);
   const controller = new AbortController();
 
   const getMovements = () => {
     axiosPrivate
-      .get(`${endpointsV1.movements}?take=${take}&skip=${skip}&description=${description}`, {signal: controller.signal})
+      .get(
+        `${endpointsV1.movements}?take=${take}&skip=${skip}&description=${description}`,
+        { signal: controller.signal },
+      )
       .then((movementsResponse: AxiosResponse) => {
         setMovements({ ...movements, data: movementsResponse.data });
       })
@@ -46,14 +49,16 @@ const Movements = () => {
   if (movements.data) {
     return (
       <>
-        <MovementsTable
-          tableData={movements.data.data}
-          total={movements.data.pagination?.total as number}
-          setTake={setTake}
-          setSkip={setSkip}
-          take={take}
-          skip={skip}
-        />
+        <div className="container">
+          <MovementsTable
+            tableData={movements.data.data}
+            total={movements.data.pagination?.total as number}
+            setTake={setTake}
+            setSkip={setSkip}
+            take={take}
+            skip={skip}
+          />
+        </div>
       </>
     );
   }
