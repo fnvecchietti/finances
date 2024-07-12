@@ -24,11 +24,11 @@ const DATA_MAP_CELL: { [key: string]: any } = {
 };
 
 export const buildCellByDataValue = <T extends {}>(
-  dataExample: T[],
+  dataExample: T[], exclude: string[]
 ): ColumnDef<T>[] => {
   const cols = Object.keys(dataExample[0]);
-    
-  const buildedCells = cols.map((key) => {
+  const filteredCols = cols.filter(c => !exclude.includes(c))
+  const buildedCells = filteredCols.map((key) => {
     if (DATA_MAP_CELL[key]) {
       return DATA_MAP_CELL[key](key);
     }

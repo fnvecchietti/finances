@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { MovementsTable } from '../../components/MovementsTable';
 import { ErrorPage } from '../../components/Errorpage';
 import { Loading } from '../../components/LoadingBar';
-import { Searchbar } from '../../components/Searchbar';
 import { endpointsV1 } from '../../environent/api-config';
 import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
 import { HookApiResponse } from '../../types';
@@ -46,8 +45,7 @@ const Movements = () => {
 
   if (movements.data) {
     return (
-      <div className="container">
-        {/* <Searchbar setFilter={setDescription}/> */}
+      <>
         <MovementsTable
           tableData={movements.data.data}
           total={movements.data.pagination?.total as number}
@@ -56,7 +54,7 @@ const Movements = () => {
           take={take}
           skip={skip}
         />
-      </div>
+      </>
     );
   }
 };

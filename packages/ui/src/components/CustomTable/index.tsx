@@ -55,7 +55,7 @@ export const CustomTable = ({
 
   const customColumns = useMemo(() => {
     if (!!movements && movements.length > 0) {
-      const mappedcols = buildCellByDataValue(data);
+      const mappedcols = buildCellByDataValue(data, ['id', 'createdDate', 'updatedDate']);
       return mappedcols;
     }
     return [];
@@ -76,7 +76,7 @@ export const CustomTable = ({
   return (
     <>
       <table className="w-full border-collapse indent-0 shadow-lg cursor-pointer">
-        <thead className="shadow-sm rounded-sm">
+        <thead className="shadow-sm rounded-sm bg-blue-200">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (

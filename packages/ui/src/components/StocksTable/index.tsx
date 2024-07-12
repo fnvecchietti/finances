@@ -1,9 +1,5 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useModal } from '../../hooks/useModal';
+import { useEffect, useState } from 'react';
 import { Loading } from '../LoadingBar';
-import { NumericFormat } from 'react-number-format';
-import { endpointsV1 } from '../../environent/api-config';
-import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
 import { CustomTable } from '../CustomTable';
 
 export interface createStockDTO {

@@ -8,7 +8,6 @@ import { useAxiosPrivate } from "../../hooks/usePrivateAxios";
 import { AxiosResponse } from "axios";
 import { HookApiResponse } from "../../types";
 import { useDebounce } from "../../hooks/useDebounce";
-import { Searchbar } from "../../components/Searchbar";
 
 const Stocks = () => {
     const [stocks, setStocks] = useState<HookApiResponse>({data: null, error: null});
@@ -54,7 +53,6 @@ const Stocks = () => {
       return (
         <div className="container">
           <div className="text-right">Balance: <NumericFormat displayType='text' value={balance.data.data as number} allowLeadingZeros thousandSeparator="," prefix='$' /></div>
-          <Searchbar setFilter={setName}/>
           <StockTable tableData={stocks.data.data} total={stocks.data.pagination?.total as number} setTake={setTake} setSkip={setSkip} take={take} skip={skip}/>
         </div>
       );

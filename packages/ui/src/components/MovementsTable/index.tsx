@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Loading } from '../LoadingBar';
 import './index.css';
-import { useModal } from '../../hooks/useModal';
 import { CustomTable } from '../CustomTable';
 
 export const MovementsTable = ({
@@ -20,7 +19,6 @@ export const MovementsTable = ({
   setSkip: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const [data, setData] = useState([] as any[]);
-  const { ConfirmationModal, open } = useModal();
 
   useEffect(() => {
     setData(tableData);
@@ -35,7 +33,6 @@ export const MovementsTable = ({
         rowCount={total}
         customPagination={{ take, setTake, skip, setSkip }}
       />
-      <ConfirmationModal />
     </>
   );
 };
