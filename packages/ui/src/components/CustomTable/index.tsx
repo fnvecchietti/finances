@@ -28,14 +28,12 @@ export const CustomTable = ({
   data: Movement[];
   rowCount?: number;
   customPagination?: {
-    take: number;
-    skip: number;
-    setTake: React.Dispatch<React.SetStateAction<number>>;
-    setSkip: React.Dispatch<React.SetStateAction<number>>;
+  pagination: {},
+  setPagination: React.Dispatch<React.SetStateAction<any>>
   };
 }) => {
   const [movements, setMovements] = useState<Movement[]>();
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [tanstankPagination, setTankstankPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   });
@@ -46,10 +44,12 @@ export const CustomTable = ({
 
   useEffect(() => {
     if (customPagination) {
-      customPagination.setSkip(pagination.pageIndex * pagination.pageSize);
-      customPagination.setTake(pagination.pageSize);
+      customPagination.setPagination({
+        skip: tanstankPagination.pageIndex * tanstankPagination.pageSize,
+        take:tanstankPagination.pageSize
+      })
     }
-  }, [pagination]);
+  }, [tanstankPagination]);
 
   if (!data) return <div>loading...</div>;
 
@@ -67,9 +67,9 @@ export const CustomTable = ({
     getCoreRowModel: getCoreRowModel(),
     rowCount,
     manualPagination: true,
-    onPaginationChange: setPagination,
+    onPaginationChange: setTankstankPagination,
     state: {
-      pagination,
+      pagination: tanstankPagination,
     },
   });
 

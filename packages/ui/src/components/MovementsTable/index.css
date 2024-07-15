@@ -1,8 +1,0 @@
-.table-wrapper{
-    overflow-y: scroll;
-    max-height: 500px;
-}
-
-.table-button:hover{
-    text-shadow: 0 0 .65px #333, 0 0 .65px #333;
-}

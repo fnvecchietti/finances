@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { MovementsTable } from '../../components/MovementsTable';
 import { ErrorPage } from '../../components/Errorpage';
 import { Loading } from '../../components/LoadingBar';
 import { endpointsV1 } from '../../environent/api-config';
 import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
 import { HookApiResponse } from '../../types';
 import { AxiosResponse } from 'axios';
-import { useDebounce } from '../../hooks/useDebounce';
+import { CustomTable } from '../../components/CustomTable';
 
 const Movements = () => {
   const [movements, setMovements] = useState<HookApiResponse>({
@@ -15,16 +14,17 @@ const Movements = () => {
   });
   const [loading, setLoading] = useState(true);
   const axiosPrivate = useAxiosPrivate();
-  const [take, setTake] = useState(10);
-  const [skip, setSkip] = useState(0);
-  const [description, setDescription] = useState('');
-  const debounce = useDebounce(description, 500);
+  const [pagination, setPagination] = useState({
+    take: 10,
+    skip: 0,
+  });
+  // const debounce = useDebounce(description, 500);
   const controller = new AbortController();
 
   const getMovements = () => {
     axiosPrivate
       .get(
-        `${endpointsV1.movements}?take=${take}&skip=${skip}&description=${description}`,
+        `${endpointsV1.movements}?take=${pagination.take}&skip=${pagination.skip}`,
         { signal: controller.signal },
       )
       .then((movementsResponse: AxiosResponse) => {
@@ -40,7 +40,7 @@ const Movements = () => {
 
   useEffect(() => {
     getMovements();
-  }, [take, skip, debounce]);
+  }, [pagination]);
 
   if (loading) return <Loading />;
 
@@ -50,13 +50,10 @@ const Movements = () => {
     return (
       <>
         <div className="container">
-          <MovementsTable
-            tableData={movements.data.data}
-            total={movements.data.pagination?.total as number}
-            setTake={setTake}
-            setSkip={setSkip}
-            take={take}
-            skip={skip}
+          <CustomTable
+            data={movements.data.data}
+            rowCount={movements.data.pagination?.total}
+            customPagination={{ pagination, setPagination }}
           />
         </div>
       </>

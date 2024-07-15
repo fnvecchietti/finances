@@ -10,8 +10,7 @@ import { MovementType } from '../common/models/Entity/movements-types';
 
 export const searchMovementsService = async (filterableParams: IncomeFilterableParams, username?: string) => {
     const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null;
-    const descript = filterableParams.description.length > 0? ILike(`%${filterableParams.description}%`) : null;
-    
+    const descript = filterableParams.description && filterableParams.description.length > 0? ILike(`%${filterableParams.description}%`) : null;
     
         return await Movement.findAndCount({
         where: {
