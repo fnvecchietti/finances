@@ -76,7 +76,7 @@ export const CustomTable = ({
   return (
     <>
       <table className="w-full border-collapse indent-0 shadow-lg cursor-pointer">
-        <thead className="shadow-sm rounded-sm bg-blue-200">
+        <thead className="shadow-sm rounded-sm bg-gray-600 text-white">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -89,9 +89,9 @@ export const CustomTable = ({
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className='hover:bg-blue-gray-200'>
               {row.getVisibleCells().map((cell) => (
-                <td className="text-sm tracking-wide text-center">
+                <td className="text-sm tracking-wide text-center ">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

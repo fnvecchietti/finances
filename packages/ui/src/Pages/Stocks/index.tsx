@@ -28,7 +28,7 @@ const Stocks = () => {
 
     const getStocks = () => {
       Promise.all([
-        axiosPrivate.get(`${endpointsV1.stocks}?take=${pagination.take}&skip=${pagination.skip}&name=${name}`, {signal: controller.signal}),
+        axiosPrivate.get(`${endpointsV1.stocks}?take=${pagination.take}&skip=${pagination.skip}`, {signal: controller.signal}),
         axiosPrivate.get(`${endpointsV1.stocks}/balance`,  {signal: controller.signal})
       ])
       .then(([stocksResponse, balanceRsponse]: [AxiosResponse, AxiosResponse]) => {
@@ -37,7 +37,6 @@ const Stocks = () => {
       })
       .catch(err => {
         console.log(err);
-        
       })
       .finally(()=> {
         setLoading(false)

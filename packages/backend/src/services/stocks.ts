@@ -11,7 +11,7 @@ import { ILike } from 'typeorm';
 
 
 export const searchStocks = async (filterableParams: StockFilterableParams, username? :string) => {
-  const name = filterableParams.name.length > 0? ILike(`%${filterableParams.name}%`) : null;
+  const name = filterableParams.name && filterableParams.name.length > 0? ILike(`%${filterableParams.name}%`) : null;
   return await Stock.findAndCount({
     where: {
       id: filterableParams.id,

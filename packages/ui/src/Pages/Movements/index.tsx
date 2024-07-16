@@ -12,14 +12,15 @@ const Movements = () => {
     data: null,
     error: null,
   });
-  const [loading, setLoading] = useState(true);
-  const axiosPrivate = useAxiosPrivate();
   const [pagination, setPagination] = useState({
     take: 10,
     skip: 0,
   });
-  // const debounce = useDebounce(description, 500);
+  const [loading, setLoading] = useState(true);
+  const axiosPrivate = useAxiosPrivate();
   const controller = new AbortController();
+
+  // const debounce = useDebounce(description, 500);
 
   const getMovements = () => {
     axiosPrivate
