@@ -12,10 +12,10 @@ export class MovementType extends BaseEntity {
     type: string;
 
     @CreateDateColumn()
-    createdDate: Date;
+    created_date: Date;
 
     @UpdateDateColumn()
-    updatedDate: Date;
+    updated_date: Date;
 
     @OneToMany(()=> Movement, (movements)=> movements.id)
     movements: Movement[];

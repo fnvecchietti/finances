@@ -17,12 +17,12 @@ const Entry = () => {
     <div className='flex justify-center w-full h-full mt-52'>
       <button 
         onClick={()=> handleClick('entry')} 
-        className='mr-2 p-2 h-10 min-w-28 border outline-none bg-black text-white border-solid rounded-lg place-content-center font-medium duration-100 ease-in hover:bg-white hover:border-black hover:text-black '>
+        className='bg-magenta-500 hover:bg-magenta-700 text-white font-bold py-2 px-4 rounded'>
         Movement
       </button>
       <button
         onClick={()=> handleClick('stocks')} 
-        className='mr-2 p-2 h-10 min-w-28 border outline-none bg-black text-white border-solid rounded-lg place-content-center font-medium duration-100 ease-in hover:bg-white hover:border-black hover:text-black '>
+        className='bg-magenta-500 hover:bg-magenta-700 text-white font-bold py-2 px-4 ml-2 rounded'>
         Stocks
       </button>
     </div>     

@@ -32,11 +32,11 @@ export class Stock extends BaseEntity {
     currency: string;
 
     @CreateDateColumn()
-    createdDate: Date;
+    created_date: Date;
 
     @UpdateDateColumn()
-    updatedDate: Date;
+    updated_date: Date;
 
     @ManyToOne(()=> Auth, (auth)=> auth.username)
-    createdBy: Auth;
+    created_by: Auth;
 }

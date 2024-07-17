@@ -12,7 +12,7 @@ const Navbar = () => {
     if(!token) return <></>;
 
     return (
-        <nav className="flex justify-between items-center fixed z-10 w-full py-5 px-8 text-sm font-light top-0 select-none">
+        <nav className="flex justify-between items-center w-full py-5 px-8 text-sm font-light top-0 select-none">
             <ul className="flex items-center gap-3">
                 <li>
                     <NavLink to={'/'}

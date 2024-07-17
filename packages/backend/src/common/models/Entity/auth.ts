@@ -19,9 +19,9 @@ export class Auth extends BaseEntity {
     user:User;
 
     @CreateDateColumn()
-    createdDate: Date;
+    created_date: Date;
 
     @UpdateDateColumn()
-    updatedDate: Date;
+    updated_date: Date;
 
 }
