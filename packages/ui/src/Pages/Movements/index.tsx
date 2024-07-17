@@ -6,6 +6,7 @@ import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
 import { HookApiResponse } from '../../types';
 import { AxiosResponse } from 'axios';
 import { CustomTable } from '../../components/CustomTable';
+import { NoDataAvailable } from '../../components/NoDataAvailable';
 
 const Movements = () => {
   const [movements, setMovements] = useState<HookApiResponse>({
@@ -28,7 +29,7 @@ const Movements = () => {
         `${endpointsV1.movements}?take=${pagination.take}&skip=${pagination.skip}`,
         { signal: controller.signal },
       )
-      .then((movementsResponse: AxiosResponse) => {
+      .then((movementsResponse: AxiosResponse) => {         
         setMovements({ ...movements, data: movementsResponse.data });
       })
       .catch((err) => {
@@ -47,7 +48,9 @@ const Movements = () => {
 
   if (movements.error) return <ErrorPage />;
 
-  if (movements.data) {
+  if(movements.data && movements.data.data.length === 0) return <NoDataAvailable/>
+
+  if (movements.data?.data) {
     return (
       <>
         <div className="container">

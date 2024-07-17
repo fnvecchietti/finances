@@ -9,6 +9,7 @@ import { AxiosResponse } from "axios";
 import { HookApiResponse } from "../../types";
 // import { useDebounce } from "../../hooks/useDebounce";
 import { CustomTable } from "../../components/CustomTable";
+import { NoDataAvailable } from "../../components/NoDataAvailable";
 
 const Stocks = () => {
     const [stocks, setStocks] = useState<HookApiResponse>({data: null, error: null});
@@ -52,8 +53,11 @@ const Stocks = () => {
     if (loading) return <Loading />;
   
     if (stocks.error || balance.error) return <ErrorPage />;
+
+    if(stocks.data && balance.data && stocks.data.data.length === 0) return <NoDataAvailable/>
+
   
-    if (stocks.data && balance.data) {
+    if (stocks.data?.data && balance.data?.data) {
       return (
         <div className="container">
           <div className="text-right">Balance: <NumericFormat displayType='text' value={balance.data.data as number} allowLeadingZeros thousandSeparator="," prefix='$' /></div>
