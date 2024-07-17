@@ -20,9 +20,9 @@ export class User extends BaseEntity {
     email: string;
 
     @CreateDateColumn()
-    createdDate: Date;
+    created_date: Date;
 
     @UpdateDateColumn()
-    updatedDate: Date;
+    updated_date: Date;
 
 }

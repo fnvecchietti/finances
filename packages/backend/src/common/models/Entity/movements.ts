@@ -22,14 +22,14 @@ export class Movement extends BaseEntity {
     description: string;
 
     @CreateDateColumn()
-    createdDate: Date;
+    created_date: Date;
 
     @UpdateDateColumn()
-    updatedDate: Date;
+    updated_date: Date;
 
     @ManyToOne(()=> MovementType, (mt)=> mt.type)
-    movementType: MovementType;
+    movement_type: MovementType;
 
     @ManyToOne(()=> Auth, (auth)=> auth.username)
-    createdBy: Auth;
+    created_by: Auth;
 }

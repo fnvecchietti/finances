@@ -12,7 +12,7 @@ const Panel = () => {
   };
 
   const createMovementType = () => {
-    open();
+    
   };
 
   const taskToExecuteAfterConfirmation = () => {
@@ -36,7 +36,7 @@ const Panel = () => {
             placeholder="salary"
           />
           <button
-            className="p-2 col-span-12 lg:col-span-1  outline-none bg-black text-white border-solid rounded-lg place-content-center font-medium duration-100 ease-in"
+            className="col-span-12 lg:col-span-1  bg-magenta-500 hover:bg-magenta-700 text-white font-bold py-2 px-4 rounded"
             onClick={createMovementType}
           >
             Add
@@ -52,7 +52,7 @@ const Panel = () => {
             placeholder="salary"
           />
           <button
-            className="p-2 col-span-12 lg:col-span-1 outline-none bg-black text-white border-solid rounded-lg place-content-center font-medium duration-100 ease-in"
+            className="col-span-12 lg:col-span-1 bg-magenta-500 hover:bg-magenta-700 text-white font-bold py-2 px-4 rounded"
             onClick={createMovementType}
           >
             Upload
@@ -68,13 +68,13 @@ const Panel = () => {
             placeholder="salary"
           />
           <button
-            className="p-2 col-span-12 lg:col-span-1 outline-none bg-black text-white border-solid rounded-lg place-content-center font-medium duration-100 ease-in"
+            className="col-span-12 lg:col-span-1 bg-magenta-500 hover:bg-magenta-700 text-white font-bold py-2 px-4 rounded"
             onClick={createMovementType}
           >
             Upload
           </button>
       </div>
-      <ConfirmationModal taskToExecute={taskToExecuteAfterConfirmation} />
+      <ConfirmationModal/>
     </div>
   );
 };

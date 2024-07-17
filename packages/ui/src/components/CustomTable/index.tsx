@@ -4,7 +4,7 @@ import {
   PaginationState,
   useReactTable,
 } from '@tanstack/react-table';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { buildCellByDataValue } from '../../utils/Helpers';
 
 type Movement = {
@@ -38,6 +38,7 @@ export const CustomTable = ({
     pageSize: 10,
   });
 
+
   useEffect(() => {
     setMovements(data);
   }, [data]);
@@ -55,7 +56,7 @@ export const CustomTable = ({
 
   const customColumns = useMemo(() => {
     if (!!movements && movements.length > 0) {
-      const mappedcols = buildCellByDataValue(data, ['id', 'createdDate', 'updatedDate']);
+      const mappedcols = buildCellByDataValue(data, ['id', 'created_date', 'updated_date']);
       return mappedcols;
     }
     return [];
@@ -75,12 +76,12 @@ export const CustomTable = ({
 
   return (
     <>
-      <table className="w-full border-collapse indent-0 shadow-lg cursor-pointer">
-        <thead className="shadow-sm rounded-sm bg-gray-600 text-white">
+      <table className="w-full border-collapse indent-0 shadow-lg cursor-pointer border bg-white border-gray-200">
+        <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th className="text-sm tracking-wide">
+                <th className="text-sm tracking-wide px-4 py-2 border-b">
                   {header.column.columnDef.header as any}
                 </th>
               ))}
@@ -91,7 +92,7 @@ export const CustomTable = ({
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} className='hover:bg-blue-gray-200'>
               {row.getVisibleCells().map((cell) => (
-                <td className="text-sm tracking-wide text-center ">
+                <td className="text-sm tracking-wide text-center px-4 py-2 border-b">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
@@ -101,14 +102,14 @@ export const CustomTable = ({
       </table>
       <div className="w-full flex mt-5">
         <div aria-label="pagination-buttons">
-          <button onClick={() => table.previousPage()}>Prev</button>
-          <button className="ml-2" onClick={() => table.nextPage()}>
+          <button className='bg-magenta-500 hover:bg-magenta-700 text-white font-bold py-2 px-4 rounded' onClick={() => table.previousPage()}>Prev</button>
+          <button className="bg-magenta-500 hover:bg-magenta-700 text-white font-bold ml-2 py-2 px-4 rounded" onClick={() => table.nextPage()}>
             Next
           </button>
         </div>
         <div className="ml-auto flex" aria-label="pagination-config">
           <select
-            className="mr-2"
+            className="mr-2 bg-magenta-500 hover:bg-magenta-700 text-white font-bold py-2 px-4 rounded"
             value={table.getState().pagination.pageSize}
             onChange={(e) => {
               table.setPageSize(Number(e.target.value));
@@ -120,7 +121,7 @@ export const CustomTable = ({
               </option>
             ))}
           </select>
-          <div>Total: {table.getRowCount()}</div>
+          <div className='bg-magenta-500 text-white font-bold py-2 px-4 rounded'>Total: {table.getRowCount()}</div>
         </div>
       </div>
     </>

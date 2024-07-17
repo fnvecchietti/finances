@@ -22,7 +22,7 @@ export const searchStocks = async (filterableParams: StockFilterableParams, user
       ratio: filterableParams.ratio,
       purchase_date: filterableParams.purchase_date,
       currency: filterableParams.currency,
-      createdBy: {username: username}
+      created_by: {username: username}
     },
     take: filterableParams.take,
     skip: filterableParams.skip,
@@ -47,7 +47,7 @@ export const saveStocks = async (stock: createStockDTO, username: string) => {
   stockEntity.ratio = stock.ratio;
   stockEntity.purchase_date =  stock.purchase_date;
   stockEntity.currency =  stock.currency;
-  stockEntity.createdBy = user;
+  stockEntity.created_by = user;
 
   return await Stock.insert(stockEntity);
 };
@@ -64,8 +64,8 @@ export const getStockBalance = async () => {
 };
 
 export const deleteStockService = async (id: string, username: string) => {
-  const stock = await Stock.findOneOrFail({where:{id}, relations: {createdBy: true}});
-  if(stock.createdBy.username === username){
+  const stock = await Stock.findOneOrFail({where:{id}, relations: {created_by: true}});
+  if(stock.created_by.username === username){
       return await Stock.delete({id:stock.id});
   }
   throw new Error('not authorized');

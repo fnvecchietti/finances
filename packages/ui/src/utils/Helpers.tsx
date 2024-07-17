@@ -13,7 +13,7 @@ const AMOUNT_COLUMN = (key: string) => {
       />
     ),
     accessorKey: key,
-    header: key.toUpperCase(),
+    header: replaceUnderScoreInHeadersFormatted(key),
   };
 };
 
@@ -34,9 +34,13 @@ export const buildCellByDataValue = <T extends {}>(
     }
     return {
       accessorKey: key,
-      header: key.toUpperCase(),
+      header: replaceUnderScoreInHeadersFormatted(key),
     };
   });
 
   return buildedCells;
 };
+
+export const replaceUnderScoreInHeadersFormatted = (header:string) => {
+  return header.replace(/_/g, " ").toUpperCase();
+}
