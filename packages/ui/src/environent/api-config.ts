@@ -8,5 +8,6 @@ export const endpointsV1 = {
     stocks:`${API_BASE_URL}/api/v1/stocks`, 
     register:`${API_BASE_URL}/api/v1/auth/register`, 
     login:`${API_BASE_URL}/api/v1/auth/login`, 
+    prompt:`${API_BASE_URL}/api/v1/ai/prompt`, 
     validate_token: (token:string)=> `${API_BASE_URL}/api/v1/auth/token/validate?token=${token}`, 
 }
