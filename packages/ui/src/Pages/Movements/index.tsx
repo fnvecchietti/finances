@@ -33,7 +33,9 @@ const Movements = () => {
         setMovements({ ...movements, data: movementsResponse.data });
       })
       .catch((err) => {
-        console.log(err);
+        setMovements(prev => {
+          return {...prev, error: err}
+        })
       })
       .finally(() => {
         setLoading(false);

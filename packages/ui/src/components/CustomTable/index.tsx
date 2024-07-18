@@ -4,35 +4,35 @@ import {
   PaginationState,
   useReactTable,
 } from '@tanstack/react-table';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {  useEffect, useMemo, useState } from 'react';
 import { buildCellByDataValue } from '../../utils/Helpers';
 
-type Movement = {
-  id: string;
-  amount: number;
-  currency: string;
-  date: Date;
-  description: string;
-  createDate: Date;
-  updatedDate: Date;
-};
+// type Movement = {
+//   id: string;
+//   amount: number;
+//   currency: string;
+//   date: Date;
+//   description: string;
+//   createDate: Date;
+//   updatedDate: Date;
+// };
 
 const fallbackData: any = [];
 
 
-export const CustomTable = ({
+export const CustomTable = <T extends {}>({
   data,
   rowCount,
   customPagination,
 }: {
-  data: Movement[];
+  data: T[];
   rowCount?: number;
   customPagination?: {
   pagination: {},
   setPagination: React.Dispatch<React.SetStateAction<any>>
   };
 }) => {
-  const [movements, setMovements] = useState<Movement[]>();
+  const [movements, setMovements] = useState<T[]>();
   const [tanstankPagination, setTankstankPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -76,7 +76,7 @@ export const CustomTable = ({
 
   return (
     <>
-      <table className="w-full border-collapse indent-0 shadow-lg cursor-pointer border bg-white border-gray-200">
+      <table role='table-content'  className="w-full border-collapse indent-0 shadow-lg cursor-pointer border bg-white border-gray-200">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
