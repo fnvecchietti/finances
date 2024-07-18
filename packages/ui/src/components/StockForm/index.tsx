@@ -183,7 +183,7 @@ export const StockForm = () => {
             ) : null}
           </div>
           <button
-            className="flex w-full h-10 p-2 outline-none bg-black text-white border-solid rounded-lg place-content-center font-medium duration-100 ease-in hover:bg-white hover:border-black hover:text-black hover:border-2"
+            className="flex w-full h-10 p-2 outline-none text-white border-solid rounded-lg place-content-center font-medium duration-100 ease-in bg-magenta-500 hover:bg-magenta-700"
             type="submit"
           >
             Create
