@@ -29,8 +29,6 @@ export const OpenAIComponent = () => {
         placeholder="Enter your question"
         onChange={(e) => setPrompt(e.target.value)}
         onKeyUp={(e)=> {
-          console.log(e.code);
-          
             e.code === 'Enter' || e.code === 'NumpadEnter' ? fetchPrompt() : null
         }}
         className="border max-w-xl w-full"
