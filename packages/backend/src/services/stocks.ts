@@ -4,7 +4,6 @@ import { createStockDTO } from 'stocks';
 import { PostgresDataSource } from '../common/models/datasource';
 import { stockSchema } from '../common/validations/stocks';
 import { bulkSchema } from '../common/validations/stocks';
-import { Auth } from '../common/models/Entity/auth';
 import { ILike } from 'typeorm';
 
 
@@ -22,7 +21,7 @@ export const searchStocks = async (filterableParams: StockFilterableParams, user
       ratio: filterableParams.ratio,
       purchase_date: filterableParams.purchase_date,
       currency: filterableParams.currency,
-      created_by: {username: username}
+      created_by: {username}
     },
     take: filterableParams.take,
     skip: filterableParams.skip,
@@ -36,20 +35,18 @@ export const saveStocks = async (stock: createStockDTO, username: string) => {
   
   stockSchema.validateSync(stock);
 
-  const user = await Auth.findOneOrFail({where: {username: username}});
-  const stockEntity = new Stock();
-
-  stockEntity.name = stock.name;
-  stockEntity.ticker = stock.ticker;
-  stockEntity.quantity =  stock.quantity;
-  stockEntity.purchase_price =  stock.purchase_price;
-  stockEntity.current_price =  stock.current_price;
-  stockEntity.ratio = stock.ratio;
-  stockEntity.purchase_date =  stock.purchase_date;
-  stockEntity.currency =  stock.currency;
-  stockEntity.created_by = user;
-
-  return await Stock.insert(stockEntity);
+  return await Stock.insert({
+      name: stock.name,
+      ticker: stock.ticker,
+      quantity: stock.quantity,
+      purchase_price: stock.purchase_price,
+      current_price: stock.current_price,
+      ratio: stock.ratio,
+      purchase_date: stock.purchase_date,
+      currency: stock.currency,
+      created_by: {id: stock.created_by},
+      wallet: {id: stock.wallet}
+  });
 };
 
 export const getStockBalance = async () => {
@@ -64,7 +61,7 @@ export const getStockBalance = async () => {
 };
 
 export const deleteStockService = async (id: string, username: string) => {
-  const stock = await Stock.findOneOrFail({where:{id}, relations: {created_by: true}});
+  const stock = await Stock.findOneOrFail({where:{id}});
   if(stock.created_by.username === username){
       return await Stock.delete({id:stock.id});
   }
@@ -82,7 +79,7 @@ export const bulkSaveStocks = async (stocks: createStockDTO[]) => {
       return { ...new Stock(), ...stock };
     });
 
-    await queryRunner.manager.save(Stock, bulk);
+    // await queryRunner.manager.save(Stock, bulk);
 
     await queryRunner.commitTransaction();
   } catch (error) {

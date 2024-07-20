@@ -2,10 +2,11 @@ import { ChangeEvent, useState } from 'react';
 import { endpointsV1 } from '../../environent/api-config';
 import axios from 'axios';
 import { useModal } from '../../hooks/useModal';
+import { WalletForm } from '../../components/Wallet/WalletForm';
 
 const Panel = () => {
   const [movementName, setMovementName] = useState('');
-  const { ConfirmationModal, open } = useModal();
+
 
   const changeMovementName = (e: ChangeEvent<HTMLInputElement>) => {
     setMovementName(e.target.value);
@@ -15,11 +16,7 @@ const Panel = () => {
     
   };
 
-  const taskToExecuteAfterConfirmation = () => {
-    axios.post(endpointsV1.movement_type, {
-      movement_type: movementName,
-    });
-  };
+ 
 
   return (
     <div className="w-full h-full text-center">
@@ -41,6 +38,7 @@ const Panel = () => {
           >
             Add
           </button>
+
           <label className="p-2 col-span-12 lg:col-span-3" htmlFor="movement-type">
             Bulk Stocks
           </label>
@@ -74,7 +72,7 @@ const Panel = () => {
             Upload
           </button>
       </div>
-      <ConfirmationModal/>
+      <WalletForm/>
     </div>
   );
 };

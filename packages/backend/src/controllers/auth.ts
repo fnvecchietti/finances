@@ -58,7 +58,7 @@ export const loginUserController = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.
-    res.status(400).send();
+    return res.status(400).send();
   }
 };
 
@@ -74,6 +74,6 @@ export const validateTokenController = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.
-    res.status(400).send(error);
+    return res.status(400).send(error);
   }
 };

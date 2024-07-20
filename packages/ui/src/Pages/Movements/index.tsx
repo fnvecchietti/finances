@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { ErrorPage } from '../../components/Errorpage';
-import { Loading } from '../../components/LoadingBar';
+import { ErrorPage } from '../../components/common/Errorpage';
+import { Loading } from '../../components/common/LoadingBar';
 import { endpointsV1 } from '../../environent/api-config';
 import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
 import { HookApiResponse } from '../../types';
 import { AxiosResponse } from 'axios';
-import { CustomTable } from '../../components/CustomTable';
-import { NoDataAvailable } from '../../components/NoDataAvailable';
+import { NoDataAvailable } from '../../components/common/NoDataAvailable';
+import { CustomTable } from '../../components/common/CustomTable';
 
 const Movements = () => {
   const [movements, setMovements] = useState<HookApiResponse>({

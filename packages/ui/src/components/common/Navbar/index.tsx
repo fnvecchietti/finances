@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import './index.css'
 import { useContext } from "react"
-import { AuthContext } from "../../context"
+import { AuthContext } from "../../../context"
 const Navbar = () => {
     const {token} = useContext(AuthContext)
 

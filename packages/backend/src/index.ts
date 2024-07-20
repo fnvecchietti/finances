@@ -11,7 +11,7 @@ import { router as stocks } from './routes/stocks';
 import { router as auth } from './routes/auth';
 import cookieParser from 'cookie-parser';
 import { updatePrices } from './common/utils/cronjob';
-import { router as AI } from './routes/ai';
+import { router as wallets } from './routes/wallets';
 const SERVER_PORT = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT) : 3000;
 
 const App = Express();
@@ -25,8 +25,7 @@ App.use('/api/v1',movementTypes);
 App.use('/api/v1',movements);
 App.use('/api/v1',stocks);
 App.use('/api/v1',auth);
-App.use('/api/v1',AI);
-
+App.use('/api/v1', wallets)
 
 
 

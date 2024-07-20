@@ -10,6 +10,8 @@ export interface createStockDTO {
     purchase_date?: Date;
     currency?: string;
     current_price?: number;
+    wallet: string;
+    created_by: string;
 }
 
 export interface StockItem {

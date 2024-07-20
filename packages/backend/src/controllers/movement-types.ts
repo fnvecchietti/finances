@@ -20,7 +20,7 @@ export const createMovementTypeController = async (req: Request, res: Response) 
     res.status(HTTP_STATUS_OK).send(response);
   } catch (error) {
     console.error(error);
-    res.status(400).send();
+    return res.status(400).send();
   }
 };
 
@@ -37,7 +37,7 @@ export const searchMovementTypesController = async (req: Request, res: Response)
     return res.status(200).send(response);
   } catch (error) {
     console.error(error);
-    res.status(400).send();
+    return res.status(400).send();
   }
 };
 

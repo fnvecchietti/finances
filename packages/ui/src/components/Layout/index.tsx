@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
-import { AlertNotification } from '../AlertNotification';
-import Navbar from '../Navbar';
+import { AlertNotification } from '../common/AlertNotification';
+import Navbar from '../common/Navbar';
 
 const Layout = ({ children }: { children: ReactElement }) => {
   

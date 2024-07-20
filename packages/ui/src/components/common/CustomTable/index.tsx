@@ -5,7 +5,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import {  useEffect, useMemo, useState } from 'react';
-import { buildCellByDataValue } from '../../utils/Helpers';
+import { buildCellByDataValue } from '../../../utils/Helpers';
 
 // type Movement = {
 //   id: string;

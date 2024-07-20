@@ -1,6 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { MovementType } from './movements-types';
 import { Auth } from './auth';
+import { Wallet } from './wallet';
 
 
 @Entity()
@@ -27,9 +28,12 @@ export class Movement extends BaseEntity {
     @UpdateDateColumn()
     updated_date: Date;
 
-    @ManyToOne(()=> MovementType, (mt)=> mt.type)
+    @ManyToOne(()=> MovementType, (mt)=> mt.id)
     movement_type: MovementType;
 
-    @ManyToOne(()=> Auth, (auth)=> auth.username)
+    @ManyToOne(()=> Auth, (auth)=> auth.id)
     created_by: Auth;
+
+    @ManyToOne(()=> Wallet, (w)=> w.movements)
+    wallet:Wallet
 }

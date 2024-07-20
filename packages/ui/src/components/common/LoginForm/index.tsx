@@ -1,9 +1,9 @@
 import { useFormik } from 'formik';
 import {  object, string, } from 'yup';
-import { endpointsV1 } from '../../environent/api-config';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
-import axios from '../../api/axios';
+import { useAuth } from '../../../hooks/useAuth';
+import axios from '../../../api/axios';
+import { endpointsV1 } from '../../../environent/api-config';
 
 
 const registerFormValidation = object({

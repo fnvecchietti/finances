@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BasicConfirmModal } from '../components/ConfirmationModal';
+import { BasicConfirmModal } from '../components/common/ConfirmationModal';
 
 export const useModal = () => {
   const [isOpen, toggle] = useState(false);

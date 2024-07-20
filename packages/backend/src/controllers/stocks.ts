@@ -72,7 +72,7 @@ export const createStocks = async (req: Request, res: Response) => {
     return res.status(200).send(response);
   } catch (error) {
     console.error(error);
-    res.status(400).send();
+    return res.status(400).send();
   }
 };
 
@@ -143,7 +143,7 @@ export const bulkStocks = async (req: Request, res: Response) => {
         prevalidatedObject.push(row);
       }
 
-      bulkSaveStocks(prevalidatedObject);
+      // bulkSaveStocks(prevalidatedObject);
     });
   res.status(200).send('ok');
 };

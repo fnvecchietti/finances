@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { AfterLoad, BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Auth } from './auth';
 import { Movement } from './movements';
 
@@ -9,17 +9,8 @@ export class Wallet extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id:string;
 
-    @Column({type: 'string', length: 255})
+    @Column({type: 'varchar', length: 255})
     name: string;
-
-    @Column('float', {nullable: false})
-    amount: number;
-
-    @Column({type: 'varchar', length: 10})
-    currency: string;
-
-    @Column('date')
-    date: Date;
 
     @CreateDateColumn()
     created_date: Date;
@@ -27,10 +18,9 @@ export class Wallet extends BaseEntity {
     @UpdateDateColumn()
     updated_date: Date;
 
-    @ManyToOne(()=> Auth, (auth)=> auth.username)
+    @ManyToOne(()=> Auth, (auth)=> auth.id)
     created_by: Auth;
 
-    @ManyToMany(()=> Movement)
-    @JoinTable()
+    @OneToMany(()=> Movement, (movement)=> movement.wallet)
     movements: Movement[]
 }

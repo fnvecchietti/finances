@@ -22,10 +22,10 @@ export const searchMovementsController = async (
     const filterableParams = req.query;
 
     const token = decodeToken(getTokenFromReq(req));
-
+    
     const result = await searchMovementsService(
       filterableParams,
-      token.username,
+      token.id,
     );
 
     const response = setResponsePayload({
@@ -37,7 +37,8 @@ export const searchMovementsController = async (
 
     return res.status(200).send(response);
   } catch (error) {
-    res.status(400).send(error);
+    console.error(error)
+    return res.status(400).send(error);
   }
 };
 
@@ -50,7 +51,7 @@ export const createMovementController = async (req: Request, res: Response) => {
 
     const token = decodeToken(getTokenFromReq(req));
 
-    const result = await createMovementService(movement, token.username);
+    const result = await createMovementService(movement, token.id);
 
     const response = setResponsePayload({ data: result, status: 'success' });
     console.timeEnd('createMovementController');

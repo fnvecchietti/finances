@@ -1,5 +1,5 @@
 import { NumericFormat } from "react-number-format";
-import { Loading } from "../../components/LoadingBar";
+import { Loading } from "../../common/LoadingBar";
 
 const WalletCard = ({
   balance,

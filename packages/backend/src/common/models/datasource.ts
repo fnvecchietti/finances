@@ -4,6 +4,7 @@ import { MovementType } from './Entity/movements-types';
 import { Stock } from './Entity/stocks';
 import { User } from './Entity/user';
 import { Auth } from './Entity/auth';
+import { Wallet } from './Entity/wallet';
 
 export const PostgresDataSource = new DataSource({
   type: 'postgres',
@@ -13,5 +14,5 @@ export const PostgresDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [MovementType, Movement, Stock, User, Auth],
+  entities: [MovementType, Movement, Stock, User, Auth, Wallet],
 });
