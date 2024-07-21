@@ -17,7 +17,6 @@ import { getTokenFromReq, decodeToken } from '../common/utils/jwt-utilts';
 
 export const getStocks = async (req: Request, res: Response) => {
   try {
-    console.time('getStocks');
 
     const filterableParams = req.query;
 
@@ -31,7 +30,6 @@ export const getStocks = async (req: Request, res: Response) => {
       message: HTTP_STATUS_OK_MESSAGE,
     });
 
-    console.timeEnd('getStocks');
     return res.status(200).send(response);
   } catch (error) {
     console.error(error);
@@ -41,7 +39,6 @@ export const getStocks = async (req: Request, res: Response) => {
 
 export const getStocksBalance = async (req: Request, res: Response) => {
   try {
-    console.time('getStocksBalance');
 
     const result = await getStockBalance();
 
@@ -49,7 +46,6 @@ export const getStocksBalance = async (req: Request, res: Response) => {
       data: result,
       message: HTTP_STATUS_OK_MESSAGE,
     });
-    console.timeEnd('getStocksBalance');
     return res.status(200).send(response);
   } catch (error) {
     console.error(error);
