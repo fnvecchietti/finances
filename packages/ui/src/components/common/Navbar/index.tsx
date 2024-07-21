@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import './index.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context';
+import { WalletSelector } from '../../Wallet/WalletSelector';
 const Navbar = () => {
   const { token, setTokenWithStorage } = useContext(AuthContext);
 
@@ -59,10 +60,16 @@ const Navbar = () => {
             Panel
           </NavLink>
         </li>
+        <li></li>
+      </ul>
+      <ul className='flex items-center'>
+        <li>
+          <WalletSelector />
+        </li>
         <li>
           <NavLink
             to={'/'}
-            className={'nav-item'}
+            className='nav-item ml-3'
             onClick={() => setTokenWithStorage(null)}
           >
             Logout

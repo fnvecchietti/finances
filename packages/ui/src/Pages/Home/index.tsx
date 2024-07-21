@@ -7,7 +7,6 @@ function Home() {
  
   return (
     <div className="flex w-full flex-wrap justify-center items-center ">
-      <WalletSelector/>
     </div>
   );
 }
