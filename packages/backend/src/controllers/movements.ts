@@ -17,32 +17,39 @@ export const searchMovementsController = async (
   res: Response,
 ) => {
   try {
-
     const filterableParams = req.query;
 
     const token = decodeToken(getTokenFromReq(req));
 
-    const result = await searchMovementsService(
-      filterableParams,
-      token.id,
-    );
+    let response;
+    if (filterableParams.wallet) {
+      const result = await searchMovementsService(filterableParams, token.id);
+      response = setResponsePayload({
+        data: result[0],
+        total: result[1],
+        message: 'success',
+      });
+    }
 
-    const response = setResponsePayload({
-      data: result[0],
-      total: result[1],
-      message: 'success',
-    });
+    if(!filterableParams.wallet){
+      response = setResponsePayload({
+        data: [],
+        message: 'success',
+      });
+    }
+
+    
 
     return res.status(200).send(response);
+    
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return res.status(400).send(error);
   }
 };
 
 export const createMovementController = async (req: Request, res: Response) => {
   try {
-
     // req.body.date always UTC
     const movement: CreateMovementDto = req.body;
 

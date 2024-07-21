@@ -22,13 +22,23 @@ export const getStocks = async (req: Request, res: Response) => {
 
     const token = decodeToken(getTokenFromReq(req));
 
-    const result = await searchStocks(filterableParams, token.username);
+    let response;
 
-    const response = setResponsePayload({
-      data: result[0],
-      total: result[1],
-      message: HTTP_STATUS_OK_MESSAGE,
-    });
+    if (filterableParams.wallet) {
+      const result = await searchStocks(filterableParams, token.username);
+      response = setResponsePayload({
+        data: result[0],
+        total: result[1],
+        message: 'success',
+      });
+    }
+
+    if(!filterableParams.wallet){
+      response = setResponsePayload({
+        data: [],
+        message: 'success',
+      });
+    }
 
     return res.status(200).send(response);
   } catch (error) {
