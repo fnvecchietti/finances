@@ -22,7 +22,6 @@ export const searchMovementsController = async (
     const filterableParams = req.query;
 
     const token = decodeToken(getTokenFromReq(req));
-    
     const result = await searchMovementsService(
       filterableParams,
       token.id,

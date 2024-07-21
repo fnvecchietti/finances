@@ -4,10 +4,14 @@ import {
   HTTP_STATUS_OK_MESSAGE,
   setResponsePayload,
 } from '../common/utils/response';
+import { decodeToken, getTokenFromReq } from '../common/utils/jwt-utilts';
 
 export const searchWalletController = async (req: Request, res: Response) => {
   try {
-    const data = await searchWalletService();
+
+    const token = decodeToken(getTokenFromReq(req));
+
+    const data = await searchWalletService(token.id);
     console.log(data)
     const response = setResponsePayload({
       data: data[0],

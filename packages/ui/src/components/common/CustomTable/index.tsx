@@ -7,16 +7,6 @@ import {
 import {  useEffect, useMemo, useState } from 'react';
 import { buildCellByDataValue } from '../../../utils/Helpers';
 
-// type Movement = {
-//   id: string;
-//   amount: number;
-//   currency: string;
-//   date: Date;
-//   description: string;
-//   createDate: Date;
-//   updatedDate: Date;
-// };
-
 const fallbackData: any = [];
 
 
@@ -38,8 +28,8 @@ export const CustomTable = <T extends {}>({
     pageSize: 10,
   });
 
-
   useEffect(() => {
+    
     setMovements(data);
   }, [data]);
 

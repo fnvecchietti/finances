@@ -21,7 +21,9 @@ export const searchStocks = async (filterableParams: StockFilterableParams, user
       ratio: filterableParams.ratio,
       purchase_date: filterableParams.purchase_date,
       currency: filterableParams.currency,
-      created_by: {username}
+      created_by: {username},
+      wallet: {id: filterableParams.wallet}
+
     },
     take: filterableParams.take,
     skip: filterableParams.skip,

@@ -1,4 +1,4 @@
-import { IncomeFilterableParams } from 'filters';
+import { MovementFilterableParams } from 'filters';
 import { CreateMovementDto, MovementItem } from '../types/movement';
 import { Movement } from '../common/models/Entity/movements';
 import { PostgresDataSource } from '../common/models/datasource';
@@ -6,10 +6,11 @@ import { Between, ILike } from 'typeorm';
 import { movementSchema, bulkSchema } from '../common/validations/movements';
 
 
-export const searchMovementsService = async (filterableParams: IncomeFilterableParams, userId?: string) => {
+export const searchMovementsService = async (filterableParams: MovementFilterableParams, userId?: string) => {
     
     const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null;
     const descript = filterableParams.description && filterableParams.description.length > 0? ILike(`%${filterableParams.description}%`) : null;
+    console.log('wallet', filterableParams.wallet);
     
         return await Movement.findAndCount({
         where: {
@@ -18,7 +19,8 @@ export const searchMovementsService = async (filterableParams: IncomeFilterableP
             amount: filterableParams.amount,
             movement_type: {type: filterableParams.type},
             id: filterableParams.id,
-            created_by: {id: userId}
+            created_by: {id: userId},
+            wallet: {id: filterableParams.wallet}
         },
         take: filterableParams.take,
         skip: filterableParams.skip,

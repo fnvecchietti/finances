@@ -1,9 +1,9 @@
 import { Wallet } from "../common/models/Entity/wallet"
 
 
-export const searchWalletService = async () => {
+export const searchWalletService = async (userId: string) => {
 
-    return await Wallet.findAndCount()
+    return await Wallet.findAndCount({where: {created_by: {id: userId}}})
 
 }
 

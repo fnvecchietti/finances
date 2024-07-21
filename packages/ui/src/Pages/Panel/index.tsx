@@ -1,7 +1,4 @@
 import { ChangeEvent, useState } from 'react';
-import { endpointsV1 } from '../../environent/api-config';
-import axios from 'axios';
-import { useModal } from '../../hooks/useModal';
 import { WalletForm } from '../../components/Wallet/WalletForm';
 
 const Panel = () => {
