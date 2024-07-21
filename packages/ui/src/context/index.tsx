@@ -54,6 +54,10 @@ export const AuthProvider = ({
   const [token, setToken] = useState<string | null>(
     localStorage.getItem('token'),
   );
+  const axiosPrivate = useAxiosPrivate();
+
+
+ 
 
   const setTokenWithStorage = (newToken: string | null) => {
     if (newToken) {
@@ -63,6 +67,20 @@ export const AuthProvider = ({
     }
     setToken(newToken);
   };
+
+  useEffect(() => {
+   if(token){
+    axiosPrivate
+    .get(endpointsV1.validate_token(token))
+    .then((res) => {
+      console.info(res)
+    })
+    .catch((err) => {
+      console.error(err)
+      setToken(null)
+    });
+   }
+  }, [token]);
 
   return (
     <AuthContext.Provider
@@ -85,10 +103,10 @@ export const FinancesProvider = ({
 }) => {
   const axiosPrivate = useAxiosPrivate();
   const { token } = useContext(AuthContext);
-  const [movements, setMovements] = useState({});
-  const [stocks, setStocks] = useState({});
-  const [stocksBalance, setStocksBalance] = useState({});
-  const [wallets, setWallets] = useState({});
+  const [movements, setMovements] = useState();
+  const [stocks, setStocks] = useState();
+  const [stocksBalance, setStocksBalance] = useState();
+  const [wallets, setWallets] = useState();
   const [selectedWallet, setSelectedWallet] = useState();
 
   useEffect(() => {

@@ -8,9 +8,9 @@ export type Wallet = {
 };
 
 export const WalletSelector = () => {
-  const { wallets, setSelectedWallet, selectedWallet } =
-    useContext(FinancesContext);
-  if (!wallets.data.length) return <NoDataAvailable/>;
+  const { wallets, setSelectedWallet, selectedWallet } = useContext(FinancesContext);
+  
+  if (!wallets || !wallets.data.length) return <NoDataAvailable/>;
 
   const handleOnWalletSelection = (e: React.BaseSyntheticEvent) => {
     setSelectedWallet(e.target.value);

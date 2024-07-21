@@ -70,7 +70,7 @@ export const validateTokenController = async (req: Request, res: Response) => {
 
     const response = setResponsePayload({data: result, status: 'success'});
 
-    return res.send(200).send(response);
+    return res.status(200).send(response);
   } catch (error) {
     console.error(error);
     // Todo: Handle Error On parameters in USE like email.
