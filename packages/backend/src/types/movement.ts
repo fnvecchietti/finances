@@ -3,7 +3,9 @@ export interface CreateMovementDto {
     currency: string;
     date: Date;
     description: string;
-    movementType: string;
+    movement_type: string;
+    created_by: string;
+    wallet: string
 }
 
 export interface MovementItem {

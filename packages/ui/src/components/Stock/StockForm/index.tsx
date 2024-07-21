@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { date, number, object, string } from 'yup';
-import { endpointsV1 } from '../../environent/api-config';
-import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
+import { useAxiosPrivate } from '../../../hooks/usePrivateAxios';
+import { endpointsV1 } from '../../../environent/api-config';
 
 
 const stockFormEntryValidation = object({

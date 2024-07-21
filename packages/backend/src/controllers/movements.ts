@@ -17,7 +17,6 @@ export const searchMovementsController = async (
   res: Response,
 ) => {
   try {
-    console.time('searchMovementsController');
 
     const filterableParams = req.query;
 
@@ -25,7 +24,7 @@ export const searchMovementsController = async (
 
     const result = await searchMovementsService(
       filterableParams,
-      token.username,
+      token.id,
     );
 
     const response = setResponsePayload({
@@ -33,27 +32,25 @@ export const searchMovementsController = async (
       total: result[1],
       message: 'success',
     });
-    console.timeEnd('searchMovementsController');
 
     return res.status(200).send(response);
   } catch (error) {
-    res.status(400).send(error);
+    console.error(error)
+    return res.status(400).send(error);
   }
 };
 
 export const createMovementController = async (req: Request, res: Response) => {
   try {
-    console.time('createMovementController');
 
     // req.body.date always UTC
     const movement: CreateMovementDto = req.body;
 
     const token = decodeToken(getTokenFromReq(req));
 
-    const result = await createMovementService(movement, token.username);
+    const result = await createMovementService(movement, token.id);
 
     const response = setResponsePayload({ data: result, status: 'success' });
-    console.timeEnd('createMovementController');
     return res.status(200).send(response);
   } catch (error) {
     console.error(error);
@@ -83,7 +80,6 @@ export const createBulkMovementsController = async (
   req: Request,
   res: Response,
 ) => {
-  console.time('createBulkMovementsController');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const preInsert: any[] = [];
   const filePath = req.file.path;
@@ -122,7 +118,6 @@ export const createBulkMovementsController = async (
       }
 
       createBulkMovementsService(prevalidatedObject);
-      console.timeEnd('createBulkMovementsController');
     });
   res.send();
 };

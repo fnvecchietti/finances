@@ -14,9 +14,11 @@ export const bulkSchema = array()
 );
 
 export const movementSchema = object({
-    description: string().required(),
-    currency: string().required(),
     amount: number().required(),
-    movementType: string().required().default('other'),
-    date: date().required()
+    currency: string().required(),
+    date: date().required(),
+    description: string().required(),
+    movement_type: string().required().default('other'),
+    created_by: string().required(),
+    wallet: string().required()
 });

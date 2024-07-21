@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import {cleanup, render, screen} from '@testing-library/react'
-import { Searchbar } from '../components/Searchbar/index';
+import { Searchbar } from '../components/common/Searchbar/index';
 
 describe('Testing SearchBar Component', ()=> {
     afterEach(cleanup)

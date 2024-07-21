@@ -1,4 +1,4 @@
-import { useNotification } from '../../hooks/useNotifications';
+import { useNotification } from '../../../hooks/useNotifications';
 
 interface Notification {
   id: number;

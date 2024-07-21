@@ -1,13 +1,13 @@
 import { useFormik } from 'formik';
 import { date, number, object, string } from 'yup';
-import { endpointsV1 } from '../../environent/api-config';
-import { Loading } from '../../components/LoadingBar';
-import { ErrorPage } from '../Errorpage';
+import { endpointsV1 } from '../../../environent/api-config';
+import { Loading } from '../../common/LoadingBar';
+import { ErrorPage } from '../../common/Errorpage';
 import { useEffect, useState } from 'react';
-import { useAxiosPrivate } from '../../hooks/usePrivateAxios';
+import { useAxiosPrivate } from '../../../hooks/usePrivateAxios';
 import { AxiosError, AxiosResponse } from 'axios';
-import { HookApiResponse } from '../../types';
-import { useNotification } from '../../hooks/useNotifications';
+import { HookApiResponse } from '../../../types';
+import { useNotification } from '../../../hooks/useNotifications';
 
 const entryFormValidationSchema = object({
   amount: number().required('Required'),
@@ -16,7 +16,7 @@ const entryFormValidationSchema = object({
   date: date().required('Required'),
 });
 
-export const EntryForm = () => {
+export const MovementForm = () => {
   const axiosPrivate = useAxiosPrivate();
   const {addNotification} = useNotification();
   const [movementTypes, setMovementTypes] = useState<HookApiResponse>({data: null, error: null});

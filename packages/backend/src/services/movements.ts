@@ -1,16 +1,16 @@
-import { IncomeFilterableParams } from 'filters';
+import { MovementFilterableParams } from 'filters';
 import { CreateMovementDto, MovementItem } from '../types/movement';
 import { Movement } from '../common/models/Entity/movements';
 import { PostgresDataSource } from '../common/models/datasource';
 import { Between, ILike } from 'typeorm';
 import { movementSchema, bulkSchema } from '../common/validations/movements';
-import { Auth } from '../common/models/Entity/auth';
-import { MovementType } from '../common/models/Entity/movements-types';
 
 
-export const searchMovementsService = async (filterableParams: IncomeFilterableParams, username?: string) => {
+export const searchMovementsService = async (filterableParams: MovementFilterableParams, userId?: string) => {
+    
     const range = filterableParams.from && filterableParams.to? Between(filterableParams.from, filterableParams.to) : null;
     const descript = filterableParams.description && filterableParams.description.length > 0? ILike(`%${filterableParams.description}%`) : null;
+    console.log('wallet', filterableParams.wallet);
     
         return await Movement.findAndCount({
         where: {
@@ -19,7 +19,8 @@ export const searchMovementsService = async (filterableParams: IncomeFilterableP
             amount: filterableParams.amount,
             movement_type: {type: filterableParams.type},
             id: filterableParams.id,
-            created_by: {username: username,}
+            created_by: {id: userId},
+            wallet: {id: filterableParams.wallet}
         },
         take: filterableParams.take,
         skip: filterableParams.skip,
@@ -29,20 +30,18 @@ export const searchMovementsService = async (filterableParams: IncomeFilterableP
     });
 };
 
-export const createMovementService = async (movement: CreateMovementDto, username: string) => {
+export const createMovementService = async (movement: CreateMovementDto, userId: string) => {
     movementSchema.validateSync(movement);
-
-    const user = await Auth.findOneOrFail({where:{username: username}});
-    const movemenType = await MovementType.findOneOrFail({where: {type: movement.movementType}});
-    const movementEntity = new Movement();
-    movementEntity.created_by = user;
-    movementEntity.amount = movement.amount;
-    movementEntity.currency = movement.currency;
-    movementEntity.date = movement.date;
-    movementEntity.description = movement.description;
-    movementEntity.movement_type = movemenType;
-    
-    return await Movement.insert(movementEntity);
+        
+    return await Movement.insert({
+        amount: movement.amount,
+        currency: movement.currency,
+        date: movement.date,
+        description: movement.description,
+        movement_type: {id: movement.movement_type},
+        created_by: {id: userId},
+        wallet: {id: movement.wallet}
+    });
 };
 
 export const createBulkMovementsService = async (bulkMovements: CreateMovementDto[] | MovementItem[]) => {
@@ -74,9 +73,9 @@ export const createBulkMovementsService = async (bulkMovements: CreateMovementDt
 };
 
 export const deleteMovementService = async (id: string, username:string) => {
-    const movement = await Movement.findOneOrFail({where:{id}, relations: {created_by: true}});
-    if(movement.created_by.username === username){
-        return await Movement.delete({id:movement.id});
-    }
+    // const movement = await Movement.findOneOrFail({where:{id}, relations: {created_by: true}});
+    // if(movement.created_by.username === username){
+    //     return await Movement.delete({id:movement.id});
+    // }
     throw new Error('not authorized');
 };
